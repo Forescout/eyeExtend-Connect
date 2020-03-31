@@ -1,0 +1,62 @@
+{
+  "name":"Cylance",
+  "version":"1.0.0",
+  "author":"Concert Masters",
+  "testEnable":false,
+  "panels":[
+    {
+      "title":"Cylance Connection",
+      "description":"Cylance Connection",
+      "fields": [
+        {
+  		    "display":"URL",
+          "field ID":"framework_cylance_url",
+          "type":"shortString",
+          "mandatory":"true",
+          "add to column":"true",
+  		    "show column":"true",
+          "identifier":"true",
+          "value":"https://protectapi.cylance.com"
+		    },        
+		    {
+  		    "display":"Tenant ID",
+          "field ID":"framework_cylance_tenant_id",
+          "type":"shortString",
+          "mandatory":"true",
+  		    "add to column":"true",
+  		    "show column":"false",
+          "value":"bfd64dee-5834-43d4-806f-1c0d28975fbc"
+        },
+        {
+          "display":"Application ID",
+          "field ID":"framework_cylance_application_id",
+          "type":"shortString",
+          "mandatory":"true",
+		      "add to column":"true",
+		      "show column":"false",
+          "value":"6a116084-6a79-4ba0-ad7d-595125888b35"
+        },
+        {
+           "display":"Tenant ID",
+           "field ID":"framework_cylance_application_secret",
+           "type":"encrypted",
+           "mandatory":"true",
+           "value":"17f07b2b-b1ae-458e-be37-5dfb49ef08bb"
+        },
+        {
+          "certification validation": true
+        },
+	 ]
+	},
+	{
+      "focal appliance": true,
+      "title": "Assign CounterACT Devices",
+      "description": "<html>Select the connecting CounterACT device that will communicate with the targeted Cylance instance, including requests by other CounterACT devices. Specific CounterACT devices assigned here cannot be assigned to another server elsewhere.<br><br>If you do not assign specific devices, by default, all devices will be assigned to one server. This server becomes known as the Default Server.<html>"
+    },
+    {
+      "proxy server": true,
+      "title": "Proxy Server",
+      "description": "<html>Select a Proxy Server device to manage all communication between CounterACT and Cylance.</html>"
+    }
+  ]
+}

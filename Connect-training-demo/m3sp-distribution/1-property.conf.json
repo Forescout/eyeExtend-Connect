@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0",
+  "name": "m3sp",
+  "groups": [
+    {
+      "name":"connect_m3sp_m3sp",
+      "label":"m3sp"
+    }
+  ],
+  "properties": [
+
+    {
+      "tag": "connect_m3sp_department",
+      "label": "m3sp Department",
+      "description": "m3sp Department",
+      "type": "string",
+      "group": "m3sp",
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    },
+    {
+      "tag": "connect_m3sp_description",
+      "label": "m3sp Description",
+      "description": "m3sp Description",
+      "type": "string",
+      "group": "m3sp",
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    }
+  ],
+  "scripts": [
+    {
+      "name": "m3sp_resolve.py",
+      "properties": [
+        "connect_m3sp_department",
+        "connect_m3sp_description"
+      ]
+    },
+    {
+      "name": "m3sp_test.py",
+      "test": true
+    }
+  ]
+}

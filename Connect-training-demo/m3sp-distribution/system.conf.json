@@ -1,0 +1,49 @@
+{
+  "name":"m3sp",
+  "version":"1.0.0",
+  "author":"Steven Pollock",
+  "testEnable":true,
+  "panels":[
+    {
+      "title":"m3sp Connection",
+      "description":"m3sp Connection",
+      "fields": [
+        {
+  		    "display":"URL",
+          "field ID":"connect_m3sp_url",
+          "type":"shortString",
+          "mandatory":"true",
+          "add to column":"true",
+  		    "show column":"true",
+          "identifier":"true",
+          "value":"http://10.0.1.12:3000"
+		    },
+		    {
+  		    "display":"Username",
+          "field ID":"connect_m3sp_username",
+          "type":"shortString",
+          "mandatory":"true",
+  		    "add to column":"true",
+  		    "show column":"false",
+          "value":"forescout"
+        },
+        {
+          "display":"Password",
+          "field ID":"connect_m3sp_password",
+          "type":"encrypted",
+          "mandatory":"true"
+        }
+	 ]
+	},
+	{
+      "focal appliance": true,
+      "title": "Assign CounterACT Devices",
+      "description": "<html>Select the connecting CounterACT device that will communicate with the targeted m3sp instance, including requests by other CounterACT devices. Specific CounterACT devices assigned here cannot be assigned to another server elsewhere.<br><br>If you do not assign specific devices, by default, all devices will be assigned to one server. This server becomes known as the Default Server.<html>"
+    },
+    {
+      "proxy server": true,
+      "title": "Proxy Server",
+      "description": "<html>Select a Proxy Server device to manage all communication between CounterACT and m3sp.</html>"
+    }
+  ]
+}

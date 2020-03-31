@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "name": "Cylance",
+  "groups": [
+    {
+      "name":"framework_cylance_cylance",
+      "label":"Cylance"
+    }
+  ],
+  "properties": [
+    {
+      "tag": "framework_cylance_state",
+      "label": "Cylance State",
+      "description": "Cylance State",
+      "type": "string",
+      "group": "Cylance",
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    },
+    {
+      "tag": "framework_cylance_last_logged_in_user",
+      "label": "Cylance Last Logged In User",
+      "description": "Cylance Last Logged In User",
+      "type": "string",
+      "group": "Cylance",
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    },
+    {
+      "tag": "framework_cylance_mac_addresses",
+      "label": "Cylance Mac Address",
+      "description": "Cylance Mac Address",
+      "type": "string",
+      "group": "Cylance",
+      "list": true,
+      "overwrite": true,
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    },
+    {
+      "tag": "framework_cylance_is_safe",
+      "label": "Cylance is Safe",
+      "description": "Cylance is Safe",
+      "type": "boolean",
+      "group": "Cylance",
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    },
+    {
+      "tag": "framework_cylance_id",
+      "label": "Cylance ID",
+      "description": "Cylance ID",
+      "type": "string",
+      "group": "Cylance",
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    }
+  ],
+  "scripts": [
+    {
+      "name": "cylance_resolve.py",
+      "properties": [
+        "framework_cylance_state",
+        "framework_cylance_last_logged_in_user",
+        "framework_cylance_mac_addresses",
+        "framework_cylance_is_safe",
+        "framework_cylance_id"
+      ]
+    }
+  ],
+    "policy_template": {
+    "policy_template_group": {
+       "name": "framework_cylance",
+       "label": "Cylance",
+       "display": "Cylance",
+       "description": "Cylance templates",
+       "full_description": "<html>Use Cylance policy templates to manage devices in a Cylance environment:<ul><li>Detect devices that are compliant.</li></ul></html>",
+       "title_image": "framework_cylance.png",
+     "bg_image": "bg_cylance.png"
+  },
+  "policies": [
+       {
+         "name": "framework_cyalance_compliant",
+         "label": "Cylance Compliant",
+         "display": "Cylance Compliant",
+         "help": "Cylance Compliant Policy",
+         "description": "Creates Cylance compliant policies",
+         "file_name": "CylanceCompliance.xml",
+         "full_description": "<html>Use this policy template to detect corporate hosts that are compliant.</html>",
+         "title_image": "intune.png"
+       },
+	]
+  }
+}

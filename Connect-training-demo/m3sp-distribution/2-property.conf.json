@@ -1,0 +1,73 @@
+{
+  "version": "1.0.0",
+  "name": "m3sp",
+  "groups": [
+    {
+      "name":"connect_m3sp_m3sp",
+      "label":"m3sp"
+    }
+  ],
+  "properties": [
+
+    {
+      "tag": "connect_m3sp_department",
+      "label": "M3SP Department",
+      "description": "M3SP Department",
+      "type": "string",
+      "group": "m3sp",
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    },
+    {
+      "tag": "connect_m3sp_description",
+      "label": "M3SP Description",
+      "description": "M3SP Description",
+      "type": "string",
+      "group": "m3sp",
+      "dependencies": [
+        {
+          "name": "mac"
+        }
+      ]
+    }
+  ],
+  "scripts": [
+    {
+      "name": "m3sp_resolve.py",
+      "properties": [
+        "connect_m3sp_department",
+        "connect_m3sp_description"
+      ]
+    },
+    {
+      "name": "m3sp_test.py",
+      "test": true
+    }
+  ],
+  "policy_template": {
+    "policy_template_group": {
+       "name": "connect_m3sp",
+       "label": "M3SP",
+       "display": "M3SP",
+       "description": "M3SP templates",
+       "full_description": "<html>Use M3SP policy templates to manage devices with the SE Simulation Server:<ul><li>Obtain department, description, etc. information for an endpoint.</li></ul></html>",
+       "title_image": "connect_m3sp.png",
+       "bg_image": "bg_m3sp.png"
+    },
+    "policies": [
+      {
+        "name": "connect_m3sp_department",
+        "label": "Find M3SP Devices that have a value for department",
+        "display": "M3SP Device Info",
+        "help": "M3SP Device Info",
+        "description": "M3SP Device Info",
+        "file_name": "m3sp_department.xml",
+        "full_description": "<html>Use this policy template to find M3SP Devices that have a value for department</html>",
+        "title_image": "connect_m3sp.png"
+      }
+    ]
+  }
+}

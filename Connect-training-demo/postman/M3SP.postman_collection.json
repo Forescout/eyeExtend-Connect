@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "84395662-d863-4b18-aeef-31b58c621363",
+		"name": "M3SP",
+		"description": "Exercise the Mythical 3rd Party Security Product (for eyeExtend Connect Training)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"forescout\",\n\t\"password\": \"4Scout123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Server",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Device Information",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTgwNDc5MTEyLCJleHAiOjE2MTIwMzY3MTJ9.a6c_SGrOQ_-RstHKr8XBUnkI479wyRqf_v3ELMdhvGM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTc5MzA3MDA5LCJleHAiOjE2MTA4NjQ2MDl9.pit_IN-oTM-Cuq4rjiidzZX9f09VsI3mMqQDBI3dbgw",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/getdevice/005057000017",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"getdevice",
+						"005057000017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Malware information",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTc5MzY3MjI0LCJleHAiOjE2MTA5MjQ4MjR9.a_mAF9NPjSXa5voA6PTmfceVVQICukedCNyCKz0TRy4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "access-token",
+						"type": "text",
+						"value": " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTc5MDY0OTU1LCJleHAiOjE1NzkwNjYzOTV9.GYT5hmaTLCafDCMQMYlCEGlNpa1sBQ9usZqh_uf1mKI",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/getmalware/005057000017",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"getmalware",
+						"005057000017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Data to M3SP",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTc5MzA3MDA5LCJleHAiOjE2MTA4NjQ2MDl9.pit_IN-oTM-Cuq4rjiidzZX9f09VsI3mMqQDBI3dbgw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiaWF0IjoxNTc5MjIzODc2LCJleHAiOjE1NzkyMjc0NzZ9.ITxYfogSFN6nYDrFElZxVsmpWVnJ76PGzaLr5SPZ_Tw",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"mac\": \"c4b301cf8275\",\n      \"sha256\": \"8a87a1261603af4d976faa57e49ebdd8fd8317e9dd13bd36ff2599d1031f53ce\",\n      \"filetype\": \"Win32 EXE\",\n      \"filesize\": \"1.84 MB (1930240 bytes)\",\n      \"target_machine\": \"Intel 386 or later processors and compatible processors\",\n      \"malware_name\": \"Bluekeep\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/senddata/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"senddata",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8f2b6334-d15e-4b87-b418-8ed0d29680d9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "37f43003-7073-4c19-9e76-13d204f08a26",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
