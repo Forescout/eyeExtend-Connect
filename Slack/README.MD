@@ -5,15 +5,17 @@ eyeExtend Connect App for Slack enables real-time messaging posts to Slack chann
 App configuration requires the following paramters:
 * __Slack Workspace Name__ : Slack Workspace Name for config instance creates. This name is only used for display purposes on Forescout. 
   * Required: Yes
-* __OAuth Token for the Workspace__ : The OAuth token for your workspace. This must be the primary Access Token and not the Bot Use Token
+* __OAuth Token for the Workspace__ : The OAuth token for your workspace. Use the Bot User OAuth Access Token as the following scopes will be added to the Bot Token with your app. Messages posted to slack will show from the Bot for your App.
   * Required: Yes
   * Details: To get an OAuth token for you workspace
     * Create a custom App in Slack
     * Add following Scopes to your App:
-      1. channels:read - View basic information about public channels in the workspace
-      2. chat:write:bot - Send messages as eyeExtend + Slack POC
-      3. im:read - View basic information about the user’s direct messages
-      4. users:read - View people in the workspace
+      1. channels:read
+      2. im:read
+      3. users:read
+      4. chat:write
+      5. chat:write.public
+      6. im:write
     * Install the App on your Workspace
     * OAuth Token will be created after the install is complete
 
