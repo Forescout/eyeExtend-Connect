@@ -29,7 +29,7 @@ logging.info("****************************** params: {}".format(params))
 response = {}
 if ("connect_authorization_token" in params) and params["connect_authorization_token"] != "":
 	access_token = params["connect_authorization_token"]
-	if "connect_azuread_test_user" in params:
+	if "connect_azuread_test_user" in params and params["connect_azuread_test_user"] != "":
 		test_user = params["connect_azuread_test_user"]
 		user_url_start = "https://graph.microsoft.com/v1.0/users?$filter=startswith(userPrincipalName%2C+\'"
 		user_url_end = "\')"
