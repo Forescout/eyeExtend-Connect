@@ -48,7 +48,7 @@ azuread_to_ct_group_props_map = {
 response = {}
 if "connect_authorization_token" in params and params["connect_authorization_token"] != "":
 	access_token = params["connect_authorization_token"] # auth token
-	if "connect_azuread_test_user" in params:
+	if "user" in params:
 		# Get Azure AD user attributes
 		user_url_start = "https://graph.microsoft.com/v1.0/users?$filter=startswith(userPrincipalName%2C+\'"
 		user_url_end = "\')"
