@@ -29,4 +29,9 @@ It supports both a standard string based messages as well as the Slack's Blocks 
   * _Slack Post Message_: Message to be posted
     * String - Message is standard string 
     * Blocks - Leverages the Blocks formatting from Slack https://api.slack.com/block-kit
-
+  
+ Blocks Example Post: 
+![alt text](https://github.com/Forescout/eyeExtend-Connect/blob/master/Slack/Blocks%20Example.png "Use this format in Message")
+ Blocks Example Output: 
+![alt text](https://github.com/Forescout/eyeExtend-Connect/blob/master/Slack/Blocks%20Output.png "Slack Output")
+  
