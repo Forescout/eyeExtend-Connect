@@ -1,5 +1,9 @@
-# Slack 1.0.0
+# Slack
 eyeExtend Connect App for Slack enables real-time messaging posts to Slack channels and users as an action from Forescout
+
+## Versions
+1.0.0 - Base release
+1.0.1 - Fixes issue # 1
 
 ## Configuration
 App configuration requires the following paramters:
