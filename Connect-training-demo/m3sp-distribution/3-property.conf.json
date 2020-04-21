@@ -44,12 +44,6 @@
       "actions": [
         "connect_m3sp_sendata"
       ]
-    },
-    {
-      "name": "m3sp_sendmoredata.py",
-      "actions": [
-        "connect_m3sp_sendmoredata"
-      ]
     }
   ],
   "policy_template": {
