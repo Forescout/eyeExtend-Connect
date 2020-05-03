@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="6616168805409373593" NAME="MEPM Get Resource ID" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="OR">
+            <!--Rule expression. Rule name is: MEPM Get Resource ID-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="OR" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER FILTER_ID="-3414303661364210239">
+                        <GROUP ID="2634766226856181998" NAME="SC Managed Windows"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="manage" LABEL="Windows Manageable Domain" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="HPS Inspection Engine" PLUGIN_UNIQUE_NAME="va" PLUGIN_VESRION="11.1.0" PLUGIN_VESRION_NUMBER="111000086" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                    <FILTER FILTER_ID="-4828206181257728909" VALUE="true"/>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="3301379510426880948" NAME="HomeNet">
+            <RANGE FROM="192.168.31.0" TO="192.168.31.255"/>
+            <RANGE FROM="192.168.100.0" TO="192.168.100.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="3622993974967615192" NAME="Obtain Resource ID" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Obtain Resource ID-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="script_result.f35e875fc87aa0a8a52c7516dc30e49a" LABEL="Windows Expected Script Result Command or Script file:fs_connect_get_resid.bat, Run Interactive:false" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="HPS Inspection Engine" PLUGIN_UNIQUE_NAME="va" PLUGIN_VESRION="11.1.0" PLUGIN_VESRION_NUMBER="111000086" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FIELD METANAME="script_result" NAME="script_result.f35e875fc87aa0a8a52c7516dc30e49a">
+                            <PARAM NAME="script_howtorun_prop" TYPE="string" VALUE="fs_connect_get_resid.bat"/>
+                            <PARAM NAME="script_interactive" TYPE="string" VALUE="false"/>
+                        </FIELD>
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="-4897553397518682832" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:8169952374880330827;name:fs_connect_obtained_resid"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="3555088225549921372" NAME="For Investigation" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

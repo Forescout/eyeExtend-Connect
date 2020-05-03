@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-3750129785315345448" META_TYPE="COMPLY" NAME="MEPM Endpoint Agent Status" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: MEPM Endpoint Agent Status-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER FILTER_ID="4472752248426296443">
+                    <GROUP ID="8169952374880330827" NAME="fs_connect_obtained_resid"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="3301379510426880948" NAME="HomeNet">
+            <RANGE FROM="192.168.31.0" TO="192.168.31.255"/>
+            <RANGE FROM="192.168.100.0" TO="192.168.100.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-7942978753597496703" NAME="Status: Agent is Installed and Running" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="COMPLY"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Status: Agent is Installed and Running-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="service" LABEL="Windows Services Running" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="HPS Inspection Engine" PLUGIN_UNIQUE_NAME="va" PLUGIN_VESRION="11.1.0" PLUGIN_VESRION_NUMBER="111000086" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="-6323241873782780652" TYPE="contains">
+                            <VALUE VALUE2="ManageEngine Patch Manager"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="1605868719443898685" NAME="Status: Agent is Installed but NOT Running" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NOT_COMPLY"/>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Status: Agent is Installed but NOT Running-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="service" LABEL="Windows Services Running" LEFT_PARENTHESIS="0" LOGIC="AND" NOT="true" PLUGIN_NAME="HPS Inspection Engine" PLUGIN_UNIQUE_NAME="va" PLUGIN_VESRION="11.1.0" PLUGIN_VESRION_NUMBER="111000086" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER CASE_SENSITIVE="false" FILTER_ID="-6323241873782780652" TYPE="contains">
+                                <VALUE VALUE2="ManageEngine Patch Manager"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4851060350051809206" NAME="Status: Agent is NOT Installed" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NOT_COMPLY"/>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

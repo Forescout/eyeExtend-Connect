@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="4028295932834591396" NAME="MEPM Patch Scan Status" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: MEPM Patch Scan Status-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER FILTER_ID="7952855732504014177">
+                    <GROUP ID="8169952374880330827" NAME="fs_connect_obtained_resid"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="3301379510426880948" NAME="HomeNet">
+            <RANGE FROM="192.168.31.0" TO="192.168.31.255"/>
+            <RANGE FROM="192.168.100.0" TO="192.168.100.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-3703034686338002766" NAME="Scan Failed" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Scan Failed-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_manageenginepm_scan_status" LABEL="MEPM Patch Scan Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="-781046961668534816" TYPE="contains">
+                            <VALUE VALUE2="226"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="3185359321022188365" NAME="Scan In Progress" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Scan In Progress-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_manageenginepm_scan_status" LABEL="MEPM Patch Scan Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="-580768045603973789" TYPE="contains">
+                            <VALUE VALUE2="227"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="8284169701781797574" NAME="Patch Scan Success" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Patch Scan Success-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_manageenginepm_scan_status" LABEL="MEPM Patch Scan Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="-1644564165269207036" TYPE="contains">
+                            <VALUE VALUE2="228"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-5370484742745284008" NAME="Not Patch Scanned" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Not Patch Scanned-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_manageenginepm_scan_status" LABEL="MEPM Patch Scan Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="3066190530036306925" TYPE="contains">
+                            <VALUE VALUE2="229"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
