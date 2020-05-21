@@ -9,7 +9,7 @@ Details on the App content and how to build and App can be found here.
 
 ## App Support
 
-All Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team. If you have questions or are in need of support you can post your questions to one of these community forums. 
+All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team. If you have questions or are in need of support please reach out to our growing community of over 300 people at the following resources:
 
 * https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
 * https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
