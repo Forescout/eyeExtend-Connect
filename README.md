@@ -11,8 +11,8 @@ Details on the App content and how to build and App can be found here.
 
 All Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team. If you have questions or are in need of support you can post your questions to one of these community forums. 
 
-https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
-https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
+* https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
+* https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
 
 
 ## Connect Plugin
