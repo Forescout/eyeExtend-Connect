@@ -7,6 +7,14 @@ Details on the App content and how to build and App can be found here.
 * [Training Videos](https://www.youtube.com/playlist?list=PL2HYJud3zBqcjUoiJzVG33_ubuRqv3crQ)
 * [App Build Guide](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
 
+## App Support
+
+All Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team. If you have questions or are in need of support you can post your questions to one of these community forums. 
+
+https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
+https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
+
+
 ## Connect Plugin
 You must have the Connect plugin installed on your Forescout platform to run this apps. 
 
