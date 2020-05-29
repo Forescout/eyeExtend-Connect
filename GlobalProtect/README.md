@@ -37,7 +37,7 @@ This version adds supports for
 - FQDN for the firewall must be resolvable by the Forescout appliance
 
 ## Enabling Syslog monitoring
-- Follow the instructions "enable_syslog_discovery.pdf" for the firewall configurations
+- Follow the instructions [enable_syslog_discovery.pdf](https://github.com/Forescout/eyeExtend-Connect/blob/master/GlobalProtect/enable_syslog_discovery.pdf) for the firewall configurations
 ### Forescout Configurations to enable syslog parsing
 ```javascript
   #Custom Traps Event for GlobalProtect VPN
