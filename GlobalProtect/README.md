@@ -37,29 +37,30 @@ This version adds supports for
 
 ## Enabling Syslog monitoring
 - Follow the instructions "enable_syslog_discovery.pdf" for the firewall configurations
-- Forescout Configurations to enable syslog parsing
-#Custom Traps Event for GlobalProtect VPN
-fstool syslog set_property config.type1.option.gp_vpn_logs "GlobalProtect VPN Events"
-fstool syslog set_property config.type2.option.gp_vpn_logs "GlobalProtect VPN Events"
-fstool syslog set_property config.type3.option.gp_vpn_logs "GlobalProtect VPN Events"
+### Forescout Configurations to enable syslog parsing
+```javascript
+  #Custom Traps Event for GlobalProtect VPN
+  fstool syslog set_property config.type1.option.gp_vpn_logs "GlobalProtect VPN Events"
+  fstool syslog set_property config.type2.option.gp_vpn_logs "GlobalProtect VPN Events"
+  fstool syslog set_property config.type3.option.gp_vpn_logs "GlobalProtect VPN Events"
 
-#GlobalProtect VPN Connect Event
-'''bash
-fstool syslog set_property template.gp_vpn_connect.type "gp_vpn_logs"
-fstool syslog set_property template.gp_vpn_connect.regexp ".*\\ \\d{1,2}\\:\\d{1,2}\\:\\d{1,2}\\ ([\\w-.]*).*,globalprotectgateway-config-succ,.*Private IP:\\ (\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
-fstool syslog set_property template.gp_vpn_connect.properties "\$connect_globalprotect_firewall,\$ip"
-fstool syslog set_property template.gp_vpn_connect.set_true "\$online"
+  #GlobalProtect VPN Connect Event
 
-
-#GlobalProtect VPN Disconnect Event
-fstool syslog set_property template.gp_vpn_disconnect.type "gp_vpn_logs"
-fstool syslog set_property template.gp_vpn_disconnect.regexp ".*globalprotectgateway-config-release.*Private IP:\\ (\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
-fstool syslog set_property template.gp_vpn_disconnect.properties "\$ip"
-fstool syslog set_property template.gp_vpn_disconnect.set_false "\$online"
-'''
+  fstool syslog set_property template.gp_vpn_connect.type "gp_vpn_logs"
+  fstool syslog set_property template.gp_vpn_connect.regexp ".*\\ \\d{1,2}\\:\\d{1,2}\\:\\d{1,2}\\ ([\\w-.]*).*,globalprotectgateway-config-succ,.*Private IP:\\ (\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
+  fstool syslog set_property template.gp_vpn_connect.properties "\$connect_globalprotect_firewall,\$ip"
+  fstool syslog set_property template.gp_vpn_connect.set_true "\$online"
 
 
-##API Based Host Discovery
+  #GlobalProtect VPN Disconnect Event
+  fstool syslog set_property template.gp_vpn_disconnect.type "gp_vpn_logs"
+  fstool syslog set_property template.gp_vpn_disconnect.regexp ".*globalprotectgateway-config-release.*Private IP:\\ (\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
+  fstool syslog set_property template.gp_vpn_disconnect.properties "\$ip"
+  fstool syslog set_property template.gp_vpn_disconnect.set_false "\$online"
+```
+
+
+## API Based Host Discovery
 - API based discovery will be performed on all GP Server instances configured if in the 'Enable Host Discovery' flag is enabled
 
 
