@@ -1,5 +1,18 @@
 Forescout eyeExtend Connect GlobalProtect App README.md
  
+## Contact Information
+Forescout Technologies, Inc.
+190 West Tasman Drive
+San Jose, CA 95134 USA
+https://www.Forescout.com/support/
+Toll-Free (US): 1.866.377.8771
+Tel (Intl): 1.408.213.3191
+Support: 1.708.237.6591
+
+## About the Documentation
+- Refer to the Technical Documentation page on the Forescout website for additional documentation:
+https://www.Forescout.com/company/technical-documentation/
+- Have feedback or questions? Write to us at documentation@forescout.com
 
 ## Legal Notice
 © 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation.
@@ -7,9 +20,48 @@ A list of our trademarks and patents can be found at https://www.Forescout.com/c
 Other brands, products, or service names may be trademarks or service marks of their respective owners.
 
 ## About the eyeExtend Connect GlobalProtect App
-The App gather users and endpoints information that connected to GlobalProtect servers. User can also use policies or
+The App gather users and endpoints information that are connected to GlobalProtect servers. User can also use policies or
 actions to disconnect user from the GlobalProtect Server. The App uses admin management interface to access the
 GlobalProtect server.
+
+## New features and updates with v1.1.0 GlobalProtect App
+This version adds supports for
+- Real-time VPN endpoint discovery with a syslog integration  and the GlobalProtect App
+- Device Discovery - enables periodic polling to discover new clients via API
+- Added support for Public-IP property
+
+## Syslog based endpoing discovery and Integration
+- App will poll the firewall  per syslog message instead of the associated endpoint applicance associated GP config
+- **The configured authentication username/password must work across all firewalls**
+- FQDN for the firewall must be resolvable by the Forescout appliance
+
+## Enabling Syslog monitoring
+- Follow the instructions "enable_syslog_discovery.pdf" for the firewall configurations
+- Forescout Configurations to enable syslog parsing
+#Custom Traps Event for GlobalProtect VPN
+fstool syslog set_property config.type1.option.gp_vpn_logs "GlobalProtect VPN Events"
+fstool syslog set_property config.type2.option.gp_vpn_logs "GlobalProtect VPN Events"
+fstool syslog set_property config.type3.option.gp_vpn_logs "GlobalProtect VPN Events"
+
+#GlobalProtect VPN Connect Event
+'''bash
+fstool syslog set_property template.gp_vpn_connect.type "gp_vpn_logs"
+fstool syslog set_property template.gp_vpn_connect.regexp ".*\\ \\d{1,2}\\:\\d{1,2}\\:\\d{1,2}\\ ([\\w-.]*).*,globalprotectgateway-config-succ,.*Private IP:\\ (\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
+fstool syslog set_property template.gp_vpn_connect.properties "\$connect_globalprotect_firewall,\$ip"
+fstool syslog set_property template.gp_vpn_connect.set_true "\$online"
+
+
+#GlobalProtect VPN Disconnect Event
+fstool syslog set_property template.gp_vpn_disconnect.type "gp_vpn_logs"
+fstool syslog set_property template.gp_vpn_disconnect.regexp ".*globalprotectgateway-config-release.*Private IP:\\ (\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
+fstool syslog set_property template.gp_vpn_disconnect.properties "\$ip"
+fstool syslog set_property template.gp_vpn_disconnect.set_false "\$online"
+'''
+
+
+##API Based Host Discovery
+- API based discovery will be performed on all GP Server instances configured if in the 'Enable Host Discovery' flag is enabled
+
 
 ## Requirements
 The App supports:
