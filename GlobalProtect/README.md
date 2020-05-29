@@ -31,6 +31,7 @@ This version adds supports for
 - Added support for Public-IP property
 
 ## Syslog based endpoing discovery and Integration
+- Optional feature must be enabled by 'Syslog GlobalProtect Client Discovery Enabled' flag 
 - App will poll the firewall  per syslog message instead of the associated endpoint applicance associated GP config
 - **The configured authentication username/password must work across all firewalls**
 - FQDN for the firewall must be resolvable by the Forescout appliance
