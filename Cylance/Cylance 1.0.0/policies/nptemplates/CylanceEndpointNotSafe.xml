@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.0-730" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-8972608401075953970" NAME="Cylance Endpoint Not Safe" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="AND">
+            <!--Rule expression. Rule name is: Cylance Endpoint Not Safe-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="mac" LABEL="MAC Address" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="-8800913641473690058" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cylance_id" LABEL="Cylance ID" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="1" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="-4609382276903672847" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-730" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="3902883736025328490" NAME="Cylance Agent Reported NOT Safe" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Cylance Agent Reported NOT Safe-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cylance_is_safe" INNER_NOT="true" LABEL="Cylance is Safe" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="1" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="-2909094397174964474" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="connect_cylance_lockdown">
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="sw_block">
+                    <PARAM NAME="dont_force_sw_block" VALUE="true"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="send_syslog">
+                    <PARAM NAME="server" VALUE="default value"/>
+                    <PARAM NAME="protocol" VALUE="default"/>
+                    <PARAM NAME="port" VALUE="default value"/>
+                    <PARAM NAME="ident" VALUE="default value"/>
+                    <PARAM NAME="tls" VALUE="false"/>
+                    <PARAM NAME="message" VALUE="An endpoint is detected with threat."/>
+                    <PARAM NAME="priority" VALUE="default value"/>
+                    <PARAM NAME="facility" VALUE="default value"/>
+                    <PARAM NAME="OCSPSoftFail" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-730" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-6555508178591649994" NAME="Cylance Agent Reported Safe and Online" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: Cylance Agent Reported Safe and Online-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cylance_is_safe" LABEL="Cylance is Safe" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="1" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="3495602459940532793" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cylance_state" LABEL="Cylance State" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="1" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER AUTO_UPDATE="false" FILTER_ID="-1115422873625766839" OPTIONS_DIGEST="efcd988c215682cb9cbdfe3dd72d050a">
+                                <OPT VALUE="Online"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-730" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="7396922572887046206" NAME="Cylance Agent Reported Safe but Offline" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: Cylance Agent Reported Safe but Offline-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cylance_is_safe" LABEL="Cylance is Safe" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="1" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="3318132348225568092" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cylance_state" LABEL="Cylance State" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="1" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER AUTO_UPDATE="false" FILTER_ID="-9213716937772587535" OPTIONS_DIGEST="efcd988c215682cb9cbdfe3dd72d050a">
+                                <OPT VALUE="Offline"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
