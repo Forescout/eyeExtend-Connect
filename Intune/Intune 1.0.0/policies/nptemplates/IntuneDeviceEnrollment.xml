@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="5449405576833190273" NAME="Intune Device Enrollment" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="1549659864567019568" NAME="Intune">
+            <RANGE FROM="10.100.1.172" TO="10.100.1.172"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-3301686013184235207" NAME="Unknown MAC" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Unknown MAC-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="mac" INNER_NOT="true" LABEL="MAC Address" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER CASE_SENSITIVE="false" FILTER_ID="-2149421424034567334" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="1244100243586978372" NAME="Enrolled Devices" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Enrolled Devices-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_intune_id" LABEL="Intune Device ID" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.2.0" PLUGIN_VESRION_NUMBER="12000182" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="8466901123128453414" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:-6624654150339768360;name:Intune Enrolled Devices"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8021006051157563848" NAME="Unknown IP Addresses" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Unknown IP Addresses-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="ip" LABEL="IPv4 Address" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="7117889224020051862">
+                            <RESERVED>
+                                <RANGE FROM="224.0.0.0" TO="247.255.255.255"/>
+                            </RESERVED>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="6977690989072490948" NAME="Offline" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Offline-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="online" INNER_NOT="true" LABEL="Host is online" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="1368283081188283504" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="3692295251879734171" NAME="Non-Corporate Users" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Non-Corporate Users-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="guest_corporate_state" LABEL="Corporate/Guest Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER AUTO_UPDATE="false" FILTER_ID="-3513584300804397822" OPTIONS_DIGEST="095fffa332334f42fc0b79cff521aa27">
+                            <OPT VALUE="AUTH_GUEST"/>
+                            <OPT VALUE="UNAUTH_GUEST"/>
+                            <OPT VALUE="NA"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4621596787831558202" NAME="Devices Not Enrolled -- iOS" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Devices Not Enrolled - - iOS-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="1986305839907934138">
+                            <GROUP ID="8858540532467721176" NAME="iOS"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="http_notification">
+                    <PARAM NAME="hijack_disabled" VALUE="false"/>
+                    <PARAM NAME="open_browser" VALUE="true"/>
+                    <PARAM NAME="show_recheck_option" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="message" VALUE="In order to gain secure network access, you must register your device and install the Company Portal App."/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="onetime" VALUE="true"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                    <HTTPEXCEPTIONS WISPR="0">
+                        <RANGES/>
+                    </HTTPEXCEPTIONS>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="FROM_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="FROM_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_Any:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8102368537725920059" NAME="Devices Not Enrolled -- Android" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Devices Not Enrolled - - Android-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-7121466562856316375">
+                            <GROUP ID="-7025454543052796436" NAME="Andriod"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="http_notification">
+                    <PARAM NAME="hijack_disabled" VALUE="false"/>
+                    <PARAM NAME="open_browser" VALUE="true"/>
+                    <PARAM NAME="show_recheck_option" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="message" VALUE="In order to gain secure network access, you must register your device and install the Company Portal App."/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="onetime" VALUE="true"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                    <HTTPEXCEPTIONS WISPR="0">
+                        <RANGES/>
+                    </HTTPEXCEPTIONS>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="FROM_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="FROM_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_Any:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.1-220" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4812671462262420407" NAME="Devices Not Enrolled -- Windows Mobile" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Devices Not Enrolled - - Windows Mobile-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="5618466907428787931">
+                            <GROUP ID="-3755317038656815526" NAME="Windows Mobile"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="http_notification">
+                    <PARAM NAME="hijack_disabled" VALUE="false"/>
+                    <PARAM NAME="open_browser" VALUE="true"/>
+                    <PARAM NAME="show_recheck_option" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="message" VALUE="In order to gain secure network access, you must register your device and install the Company Portal App."/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="onetime" VALUE="true"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                    <HTTPEXCEPTIONS WISPR="0">
+                        <RANGES/>
+                    </HTTPEXCEPTIONS>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="FROM_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="FROM_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_Any:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
