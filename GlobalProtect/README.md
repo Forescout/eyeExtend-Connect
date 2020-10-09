@@ -30,6 +30,12 @@ This version adds supports for
 - Device Discovery - enables periodic polling to discover new clients via API
 - Added support for Public-IP property
 
+## 1.1.2 Release
+This version fixes following issues:
+- Special character in Computer name not handled properly
+- Multiple GWs can cause incorrect endpoint to GW association
+- Multiple endpoints on a signle user can lead to mismatch between device properties
+
 ## Syslog based endpoing discovery and Integration
 - Optional feature must be enabled by 'Syslog GlobalProtect Client Discovery Enabled' flag 
 - App will poll the firewall  per syslog message instead of the associated endpoint applicance associated GP config
