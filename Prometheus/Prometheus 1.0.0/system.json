@@ -1,0 +1,41 @@
+{
+    "name": "Prometheus",
+    "version": "1.0.0",
+    "author": "Steven Pollock",
+    "testEnable": true,
+    "panels": [
+        {
+            "title": "Prometheus Server Connection",
+            "description": "Prometheus Server Connection",
+            "fields": [
+                {
+                    "display": "Prometheus Server Connection URL",
+                    "field ID": "connect_prometheus_server",
+                    "type": "shortString",
+                    "mandatory": "true",
+                    "add to column": "true",
+                    "show column": "true",
+                    "identifier": "true",
+                    "value": "http://prometheus:9090"
+                },
+                {
+                  "app_instance_cache": true,
+                  "display": "Prometheus Server Targets Refresh Interval (minutes)",
+                  "min": 5,
+                  "max": 2400,
+                  "value": 240
+                }
+            ]
+        },
+        {
+            "focal appliance": true,
+            "title": "Assign CounterACT Devices",
+            "description": "<html>Select the connecting eyeSight appliance that will communicate with prometheus Tower, including requests by other eyeSight appliances. Specific eyeSight devices assigned here cannot be assigned to another server elsewhere.<br><br>If you do not assign specific devices, by default, all devices will be assigned to one server. This server becomes known as the Default Server.<html>"
+        },
+        {
+            "proxy server": true,
+            "title": "Proxy Server",
+            "description": "<html>Select a Proxy Server device to manage all communication between eyeSight and prometheus Tower.</html>"
+        }
+    ]
+}

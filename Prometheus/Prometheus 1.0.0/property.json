@@ -1,0 +1,247 @@
+{
+  "name": "Prometheus",
+  "groups": [{
+    "name": "connect_prometheus_prometheus",
+    "label": "Prometheus"
+  }],
+  "scripts": [{
+    "name": "prom_test.py",
+    "test": "true"
+  }, {
+    "name": "prom_cache.py",
+    "app_instance_cache": "true"
+  }, {
+    "name": "prom_resolve.py",
+    "properties": ["connect_prometheus_lin_rootfs", "connect_prometheus_lin_load5", "connect_prometheus_lin_load15", "connect_prometheus_lin_ram", "connect_prometheus_lin_swap", "connect_prometheus_lin_cpu_count", "connect_prometheus_lin_uptime", "connect_prometheus_win_load5", "connect_prometheus_win_load15", "connect_prometheus_win_disk", "connect_prometheus_win_ram"]
+  }, {
+    "name": "prom_functions.py",
+    "library_file": "true"
+  }],
+  "policy_template": {
+    "policy_template_group": {
+      "name": "connect_prometheus",
+      "label": "Prometheus",
+      "display": "Prometheus",
+      "description": "Prometheus System Templates",
+      "full_description": "<html>Use Prometheus system templates to asses database metrics.</html>",
+      "title_image": "connect_prometheus.png"
+    },
+    "policies": [{
+      "name": "connect_prometheus_linux_load15",
+      "label": "Linux 15M System Load Average",
+      "display": "Linux Load15",
+      "help": "Linux Load15",
+      "description": "Assess the Linux 15M System Load Average",
+      "file_name": "prometheus_linux_load15.xml",
+      "full_description": "<html>Use this policy template to assess the Linux 15M System Load Average</html>",
+      "title_image": "connect_prometheus.png"
+    }, {
+      "name": "connect_prometheus_linux_load5",
+      "label": "Linux 5M System Load Average",
+      "display": "Linux Load5",
+      "help": "Linux Load5",
+      "description": "Assess the Linux 5M System Load Average",
+      "file_name": "prometheus_linux_load5.xml",
+      "full_description": "<html>Use this policy template to assess the Linux 5M System Load Average</html>",
+      "title_image": "connect_prometheus.png"
+    }, {
+      "name": "connect_prometheus_linux_ram",
+      "label": "Linux RAM percentage used",
+      "display": "Linux RAM",
+      "help": "Linux RAM",
+      "description": "Assess the Linux RAM percentage used",
+      "file_name": "prometheus_linux_ram.xml",
+      "full_description": "<html>Use this policy template to assess the Linux RAM percentage used</html>",
+      "title_image": "connect_prometheus.png"
+    }, {
+      "name": "connect_prometheus_linux_rootfs",
+      "label": "Linux rootFS percentage used",
+      "display": "Linux RootFS",
+      "help": "Linux RootFS",
+      "description": "Assess the Linux rootFS percentage used",
+      "file_name": "prometheus_linux_rootfs.xml",
+      "full_description": "<html>Use this policy template to assess the Linux rootFS percentage used</html>",
+      "title_image": "connect_prometheus.png"
+    }, {
+      "name": "connect_prometheus_linux_swap",
+      "label": "Linux SWAP percentage used",
+      "display": "Linux SWAP",
+      "help": "Linux SWAP",
+      "description": "Assess the Linux SWAP percentage used",
+      "file_name": "prometheus_linux_swap.xml",
+      "full_description": "<html>Use this policy template to assess the Linux SWAP percentage used</html>",
+      "title_image": "connect_prometheus.png"
+    }, {
+      "name": "connect_prometheus_windows_disk",
+      "label": "Windows C Disk percentage used",
+      "display": "Windows C Disk",
+      "help": "Windows C Disk",
+      "description": "Assess the Windows C: Disk percentage used",
+      "file_name": "prometheus_windows_disk.xml",
+      "full_description": "<html>Use this policy template to assess the Windows C: Disk percentage used</html>",
+      "title_image": "connect_prometheus.png"
+    }, {
+      "name": "connect_prometheus_windows_load15",
+      "label": "Windows 15M System Load Average",
+      "display": "Windows Load15",
+      "help": "Windows Load15",
+      "description": "Assess the Windows 15M System Load Average",
+      "file_name": "prometheus_windows_load15.xml",
+      "full_description": "<html>Use this policy template to assess the Windows 15M System Load Average</html>",
+      "title_image": "connect_prometheus.png"
+    }, {
+      "name": "connect_prometheus_windows_ram",
+      "label": "Windows RAM percentage used",
+      "display": "Windows RAM",
+      "help": "Windows RAM",
+      "description": "Assess the Windows Physical Memory Percentage Used",
+      "file_name": "prometheus_windows_ram.xml",
+      "full_description": "<html>Use this policy template to assess the Windows Physical Memory Percentage Used</html>",
+      "title_image": "connect_prometheus.png"
+    }]
+  },
+  "properties": [{
+    "tag": "connect_prometheus_lin_rootfs",
+    "label": "Prometheus Linux rootfs percentage used",
+    "description": "Linux file system % use for rootfs",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_lin_ram",
+    "label": "Prometheus Linux RAM percentage used",
+    "description": "Linux RAM % used",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_lin_swap",
+    "label": "Prometheus Linux SWAP percentage used",
+    "description": "Linux SWAP % used",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_lin_cpu_count",
+    "label": "Prometheus Linux Total # of CPU",
+    "description": "Linux Total # of CPU",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_lin_uptime",
+    "label": "Prometheus Linux Machine Uptime",
+    "description": "Linux Machine Uptime",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_win_load5",
+    "label": "Prometheus Windows load5",
+    "description": "Windows 5 minute CPU load average",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_win_load15",
+    "label": "Prometheus Windows load15",
+    "description": "Windows 15 minute CPU load average",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_lin_load5",
+    "label": "Prometheus Linux load5",
+    "description": "Linux 5 minute CPU load average",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_lin_load15",
+    "label": "Prometheus Linux load15",
+    "description": "Linux 15 minute CPU load average",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_win_disk",
+    "label": "Prometheus Windows C Drive percentage used",
+    "description": "% of C Drive Used",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }, {
+    "tag": "connect_prometheus_win_ram",
+    "label": "Prometheus Windows Physical Memory Usage",
+    "description": "% of Physical Memory Used",
+    "type": "integer",
+    "group": "connect_prometheus_prometheus",
+    "dependencies": [{
+      "name": "ip"
+    }, {
+      "name": "hostname"
+    }, {
+      "name": "os_classification"
+    }]
+  }]
+}
