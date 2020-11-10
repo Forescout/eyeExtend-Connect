@@ -1,4 +1,4 @@
-# Ubiquiti SDN
+# Vectra
 eyeExtend Connect App for Vectra - Gain visibility of threats discovered by Vectra on the Forescout Platform
 
 ## Versions
