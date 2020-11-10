@@ -12,7 +12,7 @@ Check the enable Host discovery box along with the polling period. This will det
 
 ## Supported Use Cases
 * Discover endpoints from Vectra
-* Learn endpoint context from Vectra following new poperties supported
+* Learn endpoint context from Vectra following new properties supported
   * Vectra IP
   * Vectra Threat Score
   * Vectra Certainty Score
