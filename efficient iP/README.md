@@ -6,9 +6,9 @@ eyeExtend Connect App for efficientiP - Get EfficientIP IPAM and DHCP context fo
 
 ## Configurations
 ### Connection
-IP or FQDN and port along with username and password to with the permissions are required. Once configured leverage the test function to ensure a connection has been established.
+IP/FQDN and port along with username and password with appropriate permissions are required. Once configured leverage the test function to ensure a connection has been established.
 ### Polling Options
-Check the enable Host discovery box along with the polling period. This will determine how often the App will attempt to discover new endpoints from efficientiP instance
+Check the enable 'Host discovery' box along with the polling period. This will determine how often the App will attempt to discover new endpoints from efficientiP instance
 
 ## Supported Use Cases
 * Discover IP endpoints from efficientiP
