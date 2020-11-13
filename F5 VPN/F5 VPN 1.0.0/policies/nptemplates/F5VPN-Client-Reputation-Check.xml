@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-618604409964898131" NAME="F5 Client Reputation Check" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: F5 Client Reputation Check-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_f5vpn_session_id" LABEL="F5 Client Sessions ID" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.1.0" PLUGIN_VESRION_NUMBER="11000012" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="-3543793699065386273" TYPE="any">
+                    <VALUE VALUE2="Any"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="-3502133445365970527" NAME="VPN">
+            <RANGE FROM="10.190.190.10" TO="10.190.190.30"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="2908006280832026799" NAME="Reputation Check Resolvable" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Reputation Check Resolvable-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_f5vpn_user_ip_reputation" LABEL="F5 Client Reputation" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.1.0" PLUGIN_VESRION_NUMBER="11000012" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="5134017283430389856" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="7836832861817070484" NAME="Reputation Check Irresolvable" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
