@@ -6,6 +6,7 @@ Each integration app has been posted with a .eca file and folder of the content 
 Details on the App content and how to build and App can be found here. 
 * [Training Videos](https://www.youtube.com/playlist?list=PL2HYJud3zBqcjUoiJzVG33_ubuRqv3crQ)
 * [App Build Guide](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
+* [Tools](https://github.com/fs-connect) - App creation tools to simplify aspects of the app building process
 
 ## App Support
 
