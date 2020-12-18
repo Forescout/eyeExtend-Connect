@@ -47,7 +47,7 @@ Example : https://fef.amsuaXXXX.manage.microsoft.com/StatelessNACService
 Use the POSTMAN collection "Forescout-Microsoft-NAC-Graph-Customer" to help you discover the service endpoint.
   *See the POSTMAN section below for details*.
 
-![POSTMAN-Collection-NAC-ServiceEndpoint](https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Postman-Collection-NAC-ServiceEndpoint.png)
+![alt text](https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN-Collection-NAC-ServiceEndpoint.png "POSTMAN-Collection-NAC-ServiceEndpoint")
 
 # Use Cases  
 This section describes important use cases supported by Forescout eyeExtend for Intune.  
@@ -144,7 +144,7 @@ When applying the API permissions you have to select the type.
 The reason we use up to three different tokens.
 NAC and GRAPH, use a different resource, therefore require a bearer token each and a bearer token for the user identity i.e actions.
 
-![NAC-GRAPH-API-ServicePrincipal-Permissions](https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/NAC-GRAPH-API-ServicePrincipal-Permissions.png)
+![alt text](https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/NAC-GRAPH-API-ServicePrincipal-Permissions.png "NAC-GRAPH-API-ServicePrincipal-Permissions")
 
 Details for the above application permission
 
@@ -160,7 +160,7 @@ Details for the above application permission
 
 If you are using ACTION(S) *remote lock / wipe*, the user identity requires the "Intune Administrator" role.
 
-![Intune-Users-Identy-Role](https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune-Users-Identy-Role.png)
+![alt text](https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune-Users-Identy-Role.png "Intune-Users-Identy-Role")
 
 # Create User and Application  
 
@@ -307,7 +307,7 @@ A blank **System Description** dialog box opens. See Add a System Description.
 - If you select **Close** before the import has finished, it will fail.  
 
 ## Panels
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_Panel_TABS.png" style="zoom:70%;" align="center"/>
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_Panel_TABS.png" style="zoom:70%;" align="center"/>
 
 After the app is imported, the **System Description** dialog box opens. It is initially blank and only the **Add** and **Import** buttons are enabled.  
 
@@ -319,7 +319,7 @@ Select **Add**
 
 ### Intune Connection
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_Connection_Panel.png" style="zoom:67%;" align="center"/>
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_Connection_Panel.png" style="zoom:67%;" align="center"/>
 
 Enter the following information:  
 
@@ -347,7 +347,7 @@ Select
 
 If you are ***not*** using the action **wipe/remote lock**, skip this panel.
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_ACTION_Panel.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_ACTION_Panel.png" style="zoom:67%;" align="center" />
 
 - Username
 - Password
@@ -356,7 +356,7 @@ Select **Next**.
 
 ### Intune Devices
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_Devices_Panel.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_Devices_Panel.png" style="zoom:67%;" align="center" />
 
 
  - Initially, the Assign CounterACT Devices panel has only one option, **Assign all devices by default** , and it is selected so that one device is added.
@@ -382,14 +382,14 @@ Select **Next**.
 
 ### Proxy Server
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_Proxy_Panel.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_Proxy_Panel.png" style="zoom:67%;" align="center" />
 
 Enter the Proxy Server information similar to any Forescout Extend Module:  
 
 Select **Next**.  
 
 ### Intune Options
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_Options_Panel.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_Options_Panel.png" style="zoom:67%;" align="center" />
 
 - Enable Host Discovery: Select this option to enable the **Discovery Frequency** field.
 
@@ -399,7 +399,7 @@ Select **Next**.
 
   `This policy can be used to resolve devices dynamically coming onto the network.`
 
-  <img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_NAC_Policy.png" style="zoom:80%;" align="center" />
+  <img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_NAC_Policy.png" style="zoom:80%;" align="center" />
 
 - Discovery Frequency: Select a value for the frequency of host discovery, which is the interval between discoveries. The range is from 1 minute to 2880 minutes. The default is 1440 minutes.
 
@@ -413,14 +413,14 @@ Select **Next**.
 
   Action parameters can not be empty or null. For this reason, the unlock code has a value of "0000".
 
-  <img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_ACTION_Wipe.png" style="zoom:67%;" align="center" />
+  <img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_ACTION_Wipe.png" style="zoom:67%;" align="center" />
 
   When this value is "0000", the unlock code parameter will not be sent.
 
   ​		**This value can be changed in "Intune Options"**
 
 ### Test Options
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_Test_Panel.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_Test_Panel.png" style="zoom:67%;" align="center" />
 
 - NAC API: Device MAC address.
   Query by MAC address.
@@ -498,7 +498,7 @@ Select
 
 **Close**.  
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_TEST.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_TEST.png" style="zoom:67%;" align="center" />
 
 # Configure Intune Policy Templates  
 There are two Intune policy templates for customers to manage devices in an Intune environment, detect devices that are compliant or non-compliant, and devices that are enrolled or not.  
@@ -598,11 +598,11 @@ The following action is available:
 ## Remote Lock
 
 Locks a managed endpoint.
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_ACTION_Remote_Lock.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_ACTION_Remote_Lock.png" style="zoom:67%;" align="center" />
 
 ## Wipe Device
 Factory resets a managed endpoint.
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/Intune_ACTION_Wipe.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_ACTION_Wipe.png" style="zoom:67%;" align="center" />
 
   If the MAC OS unlock code is the same as defined in the "Intune Options" panel, this parameter will not be sent.
 # Scripts  
@@ -617,7 +617,7 @@ There are a few Python scripts.
 
 # POSTMAN
 See the Github for the collection "Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json"
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/POSTMAN_collection.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN_collection.png" style="zoom:67%;" align="center" />
 You can use the POSTMAN collection.
 
 - Discover the service endpoint URI.
@@ -625,7 +625,7 @@ You can use the POSTMAN collection.
 
 After importing the collection into POSTMAN, update the collection variables.
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/POSTMAN_Variables.png" style="zoom:67%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN_Variables.png" style="zoom:67%;" align="center" />
 
 For your environment update the :-
 
@@ -637,7 +637,7 @@ The remaining variables will be updated via the various REST examples.
 
 ## Service Endpoint Discovery
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/POSTMAN_Service_Endpoint.png" style="zoom:80%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN_Service_Endpoint.png" style="zoom:80%;" align="center" />
 
 Select ***1 - Get-Bearer-Token-Discovery NAC***
 
@@ -649,7 +649,7 @@ Select **2 - Service Discovery**
 
 ​	Select *SEND*
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/POSTMAN_Service_Endpoint_Result.png" style="zoom:80%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN_Service_Endpoint_Result.png" style="zoom:80%;" align="center" />
 
 This will update the collection variable "ServiceEndpoint-URI"
 
@@ -657,6 +657,6 @@ This will update the collection variable "ServiceEndpoint-URI"
 
 Select **View/Show Postman Console**
 
-<img src="https://github.com/Forescout/eyeExtend-Connect/tree/master/Intune/README.assets/POSTMAN_Console.png" style="zoom:80%;" align="center" />
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN_Console.png" style="zoom:80%;" align="center" />
 
 This URI is **required** by "**Intune Connection/NAC API: Service Endpoint URI**"
