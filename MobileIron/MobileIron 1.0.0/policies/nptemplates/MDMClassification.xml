@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="7286532926403478071" META_TYPE="GUEST" NAME="Enrollment Step 1: MDM Classification" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="259200000" USE_DEFAULT="false"/>
+        <ADMISSION_RESOLVE_DELAY TTL="30000" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="1800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME=""/>
+        <UNMATCH_TIMING RATE="7200" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="5793885033458456960" NAME="Unknown MAC" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Unknown MAC-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="mac" INNER_NOT="true" LABEL="MAC Address" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER CASE_SENSITIVE="false" FILTER_ID="160572049094734868" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="8106244236855668821" NAME="Unknown IP Addresses" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Unknown IP Addresses-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="ip" LABEL="IPv4 Address" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-763515847781045065">
+                            <RESERVED>
+                                <RANGE FROM="224.0.0.0" TO="247.255.255.255"/>
+                            </RESERVED>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="1887014211887476351" NAME="Not Mobile Devices" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Not Mobile Devices-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" INNER_NOT="true" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="5146208762970852542">
+                                <GROUP ID="5240056032070084903" NAME="Mobile devices"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-6956052771730707236" NAME="Corporate Users" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="7200" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="CORPORATE"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Corporate Users-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="auth.login" LABEL="Authentication Login" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-5948046650469451817" NEWER="true" OCCURRED="false" RELATIVE="true" VALUE="604800"/>
+                        <FILTER AUTO_UPDATE="false" FILTER_ID="-2546081432525307967" OPTIONS_DIGEST="3031b8788b31cdc611b352a55a9b1f02">
+                            <OPT VALUE="http_login"/>
+                            <OPT VALUE="auth_server"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:8536516052929028881;name:Corporate Hosts"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4591137761416413867" NAME="Logged in Guest Users" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="7200" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="AUTH_GUEST"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Logged in Guest Users-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="auth.login" LABEL="Authentication Login" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="3534947751334820222" NEWER="true" OCCURRED="false" RELATIVE="true" VALUE="86400"/>
+                        <FILTER AUTO_UPDATE="false" FILTER_ID="8709875614172645294" OPTIONS_DIGEST="3031b8788b31cdc611b352a55a9b1f02">
+                            <OPT VALUE="guest_login"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:8941961657945226353;name:Signed-in Guests"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="1682326733122384756" NAME="Unregistered Guest Users" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="7200" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="UNAUTH_GUEST"/>
+                <ACTION DISABLED="false" NAME="http_login_3">
+                    <PARAM NAME="signin_sesssion_domain" VALUE="false"/>
+                    <PARAM NAME="concurrent_guest" VALUE="false"/>
+                    <PARAM NAME="specific_approve_enable" VALUE="true"/>
+                    <PARAM NAME="contact_approve" VALUE=""/>
+                    <PARAM NAME="auth_internal" VALUE="true"/>
+                    <PARAM NAME="form_phone" VALUE="show"/>
+                    <PARAM NAME="non_auto_approval" VALUE="none"/>
+                    <PARAM NAME="guest_expire_enabled" VALUE="false"/>
+                    <PARAM NAME="auto_approval" VALUE="none"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="specific_approve" VALUE=""/>
+                    <PARAM NAME="guest_msg" VALUE="&lt;b&gt;Dear Guest,&lt;/b&gt;&#10;&#10;Welcome to the organizational network.&#10;In order to connect please fill the form below and click the &lt;i&gt;Sign Up&lt;/i&gt; button."/>
+                    <PARAM NAME="guest_title" VALUE="Guest Registration"/>
+                    <PARAM NAME="approve_opts" VALUE="auto_approval"/>
+                    <PARAM NAME="auto_continue" VALUE="false"/>
+                    <PARAM NAME="concurrent_domain" VALUE="false"/>
+                    <PARAM NAME="servers">
+                        <SELECTION ALL="true"/>
+                    </PARAM>
+                    <PARAM NAME="verify_ident" VALUE="true"/>
+                    <PARAM NAME="allowguest" VALUE="false"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="form_comment" VALUE="show"/>
+                    <PARAM NAME="verify_ident_opts" VALUE="email_mobile"/>
+                    <PARAM NAME="contact_approve_enable" VALUE="true"/>
+                    <PARAM NAME="reg_no_guest_pass" VALUE="false"/>
+                    <PARAM NAME="form_location" VALUE="show"/>
+                    <PARAM NAME="hijack_disabled" VALUE="false"/>
+                    <PARAM NAME="show_g_forgot_password" VALUE="true"/>
+                    <PARAM NAME="reg_with_pass" VALUE="false"/>
+                    <PARAM NAME="signin_sesssion_guest" VALUE="false"/>
+                    <PARAM NAME="auth_external" VALUE="true"/>
+                    <PARAM NAME="form_contact_email" VALUE="show"/>
+                    <PARAM NAME="message" VALUE="&lt;b&gt;Dear User,&lt;/b&gt;&#10;&#10;In order to connect to the network please enter your name and password below."/>
+                    <PARAM NAME="reg_enabled" VALUE="true"/>
+                    <PARAM NAME="enforce_server_selection" VALUE="false"/>
+                    <PARAM NAME="form_title" VALUE="show"/>
+                    <PARAM NAME="auto_continue_url" VALUE=""/>
+                    <PARAM NAME="form_custom3" VALUE="hide"/>
+                    <PARAM NAME="form_custom2" VALUE="hide"/>
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="form_custom1" VALUE="hide"/>
+                    <PARAM NAME="show_g_edit_profile" VALUE="true"/>
+                    <PARAM NAME="form_custom5" VALUE="hide"/>
+                    <PARAM NAME="form_custom4" VALUE="hide"/>
+                    <PARAM NAME="form_contact_name" VALUE="show"/>
+                    <PARAM NAME="form_company" VALUE="show"/>
+                    <PARAM NAME="guest_expire_period" VALUE="3600"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:3718678212863812986;name:Guest Hosts"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
