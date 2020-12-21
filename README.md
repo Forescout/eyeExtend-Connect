@@ -1,3 +1,6 @@
+***Given the widespread nature of the SolarWinds breach and complex software supply chains, Forescout is temporarily disabling product downloads from our customer portals (Including our signed images). This action is being taken in an abundance of caution as Forescout does not currently use SolarWinds software and has never used the known affected versions of the SolarWinds products within our environment.***
+
+
 # eyeExtend-Connect
 Easily build, consume and share apps to integrate with the Forescout platform. Terms of use apply please see attached link.
 
