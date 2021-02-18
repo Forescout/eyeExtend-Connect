@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.2-731" CACHE_TTL="172800" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="false" ID="7362504399059349903" NAME="ClearPass Allow or Deny Endpoint Access" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="AND">
+            <!--Rule expression. Rule name is: ClearPass Allow or Deny Endpoint Access-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Data Simulator" PLUGIN_UNIQUE_NAME="random_data" PLUGIN_VESRION="2.7.0" PLUGIN_VESRION_NUMBER="423" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER FILTER_ID="-5218274405993100555">
+                        <GROUP ID="6401000552282629354" NAME="Control"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="mac" LABEL="MAC Address" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Data Simulator" PLUGIN_UNIQUE_NAME="random_data" PLUGIN_VESRION="2.7.0" PLUGIN_VESRION_NUMBER="423" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="-7627761216872322331" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_clearpass_id" LABEL="ClearPass Session ID" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.1" PLUGIN_VESRION_NUMBER="14010007" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="5439744201370784475" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="825591383818190401" NAME="Aruba-ClearPass">
+            <RANGE FROM="192.168.67.253" TO="192.168.67.253"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="172800" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="2681708627592313181" NAME="Compliant Allow Access" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Compliant Allow Access-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Data Simulator" PLUGIN_UNIQUE_NAME="random_data" PLUGIN_VESRION="2.7.0" PLUGIN_VESRION_NUMBER="423" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-1484451992303956732">
+                            <GROUP ID="3371677710403265074" NAME="AllowAccess"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="connect_clearpass_fs_action_attribute">
+                    <PARAM NAME="connect_clearpass_fs_action_attribute" VALUE="AllowAccess"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="connect_clearpass_action_reauthorize">
+                    <PARAM NAME="connect_clearpass_reauthorize_profile" VALUE="Reauth-Profile"/>
+                    <SCHEDULE>
+                        <START Class="Delayed" TIMEPERIOD="5 SECOND"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+                <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+                <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+                <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+                <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="172800" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="2009997457861698084" NAME="Non Compliant Deny Access" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Non Compliant Deny Access-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Data Simulator" PLUGIN_UNIQUE_NAME="random_data" PLUGIN_VESRION="2.7.0" PLUGIN_VESRION_NUMBER="423" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-3560687093870134087">
+                            <GROUP ID="4481674389149897333" NAME="DenyAccess"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="connect_clearpass_fs_action_attribute">
+                    <PARAM NAME="connect_clearpass_fs_action_attribute" VALUE="DenyAccess"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="connect_clearpass_action_reauthorize">
+                    <PARAM NAME="connect_clearpass_reauthorize_profile" VALUE="DenyAccess"/>
+                    <SCHEDULE>
+                        <START Class="Delayed" TIMEPERIOD="5 SECOND"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="172800" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="9140300730515985781" NAME="Unknown Status" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
