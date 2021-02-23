@@ -2,8 +2,12 @@
 eyeExtend Connect App for Slack enables real-time messaging posts to Slack channels and users as an action from Forescout
 
 ## Versions
-1.0.0 - Base release
-1.0.1 - Fixes issue # 1
+* 1.0.0 - Base release
+* 1.0.1 - Fixes issue # 1
+* 1.0.3 - 
+   1. Leverage conversations.list API instead of the soon to be deprecated channels.list (https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api)  (Update requres a new scope to be added see Oauth Token Section below (groups:read)
+   2. Add support for pagination with conversations and users APIs
+   3. Remove proxy panel: Proxy function wasn't supported 
 
 ## Configuration
 App configuration requires the following paramters:
@@ -20,6 +24,7 @@ App configuration requires the following paramters:
       4. chat:write
       5. chat:write.public
       6. im:write
+      7. groups:read (Added for release 1.0.3 onwards)
     * Install the App on your Workspace
     * OAuth Token will be created after the install is complete
 
