@@ -5,7 +5,7 @@ eyeExtend Connect App for Slack enables real-time messaging posts to Slack chann
 * 1.0.0 - Base release
 * 1.0.1 - Fixes issue # 1
 * 1.0.3 - 
-   1. Leverage conversations.list API instead of the soon to be deprecated channels.list (https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api)  (Update requres a new scope to be added see Oauth Token Section below (groups:read)
+   1. Leverage conversations.list API instead of the soon to be deprecated channels.list (https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api)  (Update requires a new scope to be added see Oauth Token Section below (groups:read)
    2. Add support for pagination with conversations and users APIs
    3. Remove proxy panel: Proxy function wasn't supported 
 
@@ -34,7 +34,7 @@ App configuration requires the following paramters:
 * __Post a message to Slack__
 The App creates a new action under the 'Notification' group to initiate a Slack post to channel or users. 
 It supports both a standard string based messages as well as the Slack's Blocks format.  Use the following paramters
-  * _Post Message to_: User or Channel
+  * _Post Message to_: User or Channel; In case of private channel ensure the App is added to the private channel
   * _Send To_: Name of channel or user (Real Name in Slack)
   * _Message Format_: string or Slack Blocks
   * _Slack Post Message_: Message to be posted
