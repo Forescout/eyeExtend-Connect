@@ -30,6 +30,15 @@ This version adds supports for
 - Device Discovery - enables periodic polling to discover new clients via API
 - Added support for Public-IP property
 
+## 1.2.0 Release
+This version add support for discovery of HIP data from GP to CounterACT
+- GlobalProtect HIP Anti-Malware
+- GlobalProtect HIP Disk Backup
+- GlobalProtect HIP Disk Encryption
+- GlobalProtect HIP Firewall
+- GlobalProtect HIP Patch Management
+- GlobalProtect HIP Missing Patches
+
 ## 1.1.2 Release
 This version fixes following issues:
 - Special character in Computer name not handled properly
@@ -134,6 +143,13 @@ There are a few properties gathered from the GlobalProtect server for the endpoi
 - GlobalProtect User
 - GlobalProtect Gateway
 - GlobalProtect Client Type, such as: Microsoft Windows 7 Ultimate Edition Service Pack 1, 64-bit 
+- **HIP Data**
+  - Anti-Malware
+  - Disk Backup
+  - Disk Encryption
+  - Firewall
+  - Patch Management
+  - Missing Patches
 
 ## Actions
 User can disconnect a connected GlobalProtect from the endpoint. If the user is disconnected from GlobalProtect,
