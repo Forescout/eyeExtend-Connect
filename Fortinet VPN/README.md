@@ -12,6 +12,8 @@ Forescout eyeExtend Connect Fortinet VPN APP README.md
 
 ## About the eyeExtend Connect Fortinet VPN APP
 
+### Version v1.3.0 - Fixes issue related to polling/discovery script failure with SSL-VPN Web User; Removes proxy panel from deployment wizard
+
 ### Version v1.0.0 Fortinet VPN APP
 
 Fortinet VPN APP – connects directly to FMG/FGT using the REST API and retrieves properties on connected VPN user sessions.
