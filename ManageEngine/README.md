@@ -2,10 +2,47 @@ Forescout eyeExtend Connect ManageEngine Patch Manager Plus App README.md
  
 
 ## Legal Notice
-© 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation.
+© 2021 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation.
 A list of our trademarks and patents can be found at https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks.
 Other brands, products, or service names may be trademarks or service marks of their respective owners.
 
+## Updates / Features(as of February 21, 2021):
+-----------------------------------------------
+1. Changed to version 2.0, due to major code revisions;
+2. ManageEngine version 1.3 API;
+3. Set the default port to TCP Port 8020(previously port 80)
+4. Revised the policies:
+    - Get Resource ID       : Query the Windows registry to get the ManageEngine Resource ID
+    - Agent Windows Service : Query the endpoints Windows Services for the Agent Service Status
+    - Agent Status          : Query the ManageEngine Server for the Agent Installation status of the host
+    - Missing MS Patches    : Query the ManageEngine Server for missing Microsoft patches on the host
+    - Missing 3rd-Party Patches: Query the ManageEngine Server for missing 3rd-party patches on the host
+5. Added the following endpoint actions:
+    - Initiate Patch scan        : will trigger the ManageEngine server to initiate patch scan on the target endpoint. 
+                                 : calls the /api/1.3/patch/computers/scan url
+    - Install all Missing Patches: will trigger the ManageEngine server to initiate patch scan on the target endpoint.
+                                 : calls the /api/1.3/patch/installpatch url
+6. Added the following computer details / endpoint properties:
+    - Device Model
+    - Device Type
+    - Device Manufacturer
+    - Serial number
+    - Processors
+    - Memory(Megabytes)
+    - Disk Summary - Percentage Use
+    - Disk Summary - Total Disk Size
+    - ManageEngine Agent software version
+    - Missing MS Patch IDs
+    - Missing 3rd-party Patch IDs
+
+## ManageEngine ver. 2.0 supports:
+- ManageEngine Patch Manager Plus Build Version:10.0.652
+- Forescout CounterACT 8.2.x
+- Forescout eyeExtend Connect 1.7.0
+
+
+
+## April 22, 2020
 ## About the eyeExtend Connect ManageEngine Patch Manager Plus(PM)
 The App gathers patch information for all Windows endpoint assets registered to ManageEngine Patch Manager Plus. The current version is able to detect the following:
 
