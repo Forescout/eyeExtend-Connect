@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-721091057291215003" NAME="Chromebook Quarantine" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: Chromebook Quarantine-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER FILTER_ID="-380963703236900237">
+                    <GROUP ID="7735168853340078328" NAME="Chromebooks"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="0" NAME="Segments">
+            <RANGE FROM="172.16.1.0" TO="172.16.2.255"/>
+            <RANGE FROM="172.16.110.0" TO="172.16.110.255"/>
+            <RANGE FROM="172.16.120.0" TO="172.16.120.255"/>
+            <RANGE FROM="172.16.130.0" TO="172.16.130.255"/>
+            <RANGE FROM="172.16.166.0" TO="172.16.166.255"/>
+            <RANGE FROM="172.16.199.0" TO="172.16.199.255"/>
+            <RANGE FROM="172.19.13.0" TO="172.19.13.255"/>
+            <RANGE FROM="192.168.1.0" TO="192.168.1.255"/>
+            <RANGE FROM="192.168.86.0" TO="192.168.86.255"/>
+        </SEGMENT>
+        <RESERVED>
+            <RANGE FROM="224.0.0.0" TO="247.255.255.255"/>
+        </RESERVED>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="398802183195976112" NAME="Authorized" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Authorized-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="compliance_state" LABEL="Compliance Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER AUTO_UPDATE="false" FILTER_ID="-8749826049088103829" OPTIONS_DIGEST="c8888df0b6f2aad506f0d3d6534a5df6">
+                            <OPT VALUE="COMPLY"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="wifi_assign">
+                    <PARAM NAME="assign_role" VALUE="Authorized"/>
+                    <PARAM NAME="assign_description" VALUE=""/>
+                    <PARAM NAME="bounce_after_assign" VALUE="true"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="sw_quarantine">
+                    <PARAM NAME="dont_force_assign_2_vlan" VALUE="true"/>
+                    <PARAM NAME="vlan" VALUE="1"/>
+                    <PARAM NAME="vlan_group" VALUE="vlan_name"/>
+                    <PARAM NAME="vlan_name" VALUE="Authorized"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8426187540408567762" NAME="Quarantine" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <ACTION DISABLED="true" NAME="wifi_assign">
+                    <PARAM NAME="assign_role" VALUE="Quarantine"/>
+                    <PARAM NAME="assign_description" VALUE=""/>
+                    <PARAM NAME="bounce_after_assign" VALUE="true"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="sw_quarantine">
+                    <PARAM NAME="dont_force_assign_2_vlan" VALUE="true"/>
+                    <PARAM NAME="vlan" VALUE="1"/>
+                    <PARAM NAME="vlan_group" VALUE="vlan_name"/>
+                    <PARAM NAME="vlan_name" VALUE="Authorized"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
