@@ -15,6 +15,10 @@ This version adds supports for
 - Device Discovery - enables periodic polling to discover new clients via Cherwell CMDB entries
 - Provides for the ability to submit an IT Incident with the CMDB CI associated
 
+## Versions
+* 1.0.0 - Base release
+* 1.0.2 - Bug fixes with error reporting and enhanced debugging
+
 ### Required Cherwell Updates
 - Addition of a Forescout field to make a link between Forescout device and CMDB device. (This needs to be manually added to Configuration Item)
 - mApp for Cherwell provides for the Forescout Import Table and is needed in order to complete the integration
