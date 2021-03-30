@@ -1,8 +1,8 @@
 # Action API
 This sample eyeExtend Connect App provides an example deployment for triggering an action via Connect Web API framework. Details can be found here [Connect Documentation](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
 
-Minimum version of CounterACT 8.2.2
-Minimum version of eyeExtend Connect Module 1.9.0
+- Minimum version of CounterACT 8.2.2
+- Minimum version of eyeExtend Connect Module 1.9.0
 ## App Deployment
  1. Install/Upgrade 8.2.2
  2. Install/Upgrade Connect Module 1.9.0
