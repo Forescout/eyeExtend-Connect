@@ -51,7 +51,7 @@ Leverage the token as a Bearer token for all subsequent queries
 curl example to post API call to trigger Assign to VLAN action using following paramters
 
  - Bearer Token
- - mac and/or ip of host
+ - mac and/or ip of the endpoint
  - 'connect_actionapi_vlan_assign' - true to enable action; false to disable action
  - 'connect_actionapi_vlan_assign_id' - VLAN Name /ID to be assigned
 
