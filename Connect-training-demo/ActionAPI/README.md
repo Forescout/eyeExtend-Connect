@@ -6,7 +6,7 @@ Minimum version of eyeExtend Connect Module 1.9.0
 ## App Deployment
  1. Install/Upgrade 8.2.2
  2. Install/Upgrade Connect Module 1.9.0
- 3. Use the Connect Plugin to deploy the ActionAPI App. App provided here
+ 3. Use the Connect Plugin to deploy the ActionAPI App. [ActionAPI.zip](https://github.com/Forescout/eyeExtend-Connect/blob/master/Connect-training-demo/ActionAPI/ActionAPI_v1.zip)
 
  - [ ] Enable unsigned App deployment mode to deploy this example app. See pg 92 of Connect documentation for details
 
