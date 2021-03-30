@@ -56,8 +56,8 @@ curl example to post API call to trigger Assign to VLAN action using following p
  - 'connect_actionapi_vlan_assign_id' - VLAN Name /ID to be assigned
 
 #### Assign
-curl -X POST "https://10.8.132.2/connect/v1/hosts" -H "accept: application/json" -H "Authorization: Bearer XYZ" -H "Content-Type: application/json" -d "{ \"mac\":\"e006e66ad0a6\", \"properties\":{ \"connect_actionapi_vlan_assign\":true, \"connect_actionapi_vlan_assign_id\":\"test\" }}"
+curl -X POST "https://{em_host}/connect/v1/hosts" -H "accept: application/json" -H "Authorization: Bearer XYZ" -H "Content-Type: application/json" -d "{ \"mac\":\"e006e66ad0a6\", \"properties\":{ \"connect_actionapi_vlan_assign\":true, \"connect_actionapi_vlan_assign_id\":\"test\" }}"
 
 #### Unassign
 
-curl -X POST "https://10.8.132.2/connect/v1/hosts" -H "accept: application/json" -H "Authorization: Bearer XYZ" -H "Content-Type: application/json" -d "{ \"mac\":\"e006e66ad0a6\", \"properties\":{ \"connect_actionapi_vlan_assign\":false }}"
+curl -X POST "https://{em_host}/connect/v1/hosts" -H "accept: application/json" -H "Authorization: Bearer XYZ" -H "Content-Type: application/json" -d "{ \"mac\":\"e006e66ad0a6\", \"properties\":{ \"connect_actionapi_vlan_assign\":false }}"
