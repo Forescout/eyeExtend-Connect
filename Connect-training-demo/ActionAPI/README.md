@@ -1,5 +1,5 @@
 # Action API
-This sample eyeExtend Connect App provides an example deployment for triggering an action via Connect Web API framework. Details can be found here [Connect Documentation](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
+This sample eyeExtend Connect App provides a deployment mechanism for triggering an action via the Connect Web API framework. Assign to VLAN action is used for this sample app. Details on how to build Connect App be found here [Connect Documentation](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
 
 - Minimum version of CounterACT 8.2.2
 - Minimum version of eyeExtend Connect Module 1.9.0
