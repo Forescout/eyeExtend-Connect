@@ -616,8 +616,9 @@ There are a few Python scripts.
 - **intune_nac_resolve.py** : NAC API resolve query by MAC address, use to detect devices entering the network.
 
 # POSTMAN
-See the Github for the collection "Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json"
-<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN_collection.png" style="zoom:67%;" align="center" />
+See the Github for the collection 
+[Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json](https://github.com/Forescout/eyeExtend-Connect/blob/master/Intune/Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json)
+
 You can use the POSTMAN collection.
 
 - Discover the service endpoint URI.
