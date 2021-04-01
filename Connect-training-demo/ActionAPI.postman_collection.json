@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "74062312-361f-4153-98b2-2d2ef07431b7",
+		"name": "ActionAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"connect_token\", jsonData.data.token);",
+							"console.log(jsonData.data.token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\",\n    \"app_name\": \"actionapi\",\n    \"expiration\": \"1500\"\n}"
+				},
+				"url": {
+					"raw": "https://{{EM}}/connect/v1/authentication/token",
+					"protocol": "https",
+					"host": [
+						"{{EM}}"
+					],
+					"path": [
+						"connect",
+						"v1",
+						"authentication",
+						"token"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign to VLAN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{connect_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ip\": \"10.80.100.123\",\n    \"properties\": {\n        \"connect_actionapi_vlan_assign\": \"true\",\n        \"connect_actionapi_vlan_assign_id\": \"1080\"\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{EM}}/connect/v1/hosts",
+					"protocol": "https",
+					"host": [
+						"{{EM}}"
+					],
+					"path": [
+						"connect",
+						"v1",
+						"hosts"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unassign to VLAN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{connect_token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{connect_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ip\": \"10.80.100.123\",\n    \"properties\": {\n        \"connect_actionapi_vlan_assign\": \"false\"\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{EM}}/connect/v1/hosts",
+					"protocol": "https",
+					"host": [
+						"{{EM}}"
+					],
+					"path": [
+						"connect",
+						"v1",
+						"hosts"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "username",
+			"value": "spollock"
+		},
+		{
+			"key": "password",
+			"value": "4Scout123"
+		},
+		{
+			"key": "EM",
+			"value": "10.80.100.49"
+		}
+	]
+}
