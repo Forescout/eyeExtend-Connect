@@ -4,6 +4,8 @@ eyeExtend for Intune App README.md Version: 2.0.0
 ## Configuration Guide  
 **Version 2.0.0**  
 
+**Version 2.0.2**
+- Add support for proxy functionality
 ## Contact Information  
 - Have feedback or questions? Write to us at
 
