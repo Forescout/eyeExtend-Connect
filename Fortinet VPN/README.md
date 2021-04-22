@@ -11,8 +11,9 @@ Forescout eyeExtend Connect Fortinet VPN APP README.md
 - See Contact Information above.
 
 ## About the eyeExtend Connect Fortinet VPN APP
+### Version v1.1.0 - Fixes issue with integer/string for property connect_fvpn_index which was shown up on 1.5.0 version of Connec; it also has a new property connect_fvpn_poll – this property records the poll time. This can then be used in policy to delete hosts where this value is older than the last poll time
 
-### Version v1.3.0 - Fixes issue related to polling/discovery script failure with SSL-VPN Web User; Removes proxy panel from deployment wizard
+### Version v1.0.3 - Fixes issue related to polling/discovery script failure with SSL-VPN Web User; Removes proxy panel from deployment wizard
 
 ### Version v1.0.0 Fortinet VPN APP
 
