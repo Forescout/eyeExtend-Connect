@@ -1,4 +1,4 @@
-#EyeExtend Connect FAQ
+# EyeExtend Connect FAQ
 
 **Author: Forescout Orchestration SME Team**
 
@@ -64,7 +64,7 @@ If the system.conf and property.conf files have changed, you must upgrade the ap
 * Any content change in existing scripts
 
 
-### Are any Connect apps officially supported by Forescout? 
+### Are any Connect apps officially supported by Forescout?
 
 Apps published on the  [eyeExtend Connect github page](https://github.com/Forescout/eyeExtend-Connect) are not supported under Forescout Activecare.  Apps are supported under community effort.  
 
@@ -108,7 +108,7 @@ First set the debug level to 10 for the connect module:
 fstool connect_module debug 10
 ```
 
-The python logs are located here: 
+The python logs are located here:
 
 ```
  /usr/local/forescout/plugin/connect_module/python_logs/python_server.log  
@@ -132,8 +132,8 @@ Of note, there is also a connect module log located here:
 /usr/local/forescout/log/plugin/connect_module/connect_module.log
 ```
 
-***NOTE:*** 
-Do not leave print() functions in your code.  Print functions need a terminal output and require an I/O interrupt. When we are running Connect Apps the python context doesn’t have a terminal or STDOUT to output the data. This causes intermittent behavior with the Java plugin that’s receiving interrupts from the Python code. Print() isn’t supported within the Connect app context. 
+***NOTE:***
+Do not leave print() functions in your code.  Print functions need a terminal output and require an I/O interrupt. When we are running Connect Apps the python context doesn’t have a terminal or STDOUT to output the data. This causes intermittent behavior with the Java plugin that’s receiving interrupts from the Python code. Print() isn’t supported within the Connect app context.
 
 All output must be using the logging function.  Logging within code shows up in app execution log, developers should use: logging.debug("this will show in python_server.log when debug is at 10") to create relevant log entries.
 
@@ -174,7 +174,7 @@ and this test script can then be run on the Forescout Appliance
 ```
 alias python3=/opt/rh/rh-python36/root/usr/bin/python
 
-python3 test.py 
+python3 test.py
 
 ```
 
@@ -243,7 +243,7 @@ Yes, use this command:
 ```
 alias python3=/opt/rh/rh-python36/root/usr/bin/python
 
-python3 test.py 
+python3 test.py
 
 ```
 
@@ -260,11 +260,7 @@ There are a few possible approaches:
 ### Are there polling timers I can change?
 
 The timeout for polling, action, resolve is 2 minutes. This is hardcoded, not changeable.  
-  
+
 * Timeout properties that can be changed:   
 Connect.web.get.host.single.timeout.seconds = 30 is timeout for the REST API to get single host properties.   
 * Connect.web.plugin.timeout.seconds = 30 is timeout for the communication between tomcat and plugin. So far, it is only for updating host properties via REST API.  
-
-
-
-
