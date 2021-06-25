@@ -49,7 +49,7 @@ def get_nac_data():
             # Create proxy server
             proxy_server = intune_proxy_server.ConnectProxyServer()
             proxy_server.set_init(params)
-            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
             nac_request = request.Request(nac_url, headers=bearer_header)
             nac_response = request.urlopen(nac_request)
 
@@ -128,10 +128,10 @@ def get_graph_data(passed_filter, passed_filter_value):
             # Create proxy server
             proxy_server = intune_proxy_server.ConnectProxyServer()
             proxy_server.set_init(params)
-            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
 
             graph_request = request.Request(graph_url, headers=user_header)
-            graph_response = request.urlopen(graph_request, context=ssl_context)
+            graph_response = request.urlopen(graph_request)
 
             graph_response_dict = json.loads(graph_response.read())
 

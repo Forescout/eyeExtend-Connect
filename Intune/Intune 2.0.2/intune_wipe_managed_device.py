@@ -80,7 +80,7 @@ if EP_DEVICE_ID:
             # Create proxy server
             proxy_server = intune_proxy_server.ConnectProxyServer()
             proxy_server.set_init(params)
-            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
 
             wipe_request = request.Request(post_url, data, headers=user_header)
             wipe_response = request.urlopen(wipe_request)

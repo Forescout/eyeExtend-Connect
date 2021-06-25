@@ -98,10 +98,10 @@ if GRAPH_TOKEN:
             # Create proxy server
             proxy_server = intune_proxy_server.ConnectProxyServer()
             proxy_server.set_init(params)
-            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
 
             resolve_request = request.Request(resolve_url, headers=BEARER_HEADER)
-            resolve_response = request.urlopen(resolve_request, context=ssl_context)
+            resolve_response = request.urlopen(resolve_request)
             polled_response_json = json.loads(resolve_response.read())
 
             prop = polled_response_json["value"][0]

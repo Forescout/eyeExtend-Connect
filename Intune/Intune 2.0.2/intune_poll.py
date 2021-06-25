@@ -84,7 +84,7 @@ if GRAPH_TOKEN:
             # Create proxy server
             proxy_server = intune_proxy_server.ConnectProxyServer()
             proxy_server.set_init(params)
-            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
 
             poll_request = request.Request(poll_url, headers=user_header)
             poll_response = request.urlopen(poll_request)

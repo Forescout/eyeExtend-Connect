@@ -91,7 +91,7 @@ try:
     # Create proxy server
     proxy_server = intune_proxy_server.ConnectProxyServer()
     proxy_server.set_init(params)
-    opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+    opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
 
     logging.info('Requesting NAC Bearer Token')
     nac_req = request.Request(TOKEN_URL, data=nac_data, method="POST")
@@ -121,7 +121,7 @@ try:
     # Create proxy server
     proxy_server = intune_proxy_server.ConnectProxyServer()
     proxy_server.set_init(params)
-    opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+    opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
 
     logging.info('Requesting GRAPH Bearer Token')
     graph_req = request.Request(TOKEN_URL, data=graph_data, method="POST")
@@ -155,7 +155,7 @@ if P_USERNAME:
         # Create proxy server
         proxy_server = intune_proxy_server.ConnectProxyServer()
         proxy_server.set_init(params)
-        opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+        opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
         # DELEGATED GRAPH TOKEN
         logging.info('Requesting DELEGATED GRAPH Bearer Token')
 

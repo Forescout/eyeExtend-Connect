@@ -93,7 +93,7 @@ if NAC_TOKEN:
             # Create proxy server
             proxy_server = intune_proxy_server.ConnectProxyServer()
             proxy_server.set_init(params)
-            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all)
+            opener = proxy_server.get_urllib_request_https_opener(intune_proxy_server.ProxyProtocol.all, ssl_context)
 
             resolve_request = request.Request(RESOLVE_URL, headers=BEARER_HEADER)
             resolve_response = request.urlopen(resolve_request)
