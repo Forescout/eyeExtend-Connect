@@ -255,7 +255,7 @@ There are a few possible approaches:
 
 * Create a global variable to track a subset (say 10%) each time it polls like, Poll #1 pull first 10% (1-10), Poll #2 pull second 10% (11-20) etc.
 
-* Create another field on the panel in system.json with "identifier": "true", and allow the user to assign a range or value(s) like 'connect_versa_appliance_range' with first instance 1-100, second instance 101-200 etc...
+* Create another field on the panel in system.json with "identifier": "true", and allow the user to assign a range or value(s) like 'connect_versa_appliance_range' with first instance 1-100, second instance 101-200 etc...  In this case you have to choose different connecting appliance for each configuration. For example, you can configure 1-100 with appliance A, and second 101-200 to appliance B. In the polling script, send back only the information within the range configured as response. Then appliance A will receive 1-100, appliance B will receive 101-200.
 
 ### Are there polling timers I can change?
 
