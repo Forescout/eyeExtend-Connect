@@ -17,7 +17,7 @@ All eyeExtend Connect Apps posted here are community contributed and community s
 
 
 ## Connect Plugin
-You must have the Connect plugin installed on your Forescout platform to run this apps. 
+You must have the Connect plugin installed on your Forescout platform to run these apps. 
 
 ## Deploying an App
 Under the 'Options' select the 'Connect' panel to access the settings. Use the 'Import' button to upload the App's .eca file. Follow the configuraiton requirements per the App to deploy the integration.
