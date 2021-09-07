@@ -259,7 +259,8 @@ There are a few possible approaches:
 
 ### Are there polling timers I can change?
 
-The timeout for polling, action, resolve is 2 minutes. This is hardcoded, not changeable.  
+The timeout for polling, action, resolve is 2 minutes. In Connect versions prior to 1.6.1 this time is hardcoded and not configurable.  Versions 1.6.1 and later the defautl time can be changed with the command:  
+```fstool connect_module set_property connect.python.socket.read.timeout.seconds <time in second>```
 
 * Timeout properties that can be changed:   
 Connect.web.get.host.single.timeout.seconds = 30 is timeout for the REST API to get single host properties.   
