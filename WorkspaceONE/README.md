@@ -1,5 +1,5 @@
 # Forescout  
-eyeExtend for Workspace ONE App README.md Version: 1.0.0  
+eyeExtend for VMware Workspace ONE App README.md Version: 1.0.0  
   
 ## Configuration Guide  
 **Version 1.0.0**  
