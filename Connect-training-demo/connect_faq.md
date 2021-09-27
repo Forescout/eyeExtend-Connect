@@ -51,7 +51,7 @@ In general, to submit an App you need:
 * Zip package file: A valid zip package that contains the required content for deployment of the Apps including code, readme, license but not screen shots etc.
 
 
-Once you have everything assembled, send it to `connnect-app-submission@forescout.com`
+Once you have everything assembled, send it to `connect-app-submission@forescout.com`
 
 Someone from Forescout will work with you on any issues found and once completed it will be published and a signed version placed on [the Forescout github](https://github.com/Forescout/eyeExtend-Connect).
 
