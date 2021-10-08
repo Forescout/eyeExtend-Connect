@@ -51,7 +51,7 @@ In general, to submit an App you need:
 * Zip package file: A valid zip package that contains the required content for deployment of the Apps including code, readme, license but not screen shots etc.
 
 
-Once you have everything assembled, send it to `connnect-app-submission@forescout.com`
+Once you have everything assembled, send it to `connect-app-submission@forescout.com`
 
 Someone from Forescout will work with you on any issues found and once completed it will be published and a signed version placed on [the Forescout github](https://github.com/Forescout/eyeExtend-Connect).
 
@@ -259,7 +259,8 @@ There are a few possible approaches:
 
 ### Are there polling timers I can change?
 
-The timeout for polling, action, resolve is 2 minutes. This is hardcoded, not changeable.  
+The timeout for polling, action, resolve is 2 minutes. In Connect versions prior to 1.6.1 this time is hardcoded and not configurable.  Versions 1.6.1 and later the defautl time can be changed with the command:  
+```fstool connect_module set_property connect.python.socket.read.timeout.seconds <time in second>```
 
 * Timeout properties that can be changed:   
 Connect.web.get.host.single.timeout.seconds = 30 is timeout for the REST API to get single host properties.   

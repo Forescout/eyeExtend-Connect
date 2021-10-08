@@ -1,0 +1,631 @@
+{
+	"info": {
+		"_postman_id": "12111e7c-f70c-4d50-bca7-e08eca681055",
+		"name": "Forescout-Microsoft-NAC-Graph-Customer",
+		"description": "Intune\r\nUses Environment Intune GRAPH and NAC API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "APP-Only",
+			"item": [
+				{
+					"name": "NAC-API",
+					"item": [
+						{
+							"name": "1 Discovery Token (MS Graph)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"response = pm.response.json()\r",
+											"\r",
+											"pm.collectionVariables.set(\"Bearer-Token-NAC-Discovery\", response.access_token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "{{APP-ID}}",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "{{APP-Secret}}",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "https://graph.microsoft.com/.default",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://login.microsoftonline.com/{{Tenant-ID}}/oauth2/v2.0/token",
+									"protocol": "https",
+									"host": [
+										"login",
+										"microsoftonline",
+										"com"
+									],
+									"path": [
+										"{{Tenant-ID}}",
+										"oauth2",
+										"v2.0",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2 Service Discovery (MS Graph)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Get NAC URI\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    jsonData.value.forEach(function(service){\r",
+											"        if(service.providerName == \"NACAPIService\"){            \r",
+											"            pm.collectionVariables.set(\"ServiceEndpoint-URI\", service.uri);\r",
+											"            console.log('Service URI : ', service.uri)\r",
+											"            return;\r",
+											"        }\r",
+											"    });\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded",
+										"disabled": true
+									},
+									{
+										"key": "api-version",
+										"type": "text",
+										"value": "1.6",
+										"disabled": true
+									},
+									{
+										"key": "client-request-id",
+										"type": "text",
+										"value": "{{client id}}",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{Bearer-Token-NAC-Discovery}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client-request-id",
+											"value": "{{APP-ID}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://graph.microsoft.com/v1.0/servicePrincipals/appId=0000000a-0000-0000-c000-000000000000/endpoints",
+									"protocol": "https",
+									"host": [
+										"graph",
+										"microsoft",
+										"com"
+									],
+									"path": [
+										"v1.0",
+										"servicePrincipals",
+										"appId=0000000a-0000-0000-c000-000000000000",
+										"endpoints"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3 Get-Bearer-Token Device NAC",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"response = pm.response.json()",
+											"",
+											"pm.collectionVariables.set(\"Bearer-Token-NAC-Device\", response.access_token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableCookies": true,
+								"disableUrlEncoding": false,
+								"followAuthorizationHeader": false,
+								"strictSSL": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "{{APP-Secret}}",
+											"type": "text"
+										},
+										{
+											"key": "resource",
+											"value": "https://api.manage.microsoft.com/",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "{{APP-ID}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://login.microsoftonline.com/{{Tenant-ID}}/oauth2/token",
+									"protocol": "https",
+									"host": [
+										"login",
+										"microsoftonline",
+										"com"
+									],
+									"path": [
+										"{{Tenant-ID}}",
+										"oauth2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4 NAC Device Call by MAC",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    var jsonObject = xml2Json(responseBody);\r",
+											"    pm.expect(jsonObject.ise_api.name).to.eql(\"attributes\");\r",
+											"    var macaddress = pm.environment.get(\"mac address\");\r",
+											"    pm.expect(jsonObject.ise_api.deviceList.device.macaddress).to.eql(macaddress);\r",
+											"    pm.expect(jsonObject.ise_api.deviceList.device.attributes.compliance.status).to.eql(\"true\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{Bearer-Token-NAC-Device}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ServiceEndpoint-URI}}/devices/?querycriteria=macaddress&value={{MacAddress}}&api-version=1.3",
+									"host": [
+										"{{ServiceEndpoint-URI}}"
+									],
+									"path": [
+										"devices",
+										""
+									],
+									"query": [
+										{
+											"key": "value",
+											"value": "d83170b37addccfad499b121c1a602792b4d7c09",
+											"disabled": true
+										},
+										{
+											"key": "querycriteria",
+											"value": "udid",
+											"disabled": true
+										},
+										{
+											"key": "paging",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "querycriteria",
+											"value": "macaddress"
+										},
+										{
+											"key": "value",
+											"value": "{{MacAddress}}"
+										},
+										{
+											"key": "api-version",
+											"value": "1.3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Graph-API",
+					"item": [
+						{
+							"name": "5 - Get-Bearer-Token APP Graph API",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"response = pm.response.json()",
+											"",
+											"pm.collectionVariables.set(\"Bearer-Token-GRAPH\", response.access_token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableCookies": true,
+								"disableUrlEncoding": false,
+								"followAuthorizationHeader": false,
+								"strictSSL": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "{{APP-Secret}}",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "https://graph.microsoft.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "client_id",
+											"value": "{{APP-ID}}",
+											"type": "text"
+										},
+										{
+											"key": "resource",
+											"value": "https://graph.microsoft.com/",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://login.microsoftonline.com/{{Tenant-ID}}/oauth2/token",
+									"protocol": "https",
+									"host": [
+										"login",
+										"microsoftonline",
+										"com"
+									],
+									"path": [
+										"{{Tenant-ID}}",
+										"oauth2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "6 - Intune Devices - APP-Only - serialNumber",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{Bearer-Token-GRAPH}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices?$filter=serialNumber eq 'CHANGE-ME'",
+									"protocol": "https",
+									"host": [
+										"graph",
+										"microsoft",
+										"com"
+									],
+									"path": [
+										"v1.0",
+										"deviceManagement",
+										"managedDevices"
+									],
+									"query": [
+										{
+											"key": "$filter",
+											"value": "serialNumber eq 'CHANGE-ME'",
+											"description": "Supply a device serial number"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "7 - Intune Devices - APP-Only - deviceName",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{Bearer-Token-GRAPH}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "https://graph.microsoft.com/beta/deviceManagement/managedDevices?$filter=deviceName eq 'CHANGE-ME'",
+									"protocol": "https",
+									"host": [
+										"graph",
+										"microsoft",
+										"com"
+									],
+									"path": [
+										"beta",
+										"deviceManagement",
+										"managedDevices"
+									],
+									"query": [
+										{
+											"key": "$filter",
+											"value": "deviceName eq 'CHANGE-ME'",
+											"description": "Supply a device name"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "8 - Intune Devices - APP-Only - deviceID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{Bearer-Token-GRAPH}}"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices?$filter=azureADDeviceId  eq 'CHANGE-ME'",
+									"protocol": "https",
+									"host": [
+										"graph",
+										"microsoft",
+										"com"
+									],
+									"path": [
+										"v1.0",
+										"deviceManagement",
+										"managedDevices"
+									],
+									"query": [
+										{
+											"key": "$filter",
+											"value": "azureADDeviceId  eq 'CHANGE-ME'",
+											"description": "Supply a device name"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Bearer-Token-GRAPH",
+			"value": ""
+		},
+		{
+			"key": "APP-ID",
+			"value": ""
+		},
+		{
+			"key": "APP-Secret",
+			"value": ""
+		},
+		{
+			"key": "Tenant-ID",
+			"value": ""
+		},
+		{
+			"key": "ServiceEndpoint-URI",
+			"value": ""
+		},
+		{
+			"key": "Bearer-Token-NAC-Discovery",
+			"value": ""
+		},
+		{
+			"key": "Bearer-Token-NAC-Device",
+			"value": ""
+		},
+		{
+			"key": "Bearer-Token-NAC-Device1",
+			"value": ""
+		}
+	]
+}
