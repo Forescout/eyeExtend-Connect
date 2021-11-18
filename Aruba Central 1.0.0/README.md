@@ -14,6 +14,10 @@ Forescout eyeExtend Connect Aruba Central APP README.md
 
 ## About the eyeExtend Connect Aruba Central APP
 
+- Originally when the Aruba Central App was developed, the API rate limit for Aruba Central was 1 million per day.  Now the limit has been reduced to 1000 per day. This means the Aruba Central App will now not function as intended.  
+
+- WARNING:  Please contact Aruba support to change default API limits  before using this App.
+
 ### Version v1.0.0 Aruba Central APP
 
 The APP gathers <mark>Wireless AP</mark>, <mark>Endpoint (Clients) Wired / Wireless</mark> information, allowing you to build Forescout policies relating to the Aruba Central
@@ -22,16 +26,16 @@ The APP gathers <mark>Wireless AP</mark>, <mark>Endpoint (Clients) Wired / Wirel
 
 ## Requirements
 
-- Access to Aruba Central 
+- Access to Aruba Central
 
 - Forescout CounterACT 8.2, 8.1.4
 
 - Forescout eyeExtend Connect 1.5 or higher
 
 - See license.txt file for license information
-  
+
   ## User Interface
-  
+
   You can refer to the Forescout eyeExtend Connect Module: Connect Application Building Guide, in particular the
   sections on ”Define system.conf File” and “User Interface Details”.
 
@@ -107,39 +111,39 @@ Successfully connected. No of Sites 1
 - User can import the Aruba Central Connect APP via eyeExtend Connect module
 
 - APP file shall look similar to **Forescout-arubacentral.eca** which is signed
-  
+
   ## Start and Stop APP
 
 - User can start and stop the Aruba Central App
 
 - When the APP is stopped, all properties resolve, actions and policy are suspended.
-  
+
   ### Remove APP
 
 - User can remove the APP if no longer needed
 
 - User need to delete the Aruba Central policy first to remove the App.
-  
+
   ## Policy Templates
 
 - There is 3 default Aruba Central Templates
 
-- After importing the App. The policies can be found under Policy > Add > Aruba Central > 
-  
+- After importing the App. The policies can be found under Policy > Add > Aruba Central >
+
   ​	*Aruba Central Access Point Status (UP/DOWN)*
 
   ​	*Aruba Central Access Point Firmware Level*
-  
+
   ​	*Aruba Central Client Wireless by Radio GHz*
-  
+
   ## Actions
-  
+
   <mark>NONE</mark>
-  
+
   ## Properties
-  
+
   Properties gathered from the Aruba Central.
-  
+
   **Access Points**
 
 <mark>Common Properties across ALL (AP / Wired / Wireless)</mark>
@@ -213,20 +217,20 @@ Successfully connected. No of Sites 1
 
 * Discovery used to poll for full discovery of AP / Wireless / Wired.
   **arubacentral_poll.py**
-  
+
   <mark>Aruba Central Options TAB (Discover AP / Wireless / Wired check boxes, effects this poll)</mark>
-  
+
 * Resolve scripts for AP / Wireless / Wired
-  
+
   **arubacentral_ap_resolve.py**
-  
+
   **arubacentral_wired_resolve.py**
-  
+
   **arubacentral_wireless_resolve.py**
-  
+
 * Test authentication to Aruba Central
   **arubacentral_test.py**
-  
+
 ## Inventory
 
 A lot of the properties are available in the Inventory TAB.
@@ -242,7 +246,7 @@ For example when you select the "AP Serial No." property, you will see every ass
 
 Same for "AP Site" and "Group Name"
 
-There are properties that will not group, because they are only associated with a particular type. i.e 
+There are properties that will not group, because they are only associated with a particular type. i.e
 Wireless property "Aruba Central Client Wireless Channel", it has nothing in common with Wired asset(s).
 
 ## Notes

@@ -1,112 +1,207 @@
-Forescout eyeExtend Connect Kaseya VSA Patch Management App README.md
- 
+# Forescout
+eyeExtend Connect for KaseyaVSA App README.md Version: 3.0.0
 
-## Legal Notice
-© 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation.
-A list of our trademarks and patents can be found at https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks.
-Other brands, products, or service names may be trademarks or service marks of their respective owners.
+## Configuration Guide
+**Version 3.0.0**
+- Added OAuth 2.0 authentication mechanism
 
-## About the eyeExtend Connect Kaseya VSA Patch Management
-The App gathers patch information for all Windows endpoint assets registered to Kaseya VSA Patch Management. The current version is able to detect the following:
+## Contact Information  
+- Have feedback or questions? Write to us at
 
- - Kaseya VSA - Get Agent Status
- - Kaseya VSA - Get Endpoint Details
- - Kaseya VSA - Get Patch Compliance
- - Kaseya VSA - Get Patch Scan Date Compliance
+        **[connect-app-help@forescout.com](mailto:connect-app-help@forescout.com)**
 
-User can also use policies or trigger actions to send email notification and/or run custom scripts. The App uses URL API interface to access the Kaseya VSA server.
+## App Support
 
-## Requirements
-The App supports:
-- Kaseya VSA Build Version: 9.5.0.2, Patch Level 27
-- Forescout CounterACT 8.2
-- Forescout eyeExtend Connect 1.1.0
-- User name & password to connect to Kaseya VSA server with either Master or Policy Management role.
-- See license.txt file for license information
+- All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team.
+- See Contact Information above.
 
-Note:
-This app was tested using the Patch Management module of Kaseya VSA. I understand that Kaseya has another module called Software Management--that can also be used for patch management. This app does not support integration with the Kaseya Software Management module, as there was no API available during the time of development.
+## About eyeExtend Connect App for KaseyaVSA
 
-## User Interface
-You can refer to the Forescout eyeExtend Connect Module: Connect Application Building Guide, in particular the sections on ”Define system.conf File” and “User Interface Details”.
+# About This App
 
-### Panels
-#### Device
-User can add Kaseya VSA Patch Management server to the App.
-- Server name shall be the Kaseya VSA Patch Management server in "http://<ManageEngineServerNameOrIP>:<port>" format
-- User shall be admin that can access Kaseya VSA web APIs via management interface
-- Password shall be the admin password that can be used to do web API call to Kaseya VSA Patch Management server
-- User can test the device by clicking TEST button after applying changes.
-- User can add multiple devices, they need to be unique and has a dedicated focal appliance.
+Version 3 of the KaseyaVSA App has now added the ability to work with either Basic or OAuth 2.0 authentication mechanisms.
 
-#### Focal appliance
-Each device shall run on one dedicated focal appliance.
+Basic Authentication allows for obtaining an access token with Username and Password only.
 
-### Test button
-- Test is enabled by default.
-- Device info need to be saved (applied) before test can be successfully run.
+OAuth 2.0 Authentication allows for obtaining an access token using Client ID, Client Secret, Redirect URI and an Authorization Code. This also obtains a refresh token to update the access token on a regular interval.
 
-## Manage the App
+# What to Do  
+To set up your system for integration with eyeExtend Connect for KaseyaVSA, using OAuth 2.0 authentication, perform the following steps:  
 
-### Import
-- User can import the Kaseya VSA Patch Management Connect App via eyeExtend Connect module
+1. Register Forescout as an OAuth Client within the KaseyaVSA Management Server.  
+2. Obtain an Authorization Code through a browser. Refer to Kaseya ![alt text] (https://help.kaseya.com/webhelp/EN/RESTAPI/9050000/UsingOAuth2.0toAccessVSAAPIs.pdf "Using OAuth 2.0 to Access VSA APIs")
+3. Download and install the module. See How to Install.  
+4. Configure the module. See Configure the Module.  
+5. Configure policy templates. See Configure KaseyaVSA Policy Templates.  
+6. Configure properties. See Configure Properties.  
+7. Configure actions. See Configure Actions.  
 
-## Start and Stop App
-- User can start and stop the Kaseya VSA Patch Management App
-- When the App is stopped, all properties resolve, actions and policy are suspended.
+# How to Install  
+Get Forescout eyeExtend Connect plugin and KaseyaVSA App from Forescout.  
 
-### Remove App
-- User can remove the App if no longer needed
-- User need to delete the Kaseya VSA Patch Management policies first to remove the App.
+## Ensure That the Plugin is Running  
+After installing the Connect plugin, ensure that it is running.  
 
-## Policy Templates
-- There is a default Kaseya VSA Patch Management Patch Template
-- After importing the App. the policy can be found under Policy > Add > Kaseya VSA 
-- User can use the default policy to resolve properties from endpoint on a schedule or policy match.
-- The policies included are as follows:
-    a. Kaseya VSA - Get Endpoint Details  - This policy MUST BE created first, since the obtained Resource ID from this policy is used to gather endpoint patch management details from the Kaseya VSA Patch Management server.
-    b. Kaseya VSA - Get Agent Status - This policy checks all managed Windows endpoints for the presence of patch management agent.
-	c. MEPM Patch Scan Status - This policy shows the patch scan status applied to the endpoint.
-	d. MEPM Endpoint Vulnerability Status - This policy shows the health status of an endpoint based on the following category: Highly Vulnerable, Vulnerable, Healthy and Unknown.
+To verify:  
 
-## Properties
-The following properties are captured from the Kaseya VSA Patch Management server for the endpoint.
-- Endpoint Agent ID
-- Endpoint Asset ID
-- Endpoint Machine Group
-- Endpoint OS Name
-- Endpoint Last Seen Date
-- Endpoint Last Patch Scan Date
-- Endpoint Has Patch Scan History
-- Endpoint Asset is Patch Compliant
-- Endpoint Missing Patches with the following details:
-    - Patch Update Classification
-    - KB Article ID
-    - Update Title
-    - Product Name
+1. Select **Tools** > **Options** > **Modules**.  
+2. Navigate to the component and hover over the name to view a tooltip indicating if it is running on Forescout devices in your deployment. In addition, next to the component name, you will see one of the following icons:  
 
-## Actions
-Two (2) actions are available in this App, and they are the following:
-    - Run Patch Scan Now
-    - Run Patch Update Now
+- The component is stopped on all Forescout devices.  
+- The component is stopped on some Forescout devices.  
+- The component is running on all Forescout devices.  
 
-Note: During the time of development, although an API for the Patch Update action is available, we found out that it was not working properly. A ticket was raised to the vendor, and the vendor admitted that there's a defect in the said API.
+3. If the component is not running, select **Start** , and then select the relevant Forescout devices.  
+4. Select **OK**.
 
-## Scripts
-There are eight (8) scripts that comes with this app.
-- KASEYAVSA_API_LIB.py
-This file serves as the program library, and serves as the repository for all commonly used program functions.
-- kaseyavsa_test.py
-Script used to validate connectivity to the patch management server.
-- kaseyavsa_resolve.py
-This script is used to resolve the endpoint properties.
-- kaseyavsa_poll.py
-This script is used to regularly poll the Kaseya VSA server to resolve endpoint properties.
-- kaseyavsa_patch_now.py
-This script is used to trigger the Kaseya VSA server to initiate a patch.
-- kaseyavsa_last_patch_scan_date_resolve.py
-This script is used to resolve the last patch scan date of the endpoint.
+# Configure the Module
+After eyeExtend Connect is installed, **Connect** is displayed under **Options**.
+
+## Configure KaseyaVSA App
+To configure eyeExtend Connect for KaseyaVSA, you import the KaseyaVSA App.
+
+Initially, the App Configuration tab of the **Connect** pane is blank. The KaseyaVSA App has not been imported yet.
+
+## Import an App
+You can import the KaseyaVSA App.
+
+To import the KaseyaVSA App:
+
+In the App Configuration tab of the **Connect** pane, select **Import**.
+Apps that can be imported are in .zip or .eca format. They can be in any folder.
+	Select **Import**.  
+If the app is imported successfully, a message is displayed at the bottom of the **Sending** dialog box. If the app is not imported successfully, error messages are displayed in the **Sending** dialog box.  
+
+Select
+**Close** when the import has finished.
+A blank **System Description** dialog box opens. 
+
+- If you select **Close** before the import has finished, it will fail.  
+
+## Panels
 
 
-## Licenses
-This App bundles with a license.txt file. Please review the license.txt file.
+After the app is imported, the **System Description** dialog box opens. It is initially blank and only the **Add** and **Import** buttons are enabled.  
+
+To configure the KaseyaVSA App, you add a system description to define a connection, which includes login credentials.  
+
+If a system description has not been configured and you select **OK** now, a warning message is displayed.  
+
+Select **Add**
+
+### Kaseya VSA Server Connection
+
+
+Enter the following information:  
+
+- VSA Server IP Address: Enter the KaseyaVSA server IP address.
+- VSA Server Port: Enter the KaseyaVSA server port. The default is TCP/443 
+- Connection Type: Specify the connection method which will be used for authentication.
+
+
+Select **Next**
+
+### Kaseya VSA Basic Authentication
+
+
+When using **Basic Authentication**, enter the required credentials.
+
+
+- Username
+- Password
+
+
+Select **Next**.
+
+### Kaseya VSA OAuth 2.0
+
+
+When using **OAuth 2.0**, some manual action is required for authentication.
+
+When configuring the App for the first time, or when the App is unavailable longer than the refresh time, an Authorization Code must be manually obtained and provided. Following this, the refresh token will be used to renew authenticated access.
+
+The required parameters must be entered ***exactly*** as entered when registering the OAuth Client in KaseyaVSA. The Authorization Code obtained must be entered and the plugin configuration applied within 5 minutes of obtaining the code.
+
+- Client ID
+- Client Secret
+- Authorization Code
+- Redirect URL
+
+
+Select **Next**
+
+### Focal Appliance
+
+
+ - Initially, the Assign CounterACT Devices panel has only one option, **Assign all devices by default** , and it is selected so that one device is added.
+
+If you want to add a second device, the Assign CounterACT Devices panel has more options.
+
+Enter the following information:
+
+- Connecting CounterACT Device: Select Enterprise Manager or an IP address of the connecting CounterACT device. In an environment where more than one CounterACT device is assigned to a single third-party instance, the connecting CounterACT Appliance functions as a middleman between the third-party instance and the CounterACT Appliance. The connecting CounterACT Appliance forwards all queries and requests to and from the third-party instance.  
+- Assign specific devices: This CounterACT Appliance is assigned to a third-party instance, but it does not communicate with it directly. All communication between the third-party instance and its assigned CounterACT Appliance is handled by the connecting CounterACT Appliance defined for the third-party instance. All the IP addresses handled by an assigned Appliance must also be handled by the third-party instance to which the Appliance is assigned.  
+  - Select **Available Devices** and then select an IP address or Appliance name from the Available Devices list.  
+  - Select **Add**. The selected device will send its requests to the third-party instance through the connecting Appliance.  
+- Assign all devices by default: This is the connecting Appliance to which CounterACT Appliances are assigned by default if they are not explicitly assigned to another connecting Appliance. Select this option to make this connecting Appliance the middleman for all CounterACT Appliances not assigned to another connecting device.  
+
+
+Note the following:  
+
+- An error message is displayed if you try to add a device that is already used.  
+- If you have apps that discover 50,000 or more endpoints, distribute the apps in such a way so that only up to two of the apps share the same focal (connecting) appliance. An alternative is to split the endpoints across multiple user accounts on multiple servers.  
+
+
+Select **Next**.
+
+### Proxy Server
+
+
+Enter the Proxy Server information similar to any Forescout Extend Module:  
+
+Select **Next**.  
+
+### Kaseya VSA Options
+
+- Enable Host Discovery: Select this option to enable the **Discovery Frequency** field.
+
+- Discovery Frequency: Select a value for the frequency of host discovery, which is the interval between discoveries. The default is 60 minutes.
+
+- Authorization Interval: Set the interval to refresh the token, for OAuth the Kaseya token expires every 30 mins by default. The default interval is to refresh every 28 minutes.
+
+- Number of API queries per second: Select a value for the rate limiter. The range is from 1 to 1000 requests per second. The default is 100 request per second. You can rate limit the requests sent to the third-party server. The rate limiter specifies the number of times a script is invoked during the specified time. It is triggered when the app starts.
+
+
+## Edit a System Description  
+You can edit an existing system description for the KaseyaVSA App.  
+
+To edit a system description:  
+
+Select an existing system description and select **Edit**.  
+
+There are tabs for each pane. You can edit the settings in the Kaseya VSA Server Connection, Kaseya VSA Basic Authentication, Kaseya VSA OAuth 2.0, Assign CounterACT Devices, Proxy Server, and Kaseya VSA Options tabs.  
+
+Select **OK** to save the system description edits to the CounterACT Appliance.  
+
+## Remove a System Description  
+You can remove an existing system description.  
+
+To remove a system description:  
+Select an existing system description
+Select **Remove**. A confirmation is displayed.  
+
+**More** for details or **Ok**.  
+
+## Test a System Description  
+You can test a system description, which tests the connection of the KaseyaVSA App to the KaseyaVSA server. The app must be in the Running state.  
+
+Also, the app must be saved before selecting **Test**. Select **OK** in the **System Description** dialog box and then select **Apply** in the **Connect** pane to save the system description. Please wait about 5-10 seconds after clicking apply.  
+
+To test a system description:  
+
+Select an existing system description
+Select
+**Test**.  
+    If the connectivity of the system description has been tested successfully, a success message is displayed at the top of the dialog box. If the test failed, a failure message is displayed with a reason.  
+
+**Close**.
