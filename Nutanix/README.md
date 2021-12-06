@@ -1,85 +1,109 @@
-# Nutanix Connect App v1.0.0
 
-This first version of Nutanix eyeExtend Connect App v1.0.0 is used to leverage PRISM v3 API to Poll / Resolve Properties from Nutanix Hyperconverged Platform through Prism Central. 
+### About the Cisco FMC App 1.0.0
+- App is written to integate only with Cisco FMC v7
+- It will add the Endpoint IP to a Dynamic Object Group
+- Dynamic Objects are only supported from FMC/FTD v7 onwards
 
- Prism v3 is an Intentful API designed for full environment management via Nutanix Prism Central. We leveraged four API Endpoitns to List Hosts (Poll), or get an update of a specific Host Details (Resolve), in addition to List VMs (Poll) and update a specific VM Details (Resolve). For Poll queries, recursive Paging has been implemented to ensure all Hosts / VMs, including their properties details are Polled via Prism Central. 
- 
-## Host Properties Polled / Resolved 
+### Future Releases
+- App will be modified to support direct integration with FTD
 
-For Hosts, the following properties will be learned: 
-- Host uuid 
-- Host Details (Composite)
+### Requirements
+The App supports:
+- FMC v7 and its FTDs should be in v7 or higher
+- Forescout CounterACT 8.2
+- Forescout eyeExtend Connect 1.1
 
-The Host Details Composite includes the following sub-fields: 
-- Name
-- State 
-- Serial Number 
-- Number of VMs 
-- Hypervisor Full Name
-- Host Type
-- CPU Model
-- CPU Capacity (Hz)
-- Num. of CPU Cores
-- Controller VM IP
-- Controller Op Log Usage(%)
-- Memory Size (MB)
 
-## VM Properties Polled / Resolved 
+### How it works
+- Forescout Cisco FMC app will integrate with Cisco FMC via a Rest API user
+- Forescout will share the Endpoint IP based on Policy Action to Cisco FMC Dynamic Object
+- Cisco FMC then will share the IP with FTDs near real time which refers the Dynamic Object in a Firewall policy
 
-For Virtual Machines, the following properties will be learned: 
-- VM uuid 
-- VM Details (Composite)
+### User Account Details
+- You need to enable 'Rest API' globally which is under REST API preferences
+- You need to create a user with following minimum previledges
+  - Object Manager , Modify Object Manager
+  - REST VDI , Modify REST VDI
+- This user account will be used to integrate with Cisco FMC
 
-The VM Details Composite includes the following sub-fields: 
-- Name
-- State
-- Num vCPU per Socket
-- Num. Sockets
-- Threads per Core
-- is Agent VM
-- VGA Console Enabled
-- Protection Type
-- Memory Size (MB)
-- Machine Type
-- Host Ref Kind
-- Host Ref uuid
-- Host Ref Name
-- Hypervisor Type
-- CPU Passthru Enabled
-- Power State
-- Branding Disabled
-- Cluster Ref Kind
-- Cluster Ref uuid
-- Cluster Ref Name 
-- NIC uuid (per Endpoint)
-- NIC Connected (per Endpoint)
-- NIC Vlan Mode (per Endpoint)
-- NIC Type (per Endpoint)
-- NIC Subnet Ref (per Endpoint)
+### Properties - Only for Remote Access VPN via Syslog
+- Introduced Properties are 'FMC RAVPN Public IP' and 'FMC RAVPN Username'
+- These properties will only be resolved if syslog is forward to the connecting Forescout applicance
+- Please see below how to perform a Syslog Mapping
 
-## Community Support Requirements
-•	Prism v3 API. 
-•	Forescout CounterACT 8.2.2
-•	Forescout eyeExtend Connect 1.6
+### Actions
+- Introduced 'Add to Dynamic Object' action
+- This action requires two Properties
+  - Domain Name
+  - Dynamic Object Name
 
-## Configuration required on Nutanix App
+- Dynamic Object should be refered in the relevant Firewall rule(Access policy)
+- Each Dynamic Object is created for a particular Domain. The Default Domain is 'Global'
+- Domain names may differ based on how you have architected the Cisco FMC solution
 
-Default port is 9440 (if custom port is needed we can easily modify the App to accomodate this requirement).  
 
-- Prism API(v3) IP 
-- Username 
-- Password 
+### Syslog Mapping
+#### Forescout Configurations to enable syslog parsing
+```javascript
+  # On the Syslog Receiving Appliance
+  ##Custom Traps Event for Cisco FTD VPN
+  fstool syslog set_property config.type1.option.ftd_vpn_logs "Cisco FTD VPN Events"
+  fstool syslog set_property config.type2.option.ftd_vpn_logs "Cisco FTD VPN Events"
 
-User Account needed requires read-only access to the following API endpoints: 
-- /api/nutanix/v3/vms/list
-- /api/nutanix/v3/vms/{vm_uuid}
-- /api/nutanix/v3/hosts/list
-- /api/nutanix/v3/hosts/{host_uuid}
-    
-## Verifying Connectivity 
+  ## Restart Services
+  fstool service restart
 
-Use Test button (which is enabled by default) to verify connectivity to PRISM v3 API. 
+  ##Cisco FTD VPN Connect Event
 
-## Policy Templates
+  fstool syslog set_property template.ftd_vpn_connect.type "ftd_vpn_logs"
+  fstool syslog set_property template.ftd_vpn_connect.regexp ".*722051.+User\s<([^>]+)\>.+IP\s<([^>]\d+\.\d+\.\d+\.\d+)\>.+Address\s<([^>]\d+\.\d+\.\d+\.\d+)\>.+assigned to session"
+  fstool syslog set_property template.ftd_vpn_connect.properties "\$connect_ciscofmc_user,\$connect_ciscofmc_publicip,\$ip"
+  fstool syslog set_property template.ftd_vpn_connect.set_true "\$online"
 
-Includes one template policy to identify endoints with Host Details / Host uuid and VM Details / VM uuid. 
+
+  ##Cisco FTD VPN Disconnect Event
+  fstool syslog set_property template.ftd_vpn_disconnect.type "ftd_vpn_logs"
+  fstool syslog set_property template.ftd_vpn_disconnect.regexp ".*737016.*Freeing.*address\s(\d+\.\d+\.\d+\.\d+)"
+  fstool syslog set_property template.ftd_vpn_disconnect.properties "\$ip"
+  fstool syslog set_property template.ftd_vpn_disconnect.set_false "\$online"
+
+  ## Restart Syslog Plugin
+  fstool syslog restart
+```
+#### Forward Syslog to Forescout
+```javascript
+
+    1. Go to Devices-> Platform Settings ,
+    2. Create a new policy for 'Threat Defense Settings'
+        - Give a suitable name
+        - Add the VPN FTD Firewalls
+
+    3. Edit the Created Policy and Select 'Syslog' and Under this setting
+
+       a. For Logging Setup
+          - Under Basic Logging Setting - > Enable Logging
+          - Under VPN Logging Setting -> Enable Logging to FMC and Select Informational
+          - Keep the rest of the settings default
+
+       b. For Logging Destinations
+          - Add a new Destinations
+              * Logging Destination -> Syslog server
+              * Event Class - > Filter on Severity - > Select Informational
+              * Add the Below Event Classes
+                --- Event Class - > SVC , Syslog Severity - > Informational
+                --- Event Class -> VPNC , Syslog Severity - > Informational
+
+        c. Under Syslog Settings
+          - Select Facility - > Local4
+          - Enable timestamp
+          - Enable syslog device ID - > Hostname
+
+        d. Under Syslog Servers
+          - Enable Allow user traffic to pass when TCP syslog server is down
+          - Add the Forescout Syslog Receiving appliance
+              * IP and the relevant port should be selected
+              * Relevant Security Zones should be selected
+
+      4. Save and Deploy the policy
+
+```
