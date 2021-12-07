@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-6083157778146773893" NAME="pfSense Aliases" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: pfSense Aliases-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_pfsense_aliases" LABEL="pfSense Aliases" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="-3151053723798702064" TYPE="any">
+                    <VALUE VALUE2="Any"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="5305124740861699347" NAME="demofs - In Scope">
+            <RANGE FROM="10.0.1.0" TO="10.0.1.255"/>
+            <RANGE FROM="10.0.2.2" TO="10.0.2.253"/>
+            <RANGE FROM="10.0.3.2" TO="10.0.3.253"/>
+            <RANGE FROM="10.0.4.2" TO="10.0.4.253"/>
+            <RANGE FROM="10.0.5.2" TO="10.0.5.253"/>
+            <RANGE FROM="10.0.11.0" TO="10.0.16.255"/>
+            <RANGE FROM="10.0.31.0" TO="10.0.36.255"/>
+            <RANGE FROM="10.0.61.0" TO="10.0.66.255"/>
+            <RANGE FROM="10.0.91.0" TO="10.0.91.255"/>
+            <RANGE FROM="10.0.95.0" TO="10.0.95.255"/>
+            <RANGE FROM="10.0.100.1" TO="10.0.100.255"/>
+            <RANGE FROM="10.0.101.1" TO="10.255.255.255"/>
+            <RANGE FROM="74.209.0.0" TO="74.209.255.255"/>
+            <RANGE FROM="137.48.0.0" TO="137.48.255.255"/>
+            <RANGE FROM="172.16.0.0" TO="172.16.99.255"/>
+            <RANGE FROM="172.16.100.1" TO="172.16.100.254"/>
+            <RANGE FROM="172.16.101.1" TO="172.16.101.254"/>
+            <RANGE FROM="172.16.102.0" TO="172.17.255.255"/>
+            <RANGE FROM="172.19.1.1" TO="172.26.11.255"/>
+            <RANGE FROM="172.27.12.0" TO="172.27.17.255"/>
+            <RANGE FROM="172.27.20.0" TO="172.27.23.255"/>
+            <RANGE FROM="172.30.0.0" TO="172.31.255.255"/>
+            <RANGE FROM="192.168.0.0" TO="192.168.155.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-5533253027301936568" NAME="Restricted Alias" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Restricted Alias-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_pfsense_aliases" LABEL="pfSense Aliases" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="-6154624760975847352" TYPE="contains">
+                            <VALUE VALUE2="Restricted"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="5088807661339596740" NAME="Approved Alias" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Approved Alias-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_pfsense_aliases" LABEL="pfSense Aliases" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="1503937100098819224" TYPE="contains">
+                            <VALUE VALUE2="Approved"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-2045824624468428424" NAME="No Aliases" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: No Aliases-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_pfsense_aliases" LABEL="pfSense Aliases" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="-9175009554484455364" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

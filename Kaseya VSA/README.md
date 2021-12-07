@@ -1,9 +1,12 @@
 # Forescout
-eyeExtend Connect for KaseyaVSA App README.md Version: 3.0.0
+eyeExtend Connect for KaseyaVSA App README.md Version: 3.0.1
 
 ## Configuration Guide
 **Version 3.0.0**
 - Added OAuth 2.0 authentication mechanism
+
+**Version 3.0.1**
+- Resolved issue with proxy usage
 
 ## Contact Information  
 - Have feedback or questions? Write to us at
@@ -29,7 +32,7 @@ OAuth 2.0 Authentication allows for obtaining an access token using Client ID, C
 To set up your system for integration with eyeExtend Connect for KaseyaVSA, using OAuth 2.0 authentication, perform the following steps:  
 
 1. Register Forescout as an OAuth Client within the KaseyaVSA Management Server.  
-2. Obtain an Authorization Code through a browser. Refer to Kaseya ![alt text] (https://help.kaseya.com/webhelp/EN/RESTAPI/9050000/UsingOAuth2.0toAccessVSAAPIs.pdf "Using OAuth 2.0 to Access VSA APIs")
+2. Obtain an Authorization Code through a browser. Refer to Kaseya [Using OAuth 2.0 to Access VSA APIs](https://help.kaseya.com/webhelp/EN/RESTAPI/9050000/UsingOAuth2.0toAccessVSAAPIs.pdf)
 3. Download and install the module. See How to Install.  
 4. Configure the module. See Configure the Module.  
 5. Configure policy templates. See Configure KaseyaVSA Policy Templates.  
