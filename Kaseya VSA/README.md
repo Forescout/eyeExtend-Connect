@@ -8,10 +8,13 @@ eyeExtend Connect for KaseyaVSA App README.md Version: 3.0.1
 **Version 3.0.1**
 - Resolved issue with proxy usage
 
+**Version 3.0.2**
+- Updated Server Certificate Validation functionality
+
 ## Contact Information  
 - Have feedback or questions? Write to us at
 
-        **[connect-app-help@forescout.com](mailto:connect-app-help@forescout.com)**
+**[connect-app-help@forescout.com](mailto:connect-app-help@forescout.com)**
 
 ## App Support
 
