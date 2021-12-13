@@ -9,7 +9,7 @@ Details on the App content and how to build and App can be found here.
 * [Tools](https://github.com/fs-connect) - App creation tools to simplify aspects of the app building process
 
 ## README file for App
-Each app should have its own README.md file (.md format only). It should follow the README.md in Global Protection, contains at least these 3 sections on the top:
+Each app should have its own README.md file (.md format only). It should follow the README.md in GlobalProtect app, containing at least these 3 sections on the top:
 
 #### Contact Information
 Forescout Technologies, Inc. 190 West Tasman Drive San Jose, CA 95134 USA https://www.Forescout.com/support/ Toll-Free (US): 1.866.377.8771 Tel (Intl): 1.408.213.3191 Support: 1.708.237.6591
