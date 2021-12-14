@@ -37,12 +37,12 @@ After Connect is installed, Connect is displayed under Options.
 ![](README.assets/options.png)
 
 
-## Connect Pane Overview
+### Connect Pane Overview
 Initially, the Connect pane is blank. The Jamf app has not been imported yet and the system description has not been configured yet.
 ![](README.assets/initial.png)
 
 
-## The buttons on the Connect pane are as follows:
+### The buttons on the Connect pane are as follows:
 Button  | Description
 ------------- | -------------
 Import  | Import an App
@@ -69,11 +69,79 @@ If the configuration has not been saved, select Apply to enable the Start button
 
 You can select an existing app and then select Edit to open the System Description dialog box.
 
-## System Description Dialog Box Overview
+### System Description Dialog Box Overview
 ![](README.assets/desc1.png)
 
+### Add a new Jamf server to the the App
+![](README.assets/add.png)
+The user configures the information for the connection to the Jamf server.  Remember, if the Server Certificate is to be verified, the Jamf system certificate will need to be in the Trusted Certificate Store on Forescout.
 
+Next, choose the connecting appliance to communicate with Jamf and determine if a proxy is needed for the connection.
 
+![](README.assets/jamfoptions.png)
+Finally, determine the Jamf options that will be used.
+
+Option | Description
+----------- | ----------
+Number of API queries per second | Select a value for the rate limiter.  The rate limiter only applies to property resolves inside of the resolve scripts for a single host and won’t limit how often a policy might ask Jamf for properties on all hosts to check for a matching condition.
+Enable Host Discovery | Check this box if you want to poll Jamf for all its managed devices.  If this box is checked, you must check at least one of the Computer or Mobile Device Poll boxes in order to discovery hosts managed by Jamf
+Discovery Frequency | Select a value (in minutes) for how often Jamf will be polled for its managed devices.
+Computer Poll | Check this box to poll Jamf for all of its Computers.  Any devices found will include a Jamf ID and that it is managed by Jamf.  Host Discovery must be enabled to poll for Computers.
+Mobile Device Poll | Check this box to poll Jamf for all of its Mobile Devices.  Any devices found will include a Jamf ID and that it is managed by Jamf.  Host Discovery must be enabled to poll for Mobile Devices.
+
+And Finish adding the Jamf server.
+
+### Test a Jamf Connection
+![](README.assets/test.png)
+
+After saving and applying the new Jamf server connection, you can test that it is working and authenticating correctly.  This test will return Computers in the Jamf server (not Mobile Devices).
+
+## Properties
+Jamf properties are available to be used in a policy.
+	**To access the Jamf properties:**
+	
+1. When configuring a policy, select **Add** in the Condition section of the Main Rule or Sub-Rule dialog box.
+	
+2. Expand the Jamf folders and select a property. 
+
+![](README.assets/properties.png)
+
+Jamf properties are divided into 2 groups, one for managed Computers and one for managed Mobile Devices.  
+
+**The following Computer properties are available:**
+
+Property Name | Description
+-------- | --------
+Jamf Agent Information | The following sub-properties are available: Agent Version, Initial Entry, Last Contacted
+Jamf Asset Purchasing | The following sub-properties are available: Leased, Purchased
+Jamf Boot Device | The following sub-properties are available: FileVault Status, Name, Size, FileVault Percent, Percentage Full
+Jamf Device Details | The following sub-properties are available: Memory (Total), Operating System, Serial Number, Make, Battery Capacity, Processor Speed, Model, Operating System Version, Processor Type, Operating System Build, Processor Cores (Total), Processor Architecture, Processors (Total)
+Jamf Device Name | The name of the device in Jamf
+Jamf ID | The Jamf ID, which can be entered as a single number, a list of numbers, or a range of numbers
+Jamf Managed | The device is or is not managed by Jamf
+Jamf Policies | The policies applied to the device in Jamf
+Jamf Software Installed | Full list of the software installed on the device
+Jamf User Information | The following sub-properties are available: Real Name, Email Address, Username, Phone number, Position
+
+**The following Mobile Device properties are available:**
+
+Property Name | Description
+-------- | --------
+Jamf Mobile Agent Information | The following sub-properties are available: Agent Version, Initial Entry, Last Contacted
+Jamf Mobile Asset Purchasing | The following sub-properties are available: Leased, Purchased
+Jamf Mobile Device Details | The following sub-properties are available: Capacity, OS Type, Serial Number, Phone Number, UDID, Model, OS Version, Model Number, OS Build, Model Identifier
+Jamf Mobile Device Name | The name of the device in Jamf
+Jamf Mobile ID | The Jamf ID, which can be entered as a single number, a list of numbers, or a range of numbers
+Jamf Mobile Managed | The device is or is not managed by Jamf
+Jamf Mobile Security Information | The following sub-properties are available: Data Protection Enabled, Passcode Present, Passcode Compliant, Hardware Encryption, Activation Lock Enabled, Lost Mode Enabled, Lost Mode Enforced, Lost Mode Enabled Issued Date, Jailbreak Detected
+Jamf Mobile Software Installed | Full list of the software installed on the device
+Jamf Mobile User Information | The following sub-properties are available: Real Name, Email Address, Username, Phone number, Position
+
+## Actions
+Jamf actions are available to be used in a policy.  **This action is specific to Computers.**
+![](README.assets/action.png)
+
+A computer can be assigned to a Jamf policy.
 
 
 ## Licenses
