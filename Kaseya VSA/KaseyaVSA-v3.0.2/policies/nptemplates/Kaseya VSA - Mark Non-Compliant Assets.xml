@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-3769606689001358437" NAME="Kaseya VSA - Mark Non-compliant assets" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="OR">
+            <!--Rule expression. Rule name is: Kaseya VSA - Mark Non-compliant assets-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_patch_compliant" LABEL="VSA Asset is Patch COMPLIANT" LEFT_PARENTHESIS="0" LOGIC="OR" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                    <FILTER FILTER_ID="7105297249128360566" VALUE="true"/>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="NOT">
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_patch_compliant" INNER_NOT="true" LABEL="VSA Asset is Patch COMPLIANT" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-240950201285121463" VALUE="true"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="192.168.100.0" TO="192.168.100.255"/>
+        <RANGE FROM="192.168.31.0" TO="192.168.31.255"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="280155465346954455" NAME="Endpoint is Compliant and in MonitorList" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: Endpoint is Compliant and in MonitorList-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_patch_compliant" LABEL="VSA Asset is Patch COMPLIANT" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="-5734022939618457395" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="nbthost" LABEL="NetBIOS Hostname" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="NBT Scanner" PLUGIN_UNIQUE_NAME="nbtscan_plugin" PLUGIN_VESRION="3.2.0" PLUGIN_VESRION_NUMBER="32000020" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER CASE_SENSITIVE="false" FILTER_ID="-6022549616259647461" LINKED="true">
+                                <LINK ID="-1047212724370517279"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="goodies_add_to_list">
+                    <PARAM NAME="list_name" VALUE="Kaseya_HostNameList"/>
+                    <PARAM NAME="value" VALUE="{nbthost}"/>
+                    <PARAM NAME="remove" VALUE="true"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                        <END Class="Delayed" TIMEPERIOD="1 MINUTE"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-9157117763809366213" NAME="Endpoint is Compliant" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Endpoint is Compliant-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_patch_compliant" LABEL="VSA Asset is Patch COMPLIANT" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-5734022939618457395" VALUE="true"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="2371386118829721362" NAME="Endpoint is Non-Compliant and NOT in MonitorList" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: Endpoint is Non-Compliant and NOT in MonitorList-->
+                    <EXPRESSION EXPR_TYPE="NOT">
+                        <EXPRESSION EXPR_TYPE="SIMPLE">
+                            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_patch_compliant" INNER_NOT="true" LABEL="VSA Asset is Patch COMPLIANT" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                                <FILTER FILTER_ID="8802015008785048834" VALUE="true"/>
+                            </CONDITION>
+                        </EXPRESSION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="NOT">
+                        <EXPRESSION EXPR_TYPE="SIMPLE">
+                            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="nbthost" INNER_NOT="true" LABEL="NetBIOS Hostname" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="NBT Scanner" PLUGIN_UNIQUE_NAME="nbtscan_plugin" PLUGIN_VESRION="3.2.0" PLUGIN_VESRION_NUMBER="32000020" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                                <FILTER CASE_SENSITIVE="false" FILTER_ID="7715061139558393420" LINKED="true">
+                                    <LINK ID="-1047212724370517279"/>
+                                </FILTER>
+                            </CONDITION>
+                        </EXPRESSION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="cact_run_script_s">
+                    <PARAM NAME="cact_script_params_act" VALUE="fstool hostinfo_update -P connect_kaseyavsa_not_compliant_date $(date +%s) {ip}"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="goodies_add_to_list">
+                    <PARAM NAME="list_name" VALUE="Kaseya_HostNameList"/>
+                    <PARAM NAME="value" VALUE="{nbthost}"/>
+                    <PARAM NAME="remove" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Delayed" TIMEPERIOD="1 MINUTE"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-1275816884360933838" NAME="Endpoint is Non-Compliant" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Endpoint is Non-Compliant-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_patch_compliant" INNER_NOT="true" LABEL="VSA Asset is Patch COMPLIANT" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="1431343343050260404" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="goodies_add_to_list">
+                    <PARAM NAME="list_name" VALUE="Kaseya_HostNameList"/>
+                    <PARAM NAME="value" VALUE="{nbthost}"/>
+                    <PARAM NAME="remove" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <PROPERTY_LISTS>
+            <HOST_PROPERTY_LIST DESCRIPTION="" FIELD="nbthost" ID="-1047212724370517279" NAME="Kaseya_HostNameList">
+                <VALUES>
+                    <VALUE VALUE="WIN-OI23OK9N095"/>
+                    <VALUE VALUE="VM7TEST-PC"/>
+                </VALUES>
+            </HOST_PROPERTY_LIST>
+        </PROPERTY_LISTS>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

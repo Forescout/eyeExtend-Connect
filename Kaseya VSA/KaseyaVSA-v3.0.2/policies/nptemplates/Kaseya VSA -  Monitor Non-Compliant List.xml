@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="5105576825918810283" NAME="Kaseya VSA - Monitor Non-compliant assets" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="259200000" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="30000" USE_DEFAULT="true"/>
+        <MATCH_TIMING SKIP_INACTIVE="true"/>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: Kaseya VSA - Monitor Non-compliant assets-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="nbthost" LABEL="NetBIOS Hostname" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="NBT Scanner" PLUGIN_UNIQUE_NAME="nbtscan_plugin" PLUGIN_VESRION="3.2.0" PLUGIN_VESRION_NUMBER="32000020" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="-64266990535261552" LINKED="true">
+                    <LINK ID="-1047212724370517279"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING SKIP_INACTIVE="true"/>
+        <SEGMENT ID="-1219652090413784487" NAME="INTERNAL">
+            <RANGE FROM="192.168.31.0" TO="192.168.31.255"/>
+            <RANGE FROM="192.168.100.0" TO="192.168.100.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-2373497898096058999" NAME="Monitor Patch Update Date is Reset" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Monitor Patch Update Date is Reset-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_not_compliant_date" LABEL="VSA Non-Compliant Date" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="4131510830129321846" NEWER="false" OCCURRED="false" RELATIVE="false" VALUE="315510360"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-529903480247935750" NAME="Asset is not Patch Compliant for more than 2 weeks" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Asset is not Patch Compliant for more than 2 weeks-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_not_compliant_date" LABEL="VSA Non-Compliant Date" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-111639279605028015" NEWER="false" OCCURRED="false" RELATIVE="true" VALUE="1209600"/>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="sw_quarantine">
+                    <PARAM NAME="dont_force_assign_2_vlan" VALUE="true"/>
+                    <PARAM NAME="vlan" VALUE="1"/>
+                    <PARAM NAME="vlan_group" VALUE="vlan"/>
+                    <PARAM NAME="vlan_name" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="sendmailtohost_ad_mail">
+                    <PARAM NAME="subject" VALUE="CounterACT: event at {ip}"/>
+                    <PARAM NAME="to" VALUE="{ad_mail}"/>
+                    <PARAM NAME="message" VALUE="Hello,&#10;&#10;CounterACT has detected a NAC event on your computer."/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-5653428778376661721" NAME="Asset is not Patch Compliant for more  than 1 week" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Asset is not Patch Compliant for more  than 1 week-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_not_compliant_date" LABEL="VSA Non-Compliant Date" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="6939742160054724972" NEWER="false" OCCURRED="false" RELATIVE="true" VALUE="604800"/>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="sendmailtohost_ad_mail">
+                    <PARAM NAME="subject" VALUE="CounterACT: event at {ip}"/>
+                    <PARAM NAME="to" VALUE="{ad_mail}"/>
+                    <PARAM NAME="message" VALUE="Hello,&#10;&#10;CounterACT has detected a NAC event on your computer."/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="4610988983091012116" NAME="Asset is not Patch Compliant for less than a week" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Asset is not Patch Compliant for less than a week-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_kaseyavsa_not_compliant_date" LABEL="VSA Non-Compliant Date" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.3.0" PLUGIN_VESRION_NUMBER="13000017" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-2389664396484806285" NEWER="false" OCCURRED="false" RELATIVE="true" VALUE="60"/>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="sendmailtohost_ad_mail">
+                    <PARAM NAME="subject" VALUE="CounterACT: event at {ip}"/>
+                    <PARAM NAME="to" VALUE="{ad_mail}"/>
+                    <PARAM NAME="message" VALUE="Hello,&#10;&#10;CounterACT has detected a NAC event on your computer."/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8773616236313491616" NAME="Asset Non-Compliant Date Undetermined" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <PROPERTY_LISTS>
+            <HOST_PROPERTY_LIST DESCRIPTION="" FIELD="nbthost" ID="-1047212724370517279" NAME="Kaseya_HostNameList">
+                <VALUES>
+                    <VALUE VALUE="WIN-OI23OK9N095"/>
+                    <VALUE VALUE="VM7TEST-PC"/>
+                </VALUES>
+            </HOST_PROPERTY_LIST>
+        </PROPERTY_LISTS>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
