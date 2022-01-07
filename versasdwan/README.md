@@ -28,6 +28,11 @@ This App includes a license file. Please review the `license.txt` file included 
 
 The Connect App for [Versa SD-WAN](https://versa-networks.com/products/sd-wan.php) provides an interface for the eyeSight Platform to communicate with the SD-WAN infrastructure.  
 
+## App Version 1.0.1
+
+Polling script- fixed bug that ignored the user setting “Number of threads to use”. Original code was hard set to Max threads. 
+
+
 ## App Version 1.0.0
 
 The App performs polling of the SD-WAN Director to discovery Appliances and IP endpoints active in the network.  Appliance details such as hardware capabilities, software versions, and Location are reflected in the eyeSight Inventory tab.

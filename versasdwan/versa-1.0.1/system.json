@@ -1,0 +1,115 @@
+{
+  "name": "Versa",
+  "version": "1.0.1",
+  "author": "J.Donaldson/Cargill & S.Pollock/Forescout",
+  "testEnable": true,
+  "panels": [
+    {
+      "title": "Versa Director Connection",
+      "description": "Versa Director URL and credentials",
+      "fields": [
+        {
+          "display": "Versa Director Connection URL",
+          "field ID": "connect_versa_director",
+          "type": "shortString",
+          "mandatory": "true",
+          "add to column": "true",
+          "show column": "true",
+          "identifier": "true",
+          "value": "https://cloud007.versa-networks.com"
+        },
+        {
+          "display": "Versa Director Connection PORT",
+          "field ID": "connect_versa_director_port",
+          "type": "shortString",
+          "mandatory": "true",
+          "add to column": "true",
+          "show column": "true",
+          "value": "9182"
+        },
+        {
+          "display": "Username",
+          "field ID": "connect_versa_username",
+          "type": "shortString",
+          "mandatory": "true",
+          "add to column": "true",
+          "show column": "false",
+          "value": "forescout-api"
+        },
+        {
+          "display": "Password",
+          "field ID": "connect_versa_password",
+          "type": "encrypted",
+          "mandatory": "true"
+        },
+        {
+          "display": "Number of threads to Use",
+          "field ID": "connect_versa_threadnum",
+          "type": "integer",
+          "mandatory": "true",
+		  "tooltip": "Use as a means of throttling API calls to Versa Director",
+          "add to column": "true",
+          "show column": "false",
+          "min": 1,
+		  "max": 100,
+          "value": 1
+        },
+		{
+          "display": "Use maximum threads",
+          "field ID": "connect_versa_maxthread",
+          "type": "boolean",
+          "mandatory": "false",
+		  "tooltip": "If selected system will use 5 times the number of CPUs on the system",
+          "add to column": "true",
+          "show column": "false",
+          "value": "false"
+        },
+		{
+          "display": "Discover Versa Appliances Only",
+          "field ID": "connect_versa_applonly",
+          "type": "boolean",
+          "mandatory": "false",
+		  "tooltip": "If selected the ARP tables will not be processed",
+          "add to column": "true",
+          "show column": "false",
+          "value": "false"
+        },
+        {
+          "certification validation": true
+        },
+        {
+          "app_instance_cache": true,
+          "display": "Application Cache Refresh Interval",
+          "min": 5,
+          "max": 2400,
+          "value": 240
+        }
+
+      ]
+    },
+    {
+      "focal appliance": true,
+      "title": "Assign CounterACT Devices",
+      "description": "<html>Select the connecting eyeSight appliance that will communicate with Versa Driector, including requests by other eyeSight appliances. Specific eyeSight devices assigned here cannot be assigned to another server elsewhere.<br><br>If you do not assign specific devices, by default, all devices will be assigned to one server. This server becomes known as the Default Server.<html>"
+    },
+    {
+      "proxy server": true,
+      "title": "Proxy Server",
+      "description": "<html>Select a Proxy Server device to manage all communication between eyeSight and Versa Director.</html>"
+    },
+    {
+      "title": "Versa System Options",
+      "description": "Host Discovery Polling Options",
+      "fields": [
+        {
+          "host discovery": true,
+          "display": "Discovery Frequency (Minutes)",
+          "max": 300000,
+          "add to column": true,
+          "show column": true,
+          "value": 10
+        }
+      ]
+    }
+  ]
+}
