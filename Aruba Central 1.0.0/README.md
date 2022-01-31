@@ -18,7 +18,7 @@ Forescout eyeExtend Connect Aruba Central APP README.md
 
 - WARNING:  Please contact Aruba support to change default API limits  before using this App.
 
-### Version v1.0.0 Aruba Central APP
+### Version v1.0.1 Aruba Central APP -- reomved proxy configs
 
 The APP gathers <mark>Wireless AP</mark>, <mark>Endpoint (Clients) Wired / Wireless</mark> information, allowing you to build Forescout policies relating to the Aruba Central
 
@@ -87,10 +87,6 @@ Credentials are created via Aruba Central
 #### Focal appliance
 
 Each "API Domain Gateway" shall run on one dedicated focal appliance.
-
-### Proxy Server
-
-Used to define proxy settings.
 
 ### Test button
 
