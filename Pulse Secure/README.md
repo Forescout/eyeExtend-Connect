@@ -17,8 +17,8 @@ The App gathers user and endpoint information that connect to Pulse Secure serve
 ## Requirements
 The App supports:
 - Pulse Connect Secure 9.1.8 - 9.1.12
-- Forescout CounterACT 8.2 or higher
-- Forescout eyeExtend Connect 1.4 or higher
+- Forescout CounterACT 8.2.2 or higher
+- Forescout eyeExtend Connect 2.0 or higher
 - See license.txt file for license information
 
 ## Updates
