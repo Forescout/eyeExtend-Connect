@@ -158,6 +158,12 @@ Details for the above application permission
 | 3      | Resolve query for device, Intune specific data. Query uses "**Azure Device ID**" from NAC Query (1) | GRAPH | Application | Intune Connection           |
 |        | Host Discovery                                               | GRAPH | Application | Intune Options              |
 
+In addition to above permissions, we need "Application.Read.All" as well
+
+![alt text](https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_app_permissions.png "NAC-GRAPH-API-ServicePrincipal-Permissions - new")
+
+Some reference link: https://techcommunity.microsoft.com/t5/intune-customer-success/support-tip-intune-service-discovery-api-endpoint-will-require/ba-p/2428040
+
 ## User Identity
 
 If you are using ACTION(S) *remote lock / wipe*, the user identity requires the "Intune Administrator" role.
@@ -663,12 +669,3 @@ Select **View/Show Postman Console**
 <img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN_Console.png" style="zoom:80%;" align="center" />
 
 This URI is **required** by "**Intune Connection/NAC API: Service Endpoint URI**"
-
-## These are the permissions need to be granted on MS InTune side
-
-
-<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/IntuneApp_Permissions.png" style="zoom:80%;" align="center" />
-
-
-Some reference link: https://techcommunity.microsoft.com/t5/intune-customer-success/support-tip-intune-service-discovery-api-endpoint-will-require/ba-p/2428040
-
