@@ -663,3 +663,12 @@ Select **View/Show Postman Console**
 <img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/POSTMAN_Console.png" style="zoom:80%;" align="center" />
 
 This URI is **required** by "**Intune Connection/NAC API: Service Endpoint URI**"
+
+## These are the permissions need to be granted on MS InTune side
+
+
+<img src="https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/IntuneApp_Permissions.png" style="zoom:80%;" align="center" />
+
+
+Some reference link: https://techcommunity.microsoft.com/t5/intune-customer-success/support-tip-intune-service-discovery-api-endpoint-will-require/ba-p/2428040
+
