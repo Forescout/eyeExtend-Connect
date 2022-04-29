@@ -619,7 +619,7 @@ There are a few Python scripts.
 
 # POSTMAN
 See the Github for the collection 
-[Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json](https://github.com/Forescout/eyeExtend-Connect/blob/master/Intune/Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json)
+[Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json](https://github.com/Forescout/eyeExtend-Connect/blob/master/Intune/Forescout-Microsoft-NAC-Graph-Customer.postman_collection-v2.json)
 
 You can use the POSTMAN collection.
 

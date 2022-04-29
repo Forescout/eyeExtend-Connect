@@ -1,5 +1,5 @@
 Forescout eyeExtend Connect PulseSecure App README.md
-Version: 1.0.0
+Version: 1.0.1
 
 ## Contact Information
 
@@ -63,7 +63,7 @@ Each device shall run on one dedicated focal appliance.
 ## Manage the App
 ### Import
 - User can import the PulseSecure Connect App via the eyeExtend Connect module.
-- App file shall look like ForeScout-pulsesecure-1.0.0.ECA which is signed.
+- App file shall look like ForeScout-pulsesecure-1.0.1.ECA which is signed.
 
 ## Start and Stop App
 - User can start and stop the PulseSecure App.
