@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.2.1-124" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-8766813915271461992" NAME="TYCHON STIG Stats" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: TYCHON STIG Stats-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_tychonelastic_stig_scores" LABEL="TYCHON STIG Scores" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.7.0" PLUGIN_VESRION_NUMBER="17000070" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER COMP_FIELD_NAME="connect_tychonelastic_stig_scores" FILTER_ID="3255366729429782038">
+                    <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="stigbenchmarkscorehigh">
+                        <RANGE FROM="100" TO="10000"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="stigbenchmarkscorevalue">
+                        <RANGE FROM="600" TO="100000"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="stigbenchmarkscorepercent">
+                        <RANGE FROM="60" TO="100"/>
+                    </SUB_FILTER>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

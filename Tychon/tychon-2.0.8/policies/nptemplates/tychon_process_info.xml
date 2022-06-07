@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.2.1-124" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-7702806982709379533" NAME="TYCHON Process Info" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: TYCHON Process Info-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_tychonelastic_process_list" LABEL="TYCHON Process List From Request" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.7.0" PLUGIN_VESRION_NUMBER="17000070" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER COMP_FIELD_NAME="connect_tychonelastic_process_list" FILTER_ID="4322579570477177666">
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="processcommand" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="filehashmd5" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="processid" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="filehashsha" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="fileversion" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="filedescription" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="processname" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="fuzzyhash" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="processparentname" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="filecert" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

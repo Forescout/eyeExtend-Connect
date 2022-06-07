@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.2.1-124" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="8475475157119377245" NAME="TYCHON Host Inventory" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: TYCHON Host Inventory-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_tychonelastic_host_info" LABEL="TYCHON Host Information" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.7.0" PLUGIN_VESRION_NUMBER="17000070" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER COMP_FIELD_NAME="connect_tychonelastic_host_info" FILTER_ID="3928144045071667778">
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="hostou" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="epopath" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cpucores">
+                        <RANGE FROM="1" TO="100"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="tychonversion" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="hostbuilding" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="tychonid" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="systemmodel" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="hostdepartment" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="osname" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="biosssn" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="serialnumber" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="biosname" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="osbuild" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="eponame" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="systemmanufacturer" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="epoguid" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="osfamily" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="lastuser" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="epoagentid" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="boottime" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="osrelease" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="shbversion" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="biosversion" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cpucount">
+                        <RANGE FROM="1" TO="100"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="epotags" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="osversion" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </SUB_FILTER>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
