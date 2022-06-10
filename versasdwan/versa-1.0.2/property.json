@@ -1,0 +1,258 @@
+{
+  "version": "1.0.2",
+  "name": "Versa",
+  "groups": [
+    {
+      "name": "connect_versa",
+      "label": "Versa"
+    }
+  ],
+  "scripts": [
+    {
+      "name": "versa_test.py",
+      "test": true
+    },
+    {
+      "name": "versa_poll.py",
+      "discovery": true,
+      "properties": [
+        "connect_versa_appliance_uuid",
+        "connect_versa_appliance_hardware",
+        "connect_versa_appliance_pingstatus",
+        "connect_versa_appliance",
+        "connect_versa_appliance_softwareversion",
+        "connect_versa_vrf_name",
+        "connect_versa_arp_interface",
+        "connect_versa_appliance_name",
+        "connect_versa_appliance_syncstatus",
+        "connect_versa_appliance_location"
+      ]
+    },
+    {
+      "name": "versa_cache.py",
+      "app_instance_cache": true
+    },
+    {
+      "name": "versa_func.py",
+      "library_file": true
+    }
+  ],
+  "properties": [
+    {
+      "tag": "connect_versa_appliance",
+      "label": "Versa Appliance flag",
+      "description": "If endpoint is an Appliance",
+      "type": "boolean",
+      "resolvable": false,
+      "group": "connect_versa",
+      "inventory": {
+        "enable": true,
+        "description": "If endpoint is an Appliance"
+      }
+    },
+    {
+      "tag": "connect_versa_appliance_name",
+      "label": "Versa Endpoint Appliance name",
+      "description": "Versa Endpoint Appliance name",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_versa",
+      "inventory": {
+        "enable": true,
+        "description": "Versa Endpoint Appliance name"
+      }
+    },
+    {
+      "tag": "connect_versa_vrf_name",
+      "label": "Versa Endpoint VRF name",
+      "description": "Versa Endpoint VRF name",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_versa",
+      "inventory": {
+        "enable": true,
+        "description": "Versa Endpoint VRF name"
+      }
+    },
+    {
+      "tag": "connect_versa_arp_interface",
+      "label": "Versa Endpoint ARP interface",
+      "description": "Versa Endpoint ARP interface",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_versa",
+      "inventory": {
+        "enable": true,
+        "description": "Versa Endpoint ARP interface"
+      }
+    },
+    {
+      "tag": "connect_versa_appliance_location",
+      "label": "Versa Appliance location",
+      "description": "The address for the Appliance",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_versa",
+      "inventory": {
+        "enable": true,
+        "description": "The address for the Appliance"
+      }
+    },
+    {
+      "tag": "connect_versa_appliance_uuid",
+      "label": "Versa Appliance UUID",
+      "description": "The UUID for the Appliance",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_versa"
+    },
+    {
+      "tag": "connect_versa_appliance_pingstatus",
+      "label": "Versa Appliance reachability via ping",
+      "description": "Versa Appliance reachability via ping",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_versa"
+    },
+    {
+      "tag": "connect_versa_appliance_syncstatus",
+      "label": "Versa Appliance sync status",
+      "description": "Versa Appliance sync status",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_versa"
+    },
+    {
+      "tag": "connect_versa_appliance_softwareversion",
+      "label": "Versa Appliance software version",
+      "description": "Versa Appliance software version",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_versa",
+      "inventory": {
+        "enable": true,
+        "description": "Versa Appliance software version"
+      }
+    },
+    {
+      "tag": "connect_versa_appliance_hardware",
+      "label": "Versa Appliance Hardware details",
+      "description": "Versa Appliance Hardware details",
+      "type": "composite",
+      "resolvable": false,
+      "group": "connect_versa",
+      "inventory": {
+        "enable": true,
+        "description": "Versa Appliance Hardware details"
+      },
+      "subfields": [
+        {
+          "tag": "model",
+          "label": "Model",
+          "description": "Hardware Model",
+          "type": "string",
+          "inventory": true
+        },
+        {
+          "tag": "cpuCores",
+          "label": "CPU Cores",
+          "description": "CPU Cores",
+          "type": "integer",
+          "inventory": true
+        },
+        {
+          "tag": "memory",
+          "label": "Memory",
+          "description": "Memory",
+          "type": "string",
+          "inventory": true
+        },
+        {
+          "tag": "freeMemory",
+          "label": "Free Memory",
+          "description": "Free Memory",
+          "type": "string"
+        },
+        {
+          "tag": "diskSize",
+          "label": "Disk Size",
+          "description": "Disk Size",
+          "type": "string",
+          "inventory": true
+        },
+        {
+          "tag": "freeDisk",
+          "label": "Free Disk",
+          "description": "Free Disk",
+          "type": "string"
+        },
+        {
+          "tag": "lpm",
+          "label": "lpm",
+          "description": "lpm",
+          "type": "boolean"
+        },
+        {
+          "tag": "fanless",
+          "label": "fanless",
+          "description": "fanless",
+          "type": "boolean"
+        },
+        {
+          "tag": "intelQuickAssistAcceleration",
+          "label": "intelQuickAssistAcceleration",
+          "description": "intelQuickAssistAcceleration",
+          "type": "boolean"
+        },
+        {
+          "tag": "manufacturer",
+          "label": "Manufacturer",
+          "description": "Manufacturer",
+          "type": "string",
+          "inventory": true
+        },
+        {
+          "tag": "serialNo",
+          "label": "serialNo",
+          "description": "serialNo",
+          "type": "string"
+        },
+        {
+          "tag": "cpuModel",
+          "label": "cpuModel",
+          "description": "cpuModel",
+          "type": "string",
+          "inventory": true
+        },
+        {
+          "tag": "cpuCount",
+          "label": "cpuCount",
+          "description": "cpuCount",
+          "type": "integer",
+          "inventory": true
+        },
+        {
+          "tag": "interfaceCount",
+          "label": "interfaceCount",
+          "description": "interfaceCount",
+          "type": "integer",
+          "inventory": true
+        },
+        {
+          "tag": "packageName",
+          "label": "packageName",
+          "description": "packageName",
+          "type": "string",
+          "inventory": true
+        },
+        {
+          "tag": "sku",
+          "label": "sku",
+          "description": "sku",
+          "type": "string",
+          "inventory": true
+        }
+      ]
+    }
+  ]
+}

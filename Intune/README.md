@@ -158,6 +158,12 @@ Details for the above application permission
 | 3      | Resolve query for device, Intune specific data. Query uses "**Azure Device ID**" from NAC Query (1) | GRAPH | Application | Intune Connection           |
 |        | Host Discovery                                               | GRAPH | Application | Intune Options              |
 
+In addition to above permissions, we need "Application.Read.All" as well
+
+![alt text](https://github.com/Forescout/eyeExtend-Connect/raw/master/Intune/README.assets/Intune_app_permissions.png "NAC-GRAPH-API-ServicePrincipal-Permissions - new")
+
+Some reference link: https://techcommunity.microsoft.com/t5/intune-customer-success/support-tip-intune-service-discovery-api-endpoint-will-require/ba-p/2428040
+
 ## User Identity
 
 If you are using ACTION(S) *remote lock / wipe*, the user identity requires the "Intune Administrator" role.
@@ -619,7 +625,7 @@ There are a few Python scripts.
 
 # POSTMAN
 See the Github for the collection 
-[Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json](https://github.com/Forescout/eyeExtend-Connect/blob/master/Intune/Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json)
+[Forescout-Microsoft-NAC-Graph-Customer.postman_collection.json](https://github.com/Forescout/eyeExtend-Connect/blob/master/Intune/Forescout-Microsoft-NAC-Graph-Customer.postman_collection-v2.json)
 
 You can use the POSTMAN collection.
 

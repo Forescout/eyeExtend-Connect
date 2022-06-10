@@ -8,6 +8,7 @@ eyeExtend Connect App for Ubiquiti enabling discovery, application integillence 
 1.2.0 
 1.2.1
 1.2.2
+1.2.3
 
 ## Change Log
 1.2.0
@@ -23,10 +24,17 @@ eyeExtend Connect App for Ubiquiti enabling discovery, application integillence 
 <li>Removed 2 lines from UB_API_NONOO.py containing print function calls which is now rejected in connect apps.  This corrects a failure on installing the app on newer versions of connect plugin.</li>
 <li>Incremented version to 1.2.2</li>
 </ul>
+1.2.3
+<ul>
+<li>Updated test script to not query all sites if configured for UnifiOS controllers.  UnifiOS only supports a single site currently.</li>
+<li>Re-added action icons that were removed in previous versions by mistake.  All actions should have an icon now, console restart may be required for change to apply after upgrade</li>
+<li>Updated app's internal name to remove space, went from 'Unifi SDN' to 'UnifiSDN' - this will allow app upgrades to work from here on out.</li>
+<li>Updated firewall group action error messaging to be more specific on actual issue when group has case mis match</li>
+</ul>
 
 ## Configurations
 UnifiOS and Unifi based controllers are supported
-Multi site configurations on Unifi Based controllers are supported.  UnifiOS currently does not support multiple sites.
+Multi site configurations on Unifi Based controllers are supported.  UnifiOS currently does not support multiple sites as such it is recommended to NOT enable discover all sites for UnifiOS devices.
 
 ## Supported Use Cases
 * Discovery and actionable restriction of endpoints connected to Ubiquiti's Unifi based network devices.  
