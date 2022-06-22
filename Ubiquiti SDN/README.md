@@ -9,21 +9,14 @@ eyeExtend Connect App for Ubiquiti enabling discovery, application integillence 
 1.2.1
 1.2.2
 1.2.3
+1.2.4
 
 ## Change Log
-1.2.0
+1.2.4
 <ul>
-<li> Introduced new properties as well as actions </li>
+<li>Fixed a bug that prevented network device mac/ip mapping from being learned</li>
 </ul>
-1.2.1
-<ul>
-<li> unreleased, removed unused proxy configuration</li>
-</ul>
-1.2.2
-<ul>
-<li>Removed 2 lines from UB_API_NONOO.py containing print function calls which is now rejected in connect apps.  This corrects a failure on installing the app on newer versions of connect plugin.</li>
-<li>Incremented version to 1.2.2</li>
-</ul>
+
 1.2.3
 <ul>
 <li>Updated test script to not query all sites if configured for UnifiOS controllers.  UnifiOS only supports a single site currently.</li>
@@ -31,6 +24,26 @@ eyeExtend Connect App for Ubiquiti enabling discovery, application integillence 
 <li>Updated app's internal name to remove space, went from 'Unifi SDN' to 'UnifiSDN' - this will allow app upgrades to work from here on out.</li>
 <li>Updated firewall group action error messaging to be more specific on actual issue when group has case mis match</li>
 </ul>
+
+1.2.2
+<ul>
+<li>Removed 2 lines from UB_API_NONOO.py containing print function calls which is now rejected in connect apps.  This corrects a failure on installing the app on newer versions of connect plugin.</li>
+<li>Incremented version to 1.2.2</li>
+</ul>
+
+1.2.1
+<ul>
+<li> unreleased, removed unused proxy configuration</li>
+</ul>
+
+1.2.0
+<ul>
+<li> Introduced new properties as well as actions </li>
+</ul>
+
+
+
+
 
 ## Configurations
 UnifiOS and Unifi based controllers are supported
@@ -125,4 +138,4 @@ Multi site configurations on Unifi Based controllers are supported.  UnifiOS cur
   * Only applies to wireless endpoints (Unifi Limitation)
 
 <h2>General note</h2>
-Applying many actions at the same time can lead to the Unifi API Backend getting confused as to what the end state should be.  This is mostly noticable on UnifiOS based controllers.  If this occurs policy workarounds to avoild mass application of actions such as add/remove to/from firewall group and such should be done.  A future update will target a polling based action trigger which will control this.  Community volunteers are welcomed on implementing this.
+Applying many actions at the same time can lead to the Unifi API Backend getting confused as to what the end state should be.  This is mostly noticable on UnifiOS based controllers due to limited cpu performance.  If this occurs policy workarounds to avoild mass application of actions such as add/remove to/from firewall group and such should be done.  A future update will target a polling based action trigger which will control this.  Community volunteers are welcomed on implementing this.
