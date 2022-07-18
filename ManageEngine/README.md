@@ -6,6 +6,19 @@ Forescout eyeExtend Connect ManageEngine Patch Manager Plus App README.md
 A list of our trademarks and patents can be found at https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks.
 Other brands, products, or service names may be trademarks or service marks of their respective owners.
 
+## Updates / Features(as of July 16, 2022):
+-----------------------------------------------
+1. Changed to version 2.1, minor code revisions;
+2. Added Session Expiry Timer(3 minutes) in the ManageEngine DesktopCentral Connect app configuration;
+3. Resource ID is now retreived from the MEDesktop Central server using NetBIOS hostname as parameter;
+4. The Connect app leverages the ManageEngine version 1.3 API;
+5. Tested to work on following software:
+	- ManageEngine Desktop Central Build Version:10.0.652;
+	- Forescout version 8.3.0-233;
+	- Forescout eyeExtend Connect ver. 1.7.2;
+
+
+
 ## Updates / Features(as of February 21, 2021):
 -----------------------------------------------
 1. Changed to version 2.0, due to major code revisions;
