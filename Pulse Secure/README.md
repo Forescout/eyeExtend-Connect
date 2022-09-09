@@ -1,5 +1,5 @@
 Forescout eyeExtend Connect Pulse Secure App README.md
-Version: 1.0.2
+Version: 1.0.3
 
 ## Contact Information
 
@@ -22,6 +22,10 @@ The App supports:
 - See license.txt file for license information
 
 ## Updates
+
+### Version 1.0.3 
+This update introduces Realm-based Authentication Support with backward compatibility for basic Auth. This version introduces a new Panel field named "Admin Realm" which could be populated with the Admin realm to be used for Realm-based Authentication and if left empty, original basic Auth will be used. 
+
 ### Version 1.0.2
 This update introduces syslog functionality to speed up discovery of devices connecting via the Pulse Secure VPN. A new panel is included for syslog source configuration.
 
@@ -34,6 +38,7 @@ User can add Pulse Secure server to the App.
 - Server name: Pulse Secure server hostname or IP address. Do not include the protocol (http://, https://, etc.)
 - User: Admin that can access the Pulse Secure API via admin console.
 - Password: Admin password that can be used to get the API key for API calls to the Pulse Secure server.
+- Admin Realm: (New in version 1.0.3) Admin Realm name to be used (or leave empty to use Basic Auth)
 - User can test the device by clicking the TEST button after applying changes.
 
 #### Focal Appliance
