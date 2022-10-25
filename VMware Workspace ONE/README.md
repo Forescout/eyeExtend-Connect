@@ -128,7 +128,7 @@ If a system description has not been configured and you select **OK** now, a war
 1. Select **Add**.  
 2. Enter the following information:  
 
-- Workspace ONE Server URL: Enter the login.   
+- Workspace ONE Server URL: Enter the URL for the Workspace ONE instance, excluding the protocol. E.g. 12345.awmdm.com.  
 - User: Enter the username for the Workspace ONE UEM account.  
 - Password: Enter the password for the Workspace ONE UEM account.  
 - Workspace ONE API Key: Enter the API for the Workspace ONE UEM account.
