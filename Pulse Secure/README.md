@@ -1,5 +1,5 @@
 Forescout eyeExtend Connect Pulse Secure App README.md
-Version: 1.0.3
+Version: 1.0.4
 
 ## Contact Information
 
@@ -22,6 +22,9 @@ The App supports:
 - See license.txt file for license information
 
 ## Updates
+
+### Version 1.0.4 
+This update overwrites default active user sessions of 200 to 2500. 
 
 ### Version 1.0.3 
 This update introduces Realm-based Authentication Support with backward compatibility for basic Auth. This version introduces a new Panel field named "Admin Realm" which could be populated with the Admin realm to be used for Realm-based Authentication and if left empty, original basic Auth will be used. 
