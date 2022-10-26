@@ -8,6 +8,7 @@ eyeExtend Connect App for Slack enables real-time messaging posts to Slack chann
    1. Leverage conversations.list API instead of the soon to be deprecated channels.list (https://api.slack.com/changelog/2020-01-deprecating-antecedents-to-the-conversations-api)  (Update requires a new scope to be added see Oauth Token Section below (groups:read)
    2. Add support for pagination with conversations and users APIs
    3. Remove unsupported proxy panel from the configuration list 
+* 1.0.4 - Bug Fix, Fixed single user messaging.  
 
 ## Configuration
 App configuration requires the following paramters:
