@@ -1,4 +1,5 @@
 Forescout eyeExtend Connect GlobalProtect App README.md
+Version: 1.2.1
  
 ## Contact Information
 Forescout Technologies, Inc.
@@ -20,65 +21,9 @@ A list of our trademarks and patents can be found at https://www.Forescout.com/c
 Other brands, products, or service names may be trademarks or service marks of their respective owners.
 
 ## About the eyeExtend Connect GlobalProtect App
-The App gather users and endpoints information that are connected to GlobalProtect servers. User can also use policies or
+The App gather users and endpoints information that connected to GlobalProtect servers. User can also use policies or
 actions to disconnect user from the GlobalProtect Server. The App uses admin management interface to access the
 GlobalProtect server.
-
-## New features and updates with v1.1.0 GlobalProtect App
-This version adds supports for
-- Real-time VPN endpoint discovery with a syslog integration  and the GlobalProtect App
-- Device Discovery - enables periodic polling to discover new clients via API
-- Added support for Public-IP property
-
-## 1.2.0 Release
-This version add support for discovery of HIP data from GP to CounterACT
-- GlobalProtect HIP Anti-Malware
-- GlobalProtect HIP Disk Backup
-- GlobalProtect HIP Disk Encryption
-- GlobalProtect HIP Firewall
-- GlobalProtect HIP Patch Management
-- GlobalProtect HIP Missing Patches
-
-## 1.1.2 Release
-This version fixes following issues:
-- Special character in Computer name not handled properly
-- Multiple GWs can cause incorrect endpoint to GW association
-- Multiple endpoints on a signle user can lead to mismatch between device properties
-
-## Syslog based endpoing discovery and Integration
-- Optional feature must be enabled by 'Syslog GlobalProtect Client Discovery Enabled' flag 
-- App will poll the firewall  per syslog message instead of the associated endpoint applicance associated GP config
-- **The configured authentication username/password must work across all firewalls**
-- FQDN for the firewall must be resolvable by the Forescout appliance
-
-## Enabling Syslog monitoring
-- Follow the instructions [enable_syslog_discovery.pdf](https://github.com/Forescout/eyeExtend-Connect/blob/master/GlobalProtect/enable_syslog_discovery.pdf) for the firewall configurations
-### Forescout Configurations to enable syslog parsing
-```javascript
-  #Custom Traps Event for GlobalProtect VPN
-  fstool syslog set_property config.type1.option.gp_vpn_logs "GlobalProtect VPN Events"
-  fstool syslog set_property config.type2.option.gp_vpn_logs "GlobalProtect VPN Events"
-  fstool syslog set_property config.type3.option.gp_vpn_logs "GlobalProtect VPN Events"
-
-  #GlobalProtect VPN Connect Event
-
-  fstool syslog set_property template.gp_vpn_connect.type "gp_vpn_logs"
-  fstool syslog set_property template.gp_vpn_connect.regexp ".*\\ \\d{1,2}\\:\\d{1,2}\\:\\d{1,2}\\ ([\\w-.]*).*,globalprotectgateway-config-succ,.*Private IP:\\ (\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
-  fstool syslog set_property template.gp_vpn_connect.properties "\$connect_globalprotect_firewall,\$ip"
-  fstool syslog set_property template.gp_vpn_connect.set_true "\$online"
-
-
-  #GlobalProtect VPN Disconnect Event
-  fstool syslog set_property template.gp_vpn_disconnect.type "gp_vpn_logs"
-  fstool syslog set_property template.gp_vpn_disconnect.regexp ".*globalprotectgateway-config-release.*Private IP:\\ (\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})"
-  fstool syslog set_property template.gp_vpn_disconnect.properties "\$ip"
-  fstool syslog set_property template.gp_vpn_disconnect.set_false "\$online"
-```
-
-
-## API Based Host Discovery
-- API based discovery will be performed on all GP Server instances configured if in the 'Enable Host Discovery' flag is enabled
-
 
 ## Requirements
 The App supports:
@@ -119,7 +64,7 @@ Each device shall run on one dedicated focal appliance.
 ## Manage the App
 ### Import
 - User can import the GlobalProtect Connect App via eyeExtend Connect module
-- App file shall look like GlobalProtectApp.ECP which is signed
+- App file shall look like GlobalProtectApp.ECA which is signed
 
 ## Start and Stop App
 - User can start and stop the GlobalProtect App
@@ -130,8 +75,8 @@ Each device shall run on one dedicated focal appliance.
 - User need to delete the GlobalProtect policy first to remove the App.
 
 ## Policy Templates
-- There is a default GlobalProtect Template
-- After importing the App. the policy can be find under Policy > Add > GlobalProtect > GlobalProtect Policy
+- There are two default GlobalProtect Templates: GlobalProtect Policy and GlobalProtect HIP Policy
+- After importing the App, the policy can be find under Policy > Add > GlobalProtect > GlobalProtect Policy/ GlobalProtect HIP Policy
 - User can use the default policy to resolve properties from endpoint on a schedule.
 - User need to define rules to disconnect a user from GlobalProtect server.
 
@@ -143,13 +88,13 @@ There are a few properties gathered from the GlobalProtect server for the endpoi
 - GlobalProtect User
 - GlobalProtect Gateway
 - GlobalProtect Client Type, such as: Microsoft Windows 7 Ultimate Edition Service Pack 1, 64-bit 
-- **HIP Data**
-  - Anti-Malware
-  - Disk Backup
-  - Disk Encryption
-  - Firewall
-  - Patch Management
-  - Missing Patches
+- GlobalProtect Public IP
+- GlobalProtect HIP Anti-Malware
+- GlobalProtect HIP Disk Backup
+- GlobalProtect HIP Disk Encryption
+- GlobalProtect HIP Firewall
+- GlobalProtect HIP Patch Management
+- GlobalProtect HIP Missing Patches
 
 ## Actions
 User can disconnect a connected GlobalProtect from the endpoint. If the user is disconnected from GlobalProtect,
@@ -159,15 +104,28 @@ Disconnect user action is a one-time actions. User needs to be reconnect to the 
 disconnect actions to work properly again.
 
 ## Scripts
-There are three scripts and a library file.
+There are five scripts and two library files.
 - globalprotect_disconnect_user.py
 User can disconnect a connected user from GlobalProtect.
 - globalprotect_resolve.py
 User can get the GlobalProtect properties of the an endpoint.
 - globalprotect_test.py
 User can test the connection to GlobalProtect server with defined device.
+- globalprotect_discovery.py
+User can enable discovery on a specified period to poll endpoint properties. Default is 4 hours.
+- globalprotect_hip_resolve.py
+User can get the GlobalProtect Host Information Profile (HIP) data of an endpoint.
 - globalprotect_library.py
 Library files scripts use.
+- globalprotect_hip_library.py
+Library files scripts use for extracting hip data.
+
+
+## Integration with PANOS Syslog
+A new checkbox "Syslog GlobalProtect Client Discovery Enabled" is added in the server panel. To use the integration with PANOS syslog and allow Foresout to get GlobalProtect server via Syslog info, Forescout Syslog plugin must be enabled with GlobalProtect log parsing. And GlobalProtect server retrieved by syslog will be used to query and update client data.
+when "Syslog GlobalProtect Client Discovery Enabled" is enabled
+- If the GlobalProtect server cannot be retrieved, he GlobalProtect server on the GlobalProtect Connection panel is used.
+- For discovery and test, only GlobalProtect server specified on the GlobalProtect Connection panel is used.
 
 ## Notes
 - When user in an endpoint is disconnected to GlobalProtect, there is an error indicating that user might be disconnected
@@ -178,3 +136,15 @@ The GlobalProtect admin should not setup the configuration for "user-logon (Alwa
 
 ## Licenses
 This App bundles with a license.txt file. Please review the license.txt file.
+
+## About 1.1.1
+In disconnect action, if user name, computer name or gateway portal contains special characters, such as apostrophe, the URL with content is not escaped correctly which is fixed in 1.1.1.
+
+## About 1.1.2
+Supporting a user connecting to GlobalProtect via multiple gateways and connect from multiple hosts.
+
+## About 1.2.0
+Add HIP data visibility to the GlobalProtect App
+
+## About 1.2.1
+Fixed an issue with disconnect action failing when a GlobalProtect endpoint was missing a domain
