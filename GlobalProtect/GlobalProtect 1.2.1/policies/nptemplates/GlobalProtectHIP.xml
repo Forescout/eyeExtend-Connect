@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Use this policy template to collect HIP data from endpoints for HIP-based policies." ENABLED="true" ID="-9202735117058287986" NAME="GlobalProtect HIP Policy" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="AND">
+            <!--Rule expression. Rule name is: GlobalProtect HIP Policy-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_globalprotect_HIP_anti_malware" LABEL="GlobalProtect HIP Anti-Malware" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.1" PLUGIN_VESRION_NUMBER="14010007" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER COMP_FIELD_NAME="connect_globalprotect_HIP_anti_malware" FILTER_ID="-2727645174077470840">
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_anti_malware_version" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_anti_malware_name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_anti_malware_rtp" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER HAS_VALUE="true" MEETS="true" NEWER="false" OCCURRED="false" RELATIVE="true" SUB_FIELD_NAME="connect_globalprotect_HIP_anti_malware_scan_time" VALUE="3600"/>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_anti_malware_vendor" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_globalprotect_HIP_disk_backup" LABEL="GlobalProtect HIP Disk Backup" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.1" PLUGIN_VESRION_NUMBER="14010007" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER COMP_FIELD_NAME="connect_globalprotect_HIP_disk_backup" FILTER_ID="-4304009993640704872">
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_backup_vendor" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_backup_name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_backup_version" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER HAS_VALUE="true" MEETS="true" NEWER="false" OCCURRED="false" RELATIVE="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_backup_time" VALUE="3600"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_globalprotect_HIP_disk_encryption" LABEL="GlobalProtect HIP Disk Encryption" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.1" PLUGIN_VESRION_NUMBER="14010007" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER COMP_FIELD_NAME="connect_globalprotect_HIP_disk_encryption" FILTER_ID="-4225666642783855379">
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_encryption_version" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_encryption_drive" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_encryption_vendor" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_encryption_name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_disk_encryption_state" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_globalprotect_HIP_firewall" LABEL="GlobalProtect HIP Firewall" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.1" PLUGIN_VESRION_NUMBER="14010007" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER COMP_FIELD_NAME="connect_globalprotect_HIP_firewall" FILTER_ID="5862112290764560054">
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_firewall_enabled" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_firewall_vendor" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_firewall_name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_firewall_version" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_globalprotect_HIP_patch_mgmt" LABEL="GlobalProtect HIP Patch Management" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.1" PLUGIN_VESRION_NUMBER="14010007" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER COMP_FIELD_NAME="connect_globalprotect_HIP_patch_mgmt" FILTER_ID="3957612328935907152">
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_patch_mgmt_enabled" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_patch_mgmt_name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_patch_mgmt_vendor" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_patch_mgmt_version" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_globalprotect_HIP_missing_patches" LABEL="GlobalProtect HIP Missing Patches" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.1" PLUGIN_VESRION_NUMBER="14010007" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER COMP_FIELD_NAME="connect_globalprotect_HIP_missing_patches" FILTER_ID="-2801434390543998684">
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_mp_title" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_mp_vendor" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_mp_severity" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_globalprotect_HIP_mp_category" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
