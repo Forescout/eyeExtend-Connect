@@ -1,10 +1,13 @@
 # Forescout
+
 eyeExtend for Cylance App README.md Version: 1.0.0
 
 ## Configuration Guide
+
 **Version 1.0.0**
 
 ## Contact Information
+
 Forescout Technologies, Inc.
 190 West Tasman Drive
 San Jose, CA 95134 USA
@@ -14,13 +17,16 @@ Tel (Intl): 1.408.213.3191
 Support: 1.708.237.6591
 
 ## About the Documentation
+
 - Refer to the Technical Documentation page on the Forescout website for additional documentation: [https://www.Forescout.com/company/technical-documentation/](https://www.forescout.com/company/technical-documentation/)
 - Have feedback or questions? Write to us at [documentation@forescout.com](mailto:documentation@forescout.com)
 
 ## Legal Notice
+
 © 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation. A list of our trademarks and patents can be found at [https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks](https://urldefense.proofpoint.com/v2/url?u=https-3A__www.forescout.com_company_legal_intellectual-2Dproperty-2Dpatents-2Dtrademarks&amp;d=DwMFAg&amp;c=L5E2d05je37i-dadkViuXA&amp;r=Z3cI4QPLlfMimB_63ipHyFuWSHGqqAs50hjX-2X1CEw&amp;m=ypFjb5tb21hH81CxdGe-3FT8l4QXZe-hzuDh-eBT-wQ&amp;s=ATQ1mJb4KkN8L9fn2BnpRuwmDWJcze7zyqTbG1PTwkc&amp;e=). Other brands, products, or service names may be trademarks or service marks of their respective owners.
 
 # About eyeExtend for Cylance
+
 Forescout eyeExtend for Cylance is an integration of the Forescout platform with CylancePROTECT®.
 
 Forescout is recognized as a leading network-access control solution with continuous, agentless discovery of endpoint devices whether they are managed, unmanaged, or otherwise unknown. CylancePROTECT redefines the capabilities and efficiency of endpoint security. By leveraging artificial intelligence, malware can be detected and prevented in real time, before it even executes.
@@ -39,25 +45,31 @@ The Forescout integration with Cylance lets you:
 Together, the Forescout platform and Cylance can protect customers by providing both broad and deep endpoint discovery, threat detection, and remediation across a broad array of device types and networks. The Forescout platform also helps continually enforce device compliance upon network access. See Use Cases.
 
 # Customer Support
+
 The Connect Plugin is supported by Forescout Customer Support. See [https://forescout.force.com/support/s/](https://forescout.force.com/support/s/).
 
 Connect Apps, including those provided by Forescout, are not supported by Forescout.
 
 # About This Module
+
 Forescout eyeExtend for Cylance supports information sharing and interaction with components of the Cylance cloud platform.
 
 To use the module, you should have a basic understanding of Cylance concepts, functionality, and terminology, and understand how Forescout platform policies and other basic features work.
 
 # Use Cases
+
 This section describes important use cases supported by Forescout eyeExtend for Cylance.
 
 ## Cylance Agent Hygiene Policy
+
 You can define a Forescout platform policy that ensures the CylancePROTECT agent is installed and functioning on all supported endpoints within the network. The module supports a set of host properties that detect CylancePROTECT agent status on endpoints. See Configure Cylance Agent Hygiene Policy.
 
 ## Policy-Based Response to Identified Risks
+
 When the Forescout platform identifies that Cylance marked an endpoint as not safe (for example, due to malware or other malicious behavior), the Forescout platform performs an action to mitigate the risk. See Configure Cylance Endpoint Not Safe Policy.
 
 # How It Works
+
 The following Cylance components are required for this integrated solution:
 
 - **Cylance User API:** The Forescout platform addresses the API exposed by the platform to retrieve endpoint information and perform actions.
@@ -78,6 +90,7 @@ In a typical deployment, several cloud connections are defined in the Forescout 
 This deployment method scales efficiently and allows tuning of traffic loads.
 
 # What to Do
+
 To set up your system for integration with eyeExtend for Cylance, perform the following steps:
 
 1. Verify that the requirements are met. See Requirements.
@@ -88,14 +101,17 @@ To set up your system for integration with eyeExtend for Cylance, perform the fo
 6. Configure actions. See Configure Actions.
 
 # Requirements
+
 - Forescout version 8.1.4, 8.2.0.1
 - Install CylancePROTECT and CylanceOPTICS™ agents on the endpoints
 - CylancePROTECT is mandatory. CylanceOPTICS is needed for the integration to take actions against infected endpoints.
 
 # How to Install
+
 Get Forescout eyeExtend Connect plugin and Cylance App from Forescout.
 
 ## Ensure That the Plugin is Running
+
 After installing the Connect plugin, ensure that it is running.
 
 To verify:
@@ -111,6 +127,7 @@ To verify:
 4. Select **OK**.
 
 # Obtain Tenant ID, Application ID and Secret
+
 You can obtain the tenant ID, application ID, and application secret from the Cylance Web Portal.
 
 They are used in the app configuration. See Add a System Description.
@@ -124,15 +141,17 @@ To obtain tenant ID, application ID, and application secret:
 5. Select the needed privileges for the application. **Copy** the **Application ID** and **Application Secret**.
 
 # Configure the Module
+
 After eyeExtend Connect is installed, **Connect** is displayed under **Options**.
 
-
 ## Configure Cylance App
+
 To configure eyeExtend for Cylance, you import the Cylance App and then add a system description.
 
 Initially, the App Configuration tab of the **Connect** pane is blank. The Cylance App has not been imported yet and the system description has not been configured yet.
 
 ## Import an App
+
 You can import the Cylance App.
 
 To import the Cylance App:
@@ -146,6 +165,7 @@ If the app is imported successfully, a message is displayed at the bottom of the
 - If you select **Close** before the import has finished, it will fail.
 
 ## Add a System Description
+
 To configure the Cylance App, you add a system description to define a connection, which includes login credentials.
 
 To add the system description:
@@ -164,11 +184,13 @@ If a system description has not been configured and you select **OK** now, a war
 - Validate Server Certificate: Select this option to validate the identity of the third-party server before establishing a connection, when the eyeExtend product communicates as a client over SSL/TLS. To validate the server certificate, either of the following certificate(s) must be installed:
   - Self-signed server certificate: the server certificate must be installed on the CounterACT Appliance
   - Certificate Authority (CA) signed server certificate: the CA certificate chain (root and intermediate CA certificates) must be installed on the CounterACT Appliance
-Use the Certificates \&gt; Trusted Certificates pane to add the server certificate to the Trusted Certificate list. For more information about certificates, refer to the appendix, &quot;Configuring the Certificate Interface&quot; in the _Forescout Administration Guide_.
+Use the Certificates \& Trusted Certificates pane to add the server certificate to the Trusted Certificate list. For more information about certificates, refer to the appendix, &quot;Configuring the Certificate Interface&quot; in the _Forescout Administration Guide_.
+
 4. Select **Next**.
 Initially, the Assign CounterACT Devices panel has only one option, **Assign all devices by default** , and it is selected so that one device is added.
 If you want to add a second device, the Assign CounterACT Devices panel has more options.
 5. Enter the following information:
+
 - Connecting CounterACT Device: Select Enterprise Manager or an IP address of the connecting CounterACT device. In an environment where more than one CounterACT device is assigned to a single third-party instance, the connecting CounterACT Appliance functions as a middleman between the third-party instance and the CounterACT Appliance. The connecting CounterACT Appliance forwards all queries and requests to and from the third-party instance.
 - Assign specific devices: This CounterACT Appliance is assigned to a third-party instance, but it does not communicate with it directly. All communication between the third-party instance and its assigned CounterACT Appliance is handled by the connecting CounterACT Appliance defined for the third-party instance. All the IP addresses handled by an assigned Appliance must also be handled by the third-party instance to which the Appliance is assigned.
   - Select **Available Devices** and then select an IP address or Appliance name from the Available Devices list.
@@ -184,9 +206,11 @@ Note the following:
 7. Enter the Proxy Server information similar to any Forescout Extend Module:
 8. Select **Next**.
 9. Enter the following information:
+
 - Enable Host Discovery: Select this option to enable the **Discovery Frequency** field.
 - Discovery Frequency: Select a value for the frequency of host discovery, which is the interval between discoveries. The range is from 1 minute to 72 minutes. The default is 8 minutes.
 - Number of API queries per unit time: Select a value for the rate limiter. The range is from 1 to 1000 requests per second. The default is 100 requests per second.You can rate limit the requests sent to the third-party server. The rate limiter specifies the number of times a script is invoked during the specified time. It is triggered when the app starts.
+
 10. Select **Finish**. The configured system description is displayed in the **System Description** dialog box.
 
 When the system description is selected, all the buttons on the dialog box are enabled.
@@ -196,6 +220,7 @@ You can create multiple system descriptions. To add another system description, 
 11. Select **OK** to save the system description to the CounterACT Appliance. The system description is displayed in the App Configuration tab of the **Connect** pane. There are several default columns. See Connect Pane Details.
 
 ## Edit a System Description
+
 You can edit an existing system description for the Cylance App.
 
 To edit a system description:
@@ -205,13 +230,16 @@ There are tabs for each pane. You can edit the settings in the Cylance Connectio
 2. Select **OK** to save the system description edits to the CounterACT Appliance.
 
 ## Remove a System Description
+
 You can remove an existing system description.
 
 To remove a system description:
+
 1. Select an existing system description and select **Remove**. A confirmation is displayed.
 2. Select **More** for details or select **Ok**.
 
 ## Test a System Description
+
 You can test a system description, which tests the connection to the Cylance App. The app must be in the Running state.
 
 Also, the app must be saved before selecting **Test**. Select **OK** in the **System Description** dialog box and then select **Apply** in the **Connect** pane to save the system description.
@@ -223,12 +251,14 @@ If the connectivity of the system description has been tested successfully, a su
 2. Select **Close**.
 
 # Configure Cylance Policy Templates
+
 There are two Cylance policy templates for customers to manage devices in a Cylance environment and detect devices that are compliant or non-compliant.
 
 - Cylance Endpoint Not Safe Policy
 - Cylance Agent Hygiene Policy
 
 ## Add Cylance Policies
+
 To configure a Cylance policy:
 
 1. In the Forescout Console, select **Policy**.
@@ -236,6 +266,7 @@ To configure a Cylance policy:
 3. Select **Cylance Endpoint Not Safe** or **Cylance Agent Hygiene**.
 
 # Cylance Properties
+
 Cylance properties are available to be used in a policy.
 
 The following properties are available:
@@ -258,6 +289,7 @@ The following properties are available:
 - Cylance State Changed: Indicates the Track Change property for the Cylance state.
 
 # Cylance Actions
+
 Cylance actions are available to be used in a policy.
 
 To access the Cylance actions:
@@ -267,10 +299,13 @@ To access the Cylance actions:
 3. Select an action in the **Cylance** folder.
 
 The following action is available:
+
 - Lockdown Endpoint:  Locks down an endpoint.
 
 # Scripts
+
 There are a few Python scripts.
+
 - cylance_poll.py User can enable discovery on a specified period to poll endpoint properties.
 - cylance_test.py User can test the connection to the Cylance server.
 - cylance_resolve.py User can get the Cylance endpoint properties.
