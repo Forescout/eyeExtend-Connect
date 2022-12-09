@@ -16,31 +16,23 @@ endpoint data includes Endpoint Point Products, Security Software
 compliance information, failed Common Vulnerabilities and Exposures
 (CVEs), and failed IAVAs. CounterACT evaluates TYCHON Connect data
 against existing policy and, if an endpoint is determined to be in
-violation of an organization's policy, can automatically respond.  
+violation of an organization's policy, can automatically take action.  
 
-**1.0.16 Release**
+**1.0.15 Release**
 
 This version adds support for
 
--   TYCHON Compliance Host HBSS
+-   TYCHON Compliance HBSS
 
--   TYCHON Compliance Host Managed
+-   TYCHON Compliance Managed
 
--   TYCHON Compliance Host Last Communications(Epoch)
+-   TYCHON Compliance Tags
 
--   TYCHON Compliance Failed CVE List
-
--   TYCHON Compliance Failed IAVA List
-
--   TYCHON Compliance is Webserver
-
--   TYCHON Compliance is Webserver PKI
-
--   TYCHON Compliance Stig Finding
-
--   TYCHON Compliance Patch Findings
+-   TYCHON Failed CVE List
 
 -   TYCHON Host ID
+
+-   TYCHON Failed IAVA List
 
 This version is compatible with
 
@@ -74,8 +66,8 @@ This App supports
 
 **TYCHON Connection**
 
-![](media/image1.png){width="5.0in" height="3.8854166666666665in"}
-
+![](media/image1.png){width="6.4375in" height="5.029166666666667in"}
+```
 +--------------------------+-------------------------------------------+
 | **Property**             | **Description**                           |
 +==========================+===========================================+
@@ -86,11 +78,6 @@ This App supports
 | Destination Port         | Example: **8443**                         |
 |                          |                                           |
 |                          | Port used for WSAPI communication.        |
-+--------------------------+-------------------------------------------+
-| Location                 | Example: Fredericksburg, VA               |
-|                          |                                           |
-|                          | Physical Location of Forescout Host       |
-|                          | Appliance                                 |
 +--------------------------+-------------------------------------------+
 | API Key                  | API Key used to call APIs for WSAPI       |
 +--------------------------+-------------------------------------------+
@@ -109,11 +96,11 @@ This App supports
 | Certificate              | the certificate sent by the TYCHON DMN    |
 |                          | WSAPI Server.                             |
 +--------------------------+-------------------------------------------+
+```
+**TYCHON Compliance HBSS**
 
-**TYCHON Compliance Host HBSS**
-
-![](media/image2.png){width="5.0in" height="3.4583333333333335in"}
-
+![](media/image2.png){width="6.5in" height="2.1458333333333335in"}
+```
 +--------------------------+-------------------------------------------+
 | **Property**             | **Description**                           |
 +==========================+===========================================+
@@ -132,11 +119,11 @@ This App supports
 |                          | Enter the appropriate HBSS Name and       |
 |                          | Version details.                          |
 +--------------------------+-------------------------------------------+
+```
+**TYCHON Compliance Managed**
 
-**TYCHON Compliance Host Managed**
-
-![](media/image3.png){width="5.0in" height="3.4375in"}
-
+![](media/image3.png){width="6.5in" height="2.2291666666666665in"}
+```
 +--------------------------+-------------------------------------------+
 | **Property**             | **Description**                           |
 +==========================+===========================================+
@@ -146,11 +133,11 @@ This App supports
 | Does not meet the        |                                           |
 | following criteria       |                                           |
 +--------------------------+-------------------------------------------+
+```
+**TYCHON Compliance Tags**
 
-**TYCHON Compliance Host Last Communications(Epoch)**
-
-![](media/image4.png){width="5.0in" height="3.4270833333333335in"}
-
+![](media/image4.png){width="6.5in" height="2.15625in"}
+```
 +--------------------------+-------------------------------------------+
 | **Property**             | **Description**                           |
 +==========================+===========================================+
@@ -164,15 +151,16 @@ This App supports
 |                          |                                           |
 |                          | Select the appropriate data qualifier.    |
 +--------------------------+-------------------------------------------+
-| Value(s)                 | Example: **1649708605**                   |
+| Value(s)                 | Example: **HIPS1.4.7**                    |
 |                          |                                           |
-|                          | Enter the appropriate Epoch Time.         |
+|                          | Enter the appropriate HBSS Name and       |
+|                          | Version details.                          |
 +--------------------------+-------------------------------------------+
+```
+**TYCHON Failed CVE List**
 
-**TYCHON Compliance Failed CVE List**
-
-![](media/image5.png){width="5.0in" height="3.4375in"}
-
+![](media/image5.png){width="6.5in" height="2.1041666666666665in"}
+```
 +--------------------------+-------------------------------------------+
 | **Property**             | **Description**                           |
 +==========================+===========================================+
@@ -190,11 +178,11 @@ This App supports
 |                          |                                           |
 |                          | Enter the appropriate CVE identifier.     |
 +--------------------------+-------------------------------------------+
-
+```
 **TYCHON Host ID**
 
-![](media/image6.png){width="5.0in" height="1.6875in"}
-
+![](media/image6.png){width="6.5in" height="2.1666666666666665in"}
+```
 +--------------------------+-------------------------------------------+
 | **Property**             | **Description**                           |
 +==========================+===========================================+
@@ -208,15 +196,15 @@ This App supports
 |                          |                                           |
 |                          | Select the appropriate data qualifier.    |
 +--------------------------+-------------------------------------------+
-| Value(s)                 | Example**: \<GUID\>\_\<GUID\>**           |
+| Value(s)                 | Example**: \<GUID>\_\<GUID>**             |
 |                          |                                           |
 |                          | Enter the appropriate Host ID details.    |
 +--------------------------+-------------------------------------------+
+```
+**TYCHON Failed IAVA List**
 
-**TYCHON Compliance Failed IAVA List**
-
-![](media/image7.png){width="5.0in" height="3.4270833333333335in"}
-
+![](media/image7.png){width="6.5in" height="2.2291666666666665in"}
+```
 +--------------------------+-------------------------------------------+
 | **Property**             | **Description**                           |
 +==========================+===========================================+
@@ -234,97 +222,7 @@ This App supports
 |                          |                                           |
 |                          | Enter the appropriate IAVA identifier.    |
 +--------------------------+-------------------------------------------+
-
-**TYCHON Compliance Is Webserver**
-
-![](media/image8.png){width="5.0in" height="3.4166666666666665in"}
-
-+--------------------------+-------------------------------------------+
-| **Property**             | **Description**                           |
-+==========================+===========================================+
-| Meets the following      | Select the appropriate radio button to    |
-| criteria                 | determine if the system returns a true or |
-|                          | false value.                              |
-| Does not meet the        |                                           |
-| following criteria       |                                           |
-+--------------------------+-------------------------------------------+
-| Value Type               | Example: Matches                          |
-|                          |                                           |
-|                          | Select the appropriate data qualifier.    |
-+--------------------------+-------------------------------------------+
-| Value(s)                 | Example: **True**                         |
-|                          |                                           |
-|                          | Return Boolean                            |
-+--------------------------+-------------------------------------------+
-
-**TYCHON Compliance Is Webserver PKI**
-
-![](media/image9.png){width="5.0in" height="3.4375in"}
-
-+--------------------------+-------------------------------------------+
-| **Property**             | **Description**                           |
-+==========================+===========================================+
-| Meets the following      | Select the appropriate radio button to    |
-| criteria                 | determine if the system returns a true or |
-|                          | false value.                              |
-| Does not meet the        |                                           |
-| following criteria       |                                           |
-+--------------------------+-------------------------------------------+
-| Value Type               | Example: Matches                          |
-|                          |                                           |
-|                          | Select the appropriate data qualifier.    |
-+--------------------------+-------------------------------------------+
-| Value(s)                 | Example: **True**                         |
-|                          |                                           |
-|                          | Return Boolean                            |
-+--------------------------+-------------------------------------------+
-
-**TYCHON Compliance Patch Findings**
-
-![](media/image9.png){width="5.0in" height="3.4375in"}
-
-+--------------------------+-------------------------------------------+
-| **Property**             | **Description**                           |
-+==========================+===========================================+
-| Meets the following      | Select the appropriate radio button to    |
-| criteria                 | determine if the system returns a true or |
-|                          | false value.                              |
-| Does not meet the        |                                           |
-| following criteria       |                                           |
-+--------------------------+-------------------------------------------+
-| Value Type               | Example: Contains                         |
-|                          |                                           |
-|                          | Select the appropriate data qualifier.    |
-+--------------------------+-------------------------------------------+
-| Value(s)                 | Example: **KB4052623**                    |
-|                          |                                           |
-|                          | Return string                             |
-+--------------------------+-------------------------------------------+
-
-**TYCHON Compliance Stig Findings**
-
-![](media/image10.png){width="5.0in" height="3.46875in"}
-
-+--------------------------+-------------------------------------------+
-| **Property**             | **Description**                           |
-+==========================+===========================================+
-| Meets the following      | Select the appropriate radio button to    |
-| criteria                 | determine if the system returns a true or |
-|                          | false value.                              |
-| Does not meet the        |                                           |
-| following criteria       |                                           |
-+--------------------------+-------------------------------------------+
-| Value Type               | Example: Contains                         |
-|                          |                                           |
-|                          | Select the appropriate data qualifier.    |
-+--------------------------+-------------------------------------------+
-| Value(s)                 | Example:                                  |
-|                          | **xccdf_m                                 |
-|                          | il.disa.stig_rule_SV-235720r766832_rule** |
-|                          |                                           |
-|                          | Return string                             |
-+--------------------------+-------------------------------------------+
-
+```
 **Manage the App**
 
 **Import**
@@ -358,39 +256,27 @@ This App supports
 
 The following properties are gathered by the TYCHON Connect App
 
--   TYCHON Compliance Host HBSS
+-   TYCHON Compliance HBSS
 
--   TYCHON Compliance Host Managed
+-   TYCHON Compliance Managed
 
--   TYCHON Compliance Host Last Communications(Epoch)
+-   TYCHON Compliance Tags
 
--   TYCHON Compliance Failed CVE List
-
--   TYCHON Compliance Failed IAVA List
-
--   TYCHON Compliance is Webserver
-
--   TYCHON Compliance is Webserver PKI
-
--   TYCHON Compliance Stig Finding
-
--   TYCHON Compliance Patch Findings
+-   TYCHON Failed CVE List
 
 -   TYCHON Host ID
 
+-   TYCHON Failed IAVA List
+
 **Scripts**
 
-There are five scripts
+There are three scripts
 
--   tychon_compliance_hbss.py
+-   tychon_compliance.py
 
--   tychon_compliance_patch_findings.py
+-   tychon_resolve.py
 
--   tychon_compliance_scans.py
-
--   tychon_compliance_stig_findings.py
-
--   tychon_compliance_webserver.py
+-   tychon_test.py
 
 **Licenses**
 

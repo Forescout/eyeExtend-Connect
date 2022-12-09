@@ -1,5 +1,4 @@
 Forescout eyeExtend Connect Fortinet VPN APP README.md
- 
 
 ## Contact Information
 
@@ -11,6 +10,7 @@ Forescout eyeExtend Connect Fortinet VPN APP README.md
 - See Contact Information above.
 
 ## About the eyeExtend Connect Fortinet VPN APP
+
 ### Version v1.1.0 - Fixes issue with integer/string for property connect_fvpn_index which was shown up on 1.5.0 version of Connec; it also has a new property connect_fvpn_poll – this property records the poll time. This can then be used in policy to delete hosts where this value is older than the last poll time
 
 ### Version v1.0.3 - Fixes issue related to polling/discovery script failure with SSL-VPN Web User; Removes proxy panel from deployment wizard
@@ -58,8 +58,7 @@ Walking through adding an appliance wizard configuration, you will be present wi
 2. **Panel properties do not support a type of list**
 
 _Example 1_
-If you are configuring a FortiGate
-You will still have to complete the details on the FortiManager panel.
+If you are configuring a FortiGate you will still have to complete the details on the FortiManager panel.
 
 FortiManager/FortiGate panels have dummy default values that will be ignored based on the Fortinet Device. You can select NEXT and skip over the configuration’s properties.
 
@@ -89,7 +88,7 @@ The APP allows for upto 4 FortiGate Devices and Keys on the FortiGate device pan
 
 #### FortiGate Configuration
 
-Upto 4 FortiGate devices are allowed per Forescout focal appliances.
+Up to 4 FortiGate devices are allowed per Forescout focal appliance.
 
 **Remember if you are not adding a FortiGate appliance, you can click NEXT**
 
@@ -138,7 +137,7 @@ Fortinet options
 
 #### Focal appliance
 
-Each Forescout appliance allows for upto 4 Fortigate appliances to be configured
+Each Forescout appliance allows for up to 4 Fortigate appliances to be configured
 
 *You can have a mix as an example 4 FortiGate and 1 FortiManager*
 
@@ -161,8 +160,6 @@ FortiGate 192.168.x.2 - Connection Failed: Check IP/API Key
 
 Example FortiManager Test Result
 
-
-
 ```
 Test failed:
 FortiManager - Error: ADOM adom1 doesn't exist
@@ -181,13 +178,13 @@ FortiManager - Error: ADOM adom2 doesn't exist
 
 - APP file shall look like Fortinet-VPNApp.ECP which is signed
 
-  ## Start and Stop APP
+## Start and Stop APP
 
 - User can start and stop the Fortinet VPN App
 
 - When the APP is stopped, all properties resolve, actions and policy are suspended.
 
-  ### Remove APP
+### Remove APP
 
 - User can remove the APP if no longer needed
 
@@ -195,7 +192,7 @@ FortiManager - Error: ADOM adom2 doesn't exist
 
   ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-  ## Policy Templates
+## Policy Templates
 
 - There is a default Fortinet VPN Template
 
@@ -209,7 +206,7 @@ FortiManager - Error: ADOM adom2 doesn't exist
 
     ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-    ## Actions
+## Actions
 
 - Down/Terminate the IPSec / SSL tunnel. **Drop VPN**
 
@@ -253,19 +250,19 @@ There are a few properties gathered from the Fortinet VPN for the endpoint.
 
 ## Scripts
 
-* Discovery used to poll for VPN sessions
+- Discovery used to poll for VPN sessions
   **fvpn_poll.py**
 
-* Disable local user account
+- Disable local user account
   **fvpn_disable_user.py**
 
-* Enable local user account
+- Enable local user account
   **fvpn_enable_user.py**
 
-* Drop VPN
+- Drop VPN
   **fvpn_vpn_down.py**
 
-* Test authentication to Fortinet Appliances
+- Test authentication to Fortinet Appliances
   **fvpn_test.py**
 
   ----------------------------------------------------------------------------------------------------------------------------------------------------

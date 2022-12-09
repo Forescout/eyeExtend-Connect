@@ -163,8 +163,8 @@ If a system description has not been configured and you select **OK** now, a war
 - Verify Application Secret: Re-enter the account application secret to verify it.
 - Validate Server Certificate: Select this option to validate the identity of the third-party server before establishing a connection, when the eyeExtend product communicates as a client over SSL/TLS. To validate the server certificate, either of the following certificate(s) must be installed:
   - Self-signed server certificate: the server certificate must be installed on the CounterACT Appliance
-  - Certificate Authority (CA) signed server certificate: the CA certificate chain (root and intermediate CA certificates) must be installed on the CounterACT Appliance
-Use the Certificates \&gt; Trusted Certificates pane to add the server certificate to the Trusted Certificate list. For more information about certificates, refer to the appendix, &quot;Configuring the Certificate Interface&quot; in the _Forescout Administration Guide_.
+  - Certificate Authority (CA) signed server certificate: the CA certificate chain (root and intermediate CA certificates) must be installed on the CounterACT Appliance.
+Use the Certificates and Trusted Certificates pane to add the server certificate to the Trusted Certificate list. For more information about certificates, refer to the appendix, &quot;Configuring the Certificate Interface&quot; in the _Forescout Administration Guide_.
 4. Select **Next**.
 Initially, the Assign CounterACT Devices panel has only one option, **Assign all devices by default** , and it is selected so that one device is added.
 If you want to add a second device, the Assign CounterACT Devices panel has more options.
