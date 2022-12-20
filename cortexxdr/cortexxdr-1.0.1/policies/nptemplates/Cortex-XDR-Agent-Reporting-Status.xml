@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-2011972830151536131" NAME="Cortex XDR Agent Reporting Status" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="259200000" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="120000" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: Cortex XDR Agent Reporting Status-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cortexxdr_read_endpointid" LABEL="Cortex XDR Endpoint ID" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="2406958569595770108" TYPE="any">
+                    <VALUE VALUE2="Any"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="6816200491549585225" NAME="COE">
+            <RANGE FROM="10.10.10.0" TO="10.10.11.255"/>
+            <RANGE FROM="172.16.1.0" TO="172.16.2.255"/>
+            <RANGE FROM="192.168.200.201" TO="192.168.200.220"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8250776957715427004" NAME="XDR Agent Last Reported More Than 1 Week Ago" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: XDR Agent Last Reported More Than 1 Week Ago-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cortexxdr_read_lastseen" LABEL="Cortex XDR Endpoint Last Seen" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-381031895194286895" NEWER="false" OCCURRED="false" RELATIVE="true" VALUE="604800"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="1598112664046303460" NAME="XDR Agent Last Reported More Than 5 Days Ago" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: XDR Agent Last Reported More Than 5 Days Ago-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cortexxdr_read_lastseen" LABEL="Cortex XDR Endpoint Last Seen" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="8099733478072182280" NEWER="false" OCCURRED="false" RELATIVE="true" VALUE="432000"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="4740242209238270133" NAME="XDR Agent Last Reported More Than 1 Day Ago" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: XDR Agent Last Reported More Than 1 Day Ago-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cortexxdr_read_lastseen" LABEL="Cortex XDR Endpoint Last Seen" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="6331616590324054704" NEWER="false" OCCURRED="false" RELATIVE="true" VALUE="86400"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4459973505979028242" NAME="XDR Agent Last Reported Recently" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
