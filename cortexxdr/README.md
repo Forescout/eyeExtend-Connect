@@ -1,3 +1,4 @@
+
 Forescout eyeExtend Connect Cortex XDR APP README.md  
 
 **Contact Information**
@@ -25,6 +26,33 @@ Refer to the Technical Documentation page on the Forescout website for additiona
 **Version v1.0.0 Cortex XDR APP**
 
 The APP queries the device’s properties from the Cortex XDR server.
+
+**Version v1.0.1 Cortex XDR APP**
+
+Added new properties and enabled Inventory on some attributes.
+
+New properties:
+
+ - Cortex XDR Endpoint Operating System
+ - Cortex XDR Endpoint OS Version
+
+Enabled Inventory on properties: 
+
+ - Cortex XDR Endpoint Type
+ - Cortex XDR Endpoint Status
+ - Cortex XDR Endpoint OS Type
+ - Cortex XDR Endpoint Domain
+ - Cortex XDR Endpoint Content Version
+ - Cortex XDR Endpoint Installation Package
+ - Cortex XDR Endpoint Active Directory
+ - Cortex XDR Endpoint Version
+ - Cortex XDR Endpoint Isolation Status
+ - Cortex XDR Endpoint Group Name
+ - Cortex XDR Endpoint Operational Status
+ - Cortex XDR Endpoint Operational Status Description
+ - Cortex XDR Endpoint Scan Status
+ - Cortex XDR Endpoint Operating System
+ - Cortex XDR Endpoint OS Version
 
 **Requirements**
 
@@ -188,6 +216,8 @@ Properties gathered from the Cortex XDR.
 * Cortex XDR Endpoint OS Type
 * Cortex XDR Endpoint Scan Status
 * Cortex XDR Endpoint User
+* Cortex XDR Endpoint Operating System
+* Cortex XDR Endpoint OS Version
 
 **Scripts**
 
@@ -207,8 +237,22 @@ Properties gathered from the Cortex XDR.
 
 **Inventory**
 
-In the current version, the properties are not available in the Inventory TAB.
+The following properties are available in the Inventory tab:
+
+ - Cortex XDR Endpoint Type
+ - Cortex XDR Endpoint Status
+ - Cortex XDR Endpoint OS Type
+ - Cortex XDR Endpoint Domain
+ - Cortex XDR Endpoint Content Version
+ - Cortex XDR Endpoint Installation Package
+ - Cortex XDR Endpoint Active Directory
+ - Cortex XDR Endpoint Version
+ - Cortex XDR Endpoint Isolation Status
+ - Cortex XDR Endpoint Group Name
+ - Cortex XDR Endpoint Operational Status
+ - Cortex XDR Endpoint Operational Status Description
+ - Cortex XDR Endpoint Scan Status
+ - Cortex XDR Endpoint Operating System
+ - Cortex XDR Endpoint OS Version
 
 **Notes**
-
-
