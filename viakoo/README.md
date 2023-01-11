@@ -1,38 +1,99 @@
-# eyeExtend-Connect
-Easily build, consume and share apps to integrate with the Forescout platform. Terms of use apply please see attached link.
+Forescout eyeExtend Connect Viakoo App README.md
+Version: 1.2.1
+ 
+## Contact Information
+Viakoo, Inc.
+650 Castro St. Suite 120-203
+Mountain View, CA 94041
 
-## Apps
-Each integration app has been posted with a .eca file and folder of the content of the App. Use the .eca file to run the app in your Forescout enviorment. The App folder also contains the source-code of the integration App. 
-Details on the App content and how to build and App can be found here. 
-* [Training Videos](https://www.youtube.com/playlist?list=PL2HYJud3zBqcjUoiJzVG33_ubuRqv3crQ)
-* [App Build Guide](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
-* [Tools](https://github.com/fs-connect) - App creation tools to simplify aspects of the app building process
+https://www.viakoo.com/
 
-## README file for App
-Each app should have its own README.md file (.md format only). It should follow the README.md in GlobalProtect app, containing at least these 3 sections on the top:
+Support: https://viakoo.zendesk.com/hc/en-us
+Toll-Free (US): (650) 263-8225
 
-#### Contact Information
-Forescout Technologies, Inc. 190 West Tasman Drive San Jose, CA 95134 USA https://www.Forescout.com/support/ Toll-Free (US): 1.866.377.8771 Tel (Intl): 1.408.213.3191 Support: 1.708.237.6591
+## About the Documentation
+- Refer to the Technical Documentation page on the Forescout website for additional documentation:
+https://www.Forescout.com/company/technical-documentation/
+- Have feedback or questions? Write to us at documentation@forescout.com
 
-#### About the Documentation
-Refer to the Technical Documentation page on the Forescout website for additional documentation: https://www.Forescout.com/company/technical-documentation/
-Have feedback or questions? Write to us at documentation@forescout.com
+## Legal Notice
+© 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation.
+A list of our trademarks and patents can be found at https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks.
+Other brands, products, or service names may be trademarks or service marks of their respective owners.
 
-#### Legal Notice
-© 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation. A list of our trademarks and patents can be found at https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks. Other brands, products, or service names may be trademarks or service marks of their respective owners.
+## About the eyeExtend Connect Viakoo App
+The [Viakoo Action Platform](https://www.viakoo.com/) is used to track and perform remediation on enterprise level IoT devices.
 
-## App Support
+The Viakoo App polls device information from the Viakoo Action Platform showing up to date information on devices including information on camera streams and firmware versions.
 
-All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team. If you have questions or are in need of support please reach out to our growing community of over 300 people at the following resources:
+## Requirements
+The App supports:
+- Forescout CounterACT 8.4
+- Forescout eyeExtend Connect 1.7.x
 
-* https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
-* https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
+## User Interface
+You can refer to the Forescout eyeExtend Connect Module: Connect Application Building Guide, in particular the
+sections on ”Define system.conf File” and “User Interface Details”.
+### Panels
+#### Device
+User can add Viakoo Site connection to the App.
+- Site name or id to gather devices from
+- User email connected to the Viakoo Action Platform with permission for specified site
+- Password for the user in the Viakoo Action Platform
+- User can test the device by clicking TEST button after applying changes.
+- User can add multiple sites, they need to be unique and have a dedicated focal appliance.
 
+#### Focal appliance
+Each device shall run on one dedicated focal appliance.
 
-## Connect Plugin
-You must have the Connect plugin installed on your Forescout platform to run these apps. 
+#### Rate-limited API Count
+- User can set rate-limiter for the API allowed to the Viakoo Action Platform per unit time.
+- Default in the App is allowing up to 100 API calls per second.
+- Range is 1 to 1000 APIs.
 
-## Deploying an App
-Under the 'Options' select the 'Connect' panel to access the settings. Use the 'Import' button to upload the App's .eca file. Follow the configuraiton requirements per the App to deploy the integration.
+#### Predefined fields used panels
+- Certification validation
+- Rate limiter
 
+### Test button
+- Test is enabled by default.
+- Connection info needs to be saved (applied) before test can be successfully run.
 
+## Manage the App
+### Import
+- User can import the Viakoo Connect App via eyeExtend Connect module
+- App file shall look like ViakooApp.ECA which is signed
+
+## Start and Stop App
+- User can start and stop the Viakoo App
+- When the App is stopped, all properties resolve, actions and policy are suspended.
+
+### Remove App
+- User can remove the App if no longer needed
+- User need to delete the Viakoo Compliance policy first to remove the App.
+
+## Policy Templates
+- There is one template that sorts device by firmware version compliance
+
+## Properties
+There are a few properties gathered from the Viakoo server for each endpoint.
+- Firmware Version
+- Video Codec
+- ADD MORE
+
+## Scripts
+There are 3 scripts and 1 library file.
+- viakoo_resolve.py
+User can get the Viakoo properties of an endpoint.
+- viakoo_test.py
+User can test the connection to Viakoo server with defined device.
+- viakoo_poll.py
+User can enable discovery on a specified period to poll endpoint properties. Default is 4 hours.
+- viakoo_library.py
+Library file scripts use.
+
+## Licenses
+This App bundles with a license.txt file. Please review the license.txt file.
+
+## About 1.0
+- Able to use name or id of site to poll devices from Viakoo
