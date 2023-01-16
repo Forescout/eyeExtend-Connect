@@ -28,6 +28,10 @@ This App includes a license file. Please review the `license.txt` file included 
 
 The Connect App for [Versa SD-WAN](https://versa-networks.com/products/sd-wan.php) provides an interface for the eyeSight Platform to communicate with the SD-WAN infrastructure.  
 
+## App Version 1.0.3
+
+Removed a heavy cost routing-instance call which could cause performance problems on the versa director when utilizing the multithreading capability. A less intrusive API call was identified to provide the same information.
+
 ## App Version 1.0.2
 
 versa_discover() function - has been updated to ignore expired arp entries.  The versa appliances null out the MAC address of an arp entry when it expires & then waits for a timer to expire (around a minute) before deleting the entry.  This can cause endpoints being detected with a mac address of 00:00:00:00:00:00, when in fact they were just expired arp entries. 
