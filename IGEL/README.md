@@ -44,7 +44,7 @@ Items provided from the IGEL UMS
 
 - IGEL Links
 
-- IGEL MAC Adress
+- IGEL MAC Address
 
 - IGEL Moved to Bin
 
