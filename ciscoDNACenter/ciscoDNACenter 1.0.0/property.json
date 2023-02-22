@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "name": "ciscodna",
+  "groups": [
+    {
+      "name": "connect_ciscodna",
+      "label": "CiscoDNA"
+    }
+  ],
+  "scripts": [
+    {
+      "name": "ciscodna_test.py",
+      "test": true
+    },
+    {
+      "name": "ciscodna_poll.py",
+      "discovery": true,
+      "properties": [
+        "connect_ciscodna_sensor_name",
+        "connect_ciscodna_sensor_status",
+        "connect_ciscodna_sensor_version",
+        "connect_ciscodna_sensor_backhaultype",
+        "connect_ciscodna_sensor_lastseen",
+        "connect_ciscodna_sensor_serialnumber"
+      ]
+    },
+    {
+      "name": "ciscodna_func.py",
+      "library_file": true
+    }
+  ],
+  "properties": [
+    {
+      "tag": "connect_ciscodna_sensor_name",
+      "label": "Cisco Wireless Sensor Name",
+      "description": "Name of Cisco Wireless Sensor",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_ciscodna",
+      "inventory": {
+        "enable": true,
+        "description": "Name of Cisco Wireless Sensor"
+      }
+    },
+    {
+      "tag": "connect_ciscodna_sensor_status",
+      "label": "Cisco Wireless Sensor Status",
+      "description": "Status of Cisco Wireless Sensor",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_ciscodna",
+      "inventory": {
+        "enable": true,
+        "description": "Status of Cisco Wireless Sensor"
+      }
+    },
+    {
+      "tag": "connect_ciscodna_sensor_version",
+      "label": "Cisco Wireless Sensor Version",
+      "description": "Version of Cisco Wireless Sensor",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_ciscodna",
+      "inventory": {
+        "enable": true,
+        "description": "Version of Cisco Wireless Sensor"
+      }
+    },
+    {
+      "tag": "connect_ciscodna_sensor_backhaultype",
+      "label": "Cisco Wireless Sensor Backhaul Type",
+      "description": "Backhaul Type for Cisco Wireless Sensor",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_ciscodna",
+      "inventory": {
+        "enable": true,
+        "description": "Backhaul Type for Cisco Wireless Sensor"
+      }
+    },
+    {
+      "tag": "connect_ciscodna_sensor_lastseen",
+      "label": "Cisco Wireless Sensor Last Seen",
+      "description": "Cisco Wireless Sensor Last Seen Date",
+      "type": "date",
+      "resolvable": false,
+      "group": "connect_ciscodna",
+      "inventory": {
+        "enable": true,
+        "description": "Cisco Wireless Sensor Last Seen Date"
+      }
+    },
+    {
+      "tag": "connect_ciscodna_sensor_serialnumber",
+      "label": "Cisco Wireless Sensor Serial Number",
+      "description": "Serial Number of Cisco Wireless Sensor",
+      "type": "string",
+      "resolvable": false,
+      "group": "connect_ciscodna",
+      "inventory": {
+        "enable": true,
+        "description": "Serial Number of Cisco Wireless Sensor"
+      }
+    }
+  ]
+}
