@@ -70,10 +70,9 @@ try:
             if thin_client_mac == resolve_mac:
                 thin_client_found = True
                 logging.debug(f'Found match for {resolve_mac}: {thin_client}')
-                properties = {'mac': resolve_mac,
-                              'ip': thin_client.get('lastIP', ''),
+                response['mac'] = resolve_mac
+                properties = {'ip': thin_client.get('lastIP', ''),
                               'connect_igel_unit_id': thin_client.get('unitID', ''),
-                              'connect_igel_mac': thin_client.get('mac', ''),
                               'connect_igel_firmware_id': thin_client.get('firmware_id', ''),
                               'connect_igel_last_ip': thin_client.get('lastIP', ''),
                               'connect_igel_device_attributes': thin_client.get('deviceAttributes', []),
