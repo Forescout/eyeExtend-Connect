@@ -74,7 +74,7 @@ try:
                 response['ip'] = thin_client.get('lastIP', '')
                 properties = {
                               'connect_igel_unit_id': thin_client.get('unitID', ''),
-                              'connect_igel_firmware_id': thin_client.get('firmware_id', ''),
+                              'connect_igel_firmware_id': thin_client.get('firmwareID', ''),
                               'connect_igel_last_ip': thin_client.get('lastIP', ''),
                               'connect_igel_device_attributes': thin_client.get('deviceAttributes', []),
                               'connect_igel_id': thin_client.get('id', ''),
