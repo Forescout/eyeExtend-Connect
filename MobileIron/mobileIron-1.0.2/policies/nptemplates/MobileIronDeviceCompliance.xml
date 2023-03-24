@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-4800632514057155508" META_TYPE="COMPLY" NAME="MobileIron Device Compliance" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-7365327981678982404" NAME="Unauthorized Application Installed" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NOT_COMPLY"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Unauthorized Application Installed-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_mobileironmdm_client_apps" LABEL="MobileIron Apps" LEFT_PARENTHESIS="0" LOGIC="OR" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.0" PLUGIN_VESRION_NUMBER="14000212" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_mobileironmdm_client_apps" FILTER_ID="3048185711842305299">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" LINKED="true" MEETS="true" SUB_FIELD_NAME="connect_mobileironmdm_app_name">
+                                <LINK ID="8544392181269665717"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_80/TCP:;TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_443/TCP:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="show_recheck_option" VALUE="true"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="message" VALUE="An unauthorized application(s) has been installed on your device.  As a result, you cannot access the network. To gain network access, please remediate the issue, and click the Recheck button.&#10;&#10; &#10;&#10;"/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:5281107886284434973;name:MobileIron Unauthorized Application Installed"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="519693557302992136" NAME="MobileIron App Not Installed – iOS" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NOT_COMPLY"/>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: MobileIron App Not Installed – iOS-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_mobileironmdm_client_apps" LABEL="MobileIron Apps" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.0" PLUGIN_VESRION_NUMBER="14000212" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER COMP_FIELD_NAME="connect_mobileironmdm_client_apps" FILTER_ID="-5775962500572271061">
+                                <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_mobileironmdm_app_version" TYPE="any">
+                                    <VALUE VALUE2="Any"/>
+                                </SUB_FILTER>
+                                <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_mobileironmdm_app_name" TYPE="contains">
+                                    <VALUE VALUE2="Mobileiron"/>
+                                </SUB_FILTER>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="-728056367699989118">
+                                <GROUP ID="6275307008248402909" NAME="iOS"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_80/TCP:;TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_443/TCP:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="show_recheck_option" VALUE="true"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="message" VALUE="In order to gain secure network access, you must register your device and install the MobileIron management App.&#10;If you already installed the application, click the Recheck button below.&#10;&#10;Click here to download the MobileIron app.&#10;&lt;br&gt;&#10;&lt;a href=&quot;https://itunes.apple.com/il/app/mobileiron-mobile-work-client/id320659794&quot;  &gt; Download MobileIron App&lt;/a&gt;&#10;&#10;During the installation, use your corporate username and password.&#10;When asked for the server name, copy the server name listed below.&#10;&amp;#13;&#10;Server name:&#10;&amp;#13;&#10; de.mobileiron.net:43261&#10;&#10; I have already Installed. Recheck my device to allow me network access."/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:-734282276897011287;name:MobileIron App Not Installed – iOS"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-9103843189999857464" NAME="MobileIron App Not Installed – Android" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NOT_COMPLY"/>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: MobileIron App Not Installed – Android-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_mobileironmdm_client_apps" LABEL="MobileIron Apps" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.0" PLUGIN_VESRION_NUMBER="14000212" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER COMP_FIELD_NAME="connect_mobileironmdm_client_apps" FILTER_ID="7297636380756101844">
+                                <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_mobileironmdm_app_version" TYPE="any">
+                                    <VALUE VALUE2="Any"/>
+                                </SUB_FILTER>
+                                <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="connect_mobileironmdm_app_name" TYPE="contains">
+                                    <VALUE VALUE2="MobileIron"/>
+                                </SUB_FILTER>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="-6723836144592014456">
+                                <GROUP ID="5978395114538805997" NAME="Android"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_80/TCP:;TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_443/TCP:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="show_recheck_option" VALUE="true"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="message" VALUE="In order to gain secure network access, you must register your device and install the MobileIron management App.&#10;If you already installed the application, click the Recheck button below.&#10;&#10;Click here to download the MobileIron app.&#10;&lt;br&gt;&#10;&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.mobileiron&quot; &gt; Download MobileIron App&lt;/a&gt;&#10;&#10;During the installation, use your corporate username and password.&#10;When asked for the server name, copy the server name listed below.&#10;&amp;#13;&#10;Server name:&#10;&amp;#13;&#10; de.mobileiron.net:43261&#10;&#10; I have already Installed. Recheck my device to allow me network access."/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:-8487163355271633743;name:MobileIron App Not Installed – Android"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="5333655275180835578" NAME="Device Jailbroken – iOS" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NOT_COMPLY"/>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: Device Jailbroken – iOS-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_mobileironmdm_ios_device_jailbroken" LABEL="MobileIron iOS Device Jailbroken" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.0" PLUGIN_VESRION_NUMBER="14000212" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="924640099540648153" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="2188563053179448114">
+                                <GROUP ID="6275307008248402909" NAME="iOS"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_80/TCP:;TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_443/TCP:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="show_recheck_option" VALUE="true"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="message" VALUE="Your device was detected as Jailbroken. As a result, you cannot access the network. To gain network access, please remediate the issue, and click the Recheck button. &#10;"/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:7795776640142910589;name:MobileIron Device Jailbroken – iOS"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8114626418099132717" NAME="Device Rooted – Android" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NOT_COMPLY"/>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: Device Rooted – Android-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_mobileironmdm_android_device_rooted" LABEL="MobileIron Android Device Rooted" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.0" PLUGIN_VESRION_NUMBER="14000212" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="-5501576684793391931" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="2887088330613984693">
+                                <GROUP ID="5978395114538805997" NAME="Android"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_80/TCP:;TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_443/TCP:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="show_recheck_option" VALUE="true"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="message" VALUE="Your device was detected as Rooted. As a result, you cannot access the network. To gain network access, please remediate the issue, and click the Recheck button. &#10;"/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:2740650902676209019;name:MobileIron Device Rooted – Android"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="5568312387876341254" NAME="MobileIron Out of Compliance" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NOT_COMPLY"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: MobileIron Out of Compliance-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_mobileironmdm_compliance_state" LABEL="MobileIron Device Compliance State" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.0" PLUGIN_VESRION_NUMBER="14000212" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER AUTO_UPDATE="false" FILTER_ID="4638727052884279000" OPTIONS_DIGEST="4ccd4f34717771ec57be8240888e1a89">
+                            <OPT VALUE="false"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_80/TCP:;TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_443/TCP:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="show_recheck_option" VALUE="true"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="message" VALUE="Your device is out-of Compliance based on MobileIron criteria. As a result, you cannot access the network. To gain network access, please remediate the issue, and click the Recheck button.&#10;&#10;"/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:3218438551849909290;name:MobileIron Out of Compliance"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="7015309423794022434" NAME="Compliant" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="COMPLY"/>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="true"/>
+                    <PARAM NAME="show_recheck_option" VALUE="false"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="message" VALUE="Your device meets corporate compliance requirements. You may now access the corporate network."/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="true"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:3995342146356759076;name:MobileIron Compliant Devices"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <PROPERTY_LISTS>
+            <HOST_PROPERTY_LIST DESCRIPTION="" FIELD="connect_mobileironmdm_client_apps/connect_mobileironmdm_app_name" ID="8544392181269665717" NAME="Unauthorized Mobile Applications">
+                <VALUES/>
+            </HOST_PROPERTY_LIST>
+        </PROPERTY_LISTS>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

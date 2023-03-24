@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="2435931986865474189" NAME="Enrollment Step 2: MobileIron Device Enrollment" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RESERVED>
+            <RANGE FROM="224.0.0.0" TO="247.255.255.255"/>
+        </RESERVED>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="1087729595757896287" NAME="Unknown MAC" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Unknown MAC-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="mac" INNER_NOT="true" LABEL="MAC Address" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER CASE_SENSITIVE="false" FILTER_ID="381267875969099196" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="3538547890538253375" NAME="Enrolled Devices" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Enrolled Devices-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_mobileironmdm_mdm_managed" LABEL="MobileIron MDM Managed Device" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.4.0" PLUGIN_VESRION_NUMBER="14000212" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-6361820705236568757" VALUE="true"/>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="group-name" VALUE="id:4779723190910721173;name:MobileIron Enrolled Devices"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4783430903630913738" NAME="Unknown IP Addresses" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Unknown IP Addresses-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="ip" LABEL="IPv4 Address" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-6209793977733744369">
+                            <RESERVED>
+                                <RANGE FROM="224.0.0.0" TO="247.255.255.255"/>
+                            </RESERVED>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-2711801772875951242" NAME="Offline" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="NOT">
+                    <!--Rule expression. Rule name is: Offline-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="online" INNER_NOT="true" LABEL="Host is online" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="-2129541823225891974" VALUE="true"/>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="5468190164323754140" NAME="Non-Corporate Users" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Non-Corporate Users-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="guest_corporate_state" LABEL="Corporate/Guest Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER AUTO_UPDATE="false" FILTER_ID="-9055471761073348036" OPTIONS_DIGEST="095fffa332334f42fc0b79cff521aa27">
+                            <OPT VALUE="AUTH_GUEST"/>
+                            <OPT VALUE="UNAUTH_GUEST"/>
+                            <OPT VALUE="NA"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4918880923962214195" NAME="MobileIron Exceptions" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: MobileIron Exceptions-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="7866718607655161873">
+                            <GROUP ID="6827419837469198918" NAME="MobileIron Exceptions"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="3908605449392200336" NAME="Devices Not Enrolled –  iOS" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Devices Not Enrolled –  iOS-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="8875153391888095374">
+                            <GROUP ID="6275307008248402909" NAME="iOS"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="show_recheck_option" VALUE="true"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="message" VALUE="In order to gain secure network access, you must register your device and install the MobileIron management App.&#10;If you already installed the application, click the Recheck button below.&#10;&#10;Click here to download the MobileIron app.&#10;&lt;br&gt;&#10;&lt;a href=&quot;https://itunes.apple.com/il/app/mobileiron-mobile-work-client/id320659794&quot;  &gt; Download MobileIron App&lt;/a&gt;&#10;&#10;During the installation, use your corporate username and password.&#10;When asked for the server name, copy the server name listed below.&#10;&amp;#13;&#10;Server name:&#10;&amp;#13;&#10; de.mobileiron.net:43261&#10;&#10; I have already Installed. Recheck my device to allow me network access."/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_443/TCP:;TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_80/TCP:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.1.4-208" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="2231665648263986185" NAME="Devices Not Enrolled – Android" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Devices Not Enrolled – Android-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="-6839929571377924551">
+                            <GROUP ID="5978395114538805997" NAME="Android"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="http_notification">
+                    <PARAM NAME="open_browser" VALUE="false"/>
+                    <PARAM NAME="show_recheck_option" VALUE="true"/>
+                    <PARAM NAME="hcs" VALUE="false"/>
+                    <PARAM NAME="button_text" VALUE="I confirm reading the message"/>
+                    <PARAM NAME="confirm_id" VALUE="Notification confirmed"/>
+                    <PARAM NAME="message" VALUE="In order to gain secure network access, you must register your device and install the MobileIron management App.&#10;If you already installed the application, click the Recheck button below.&#10;&#10;Click here to download the MobileIron app.&#10;&lt;br&gt;&#10;&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.mobileiron&quot; &gt; Download MobileIron App&lt;/a&gt;&#10;&#10;During the installation, use your corporate username and password.&#10;When asked for the server name, copy the server name listed below.&#10;&amp;#13;&#10;Server name:&#10;&amp;#13;&#10; de.mobileiron.net:43261&#10;&#10; I have already Installed. Recheck my device to allow me network access."/>
+                    <PARAM NAME="ssl" VALUE="false"/>
+                    <PARAM NAME="onetime" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="virtual-fw-rule">
+                    <PARAM NAME="blocking_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:BLOCK:PORT_Any:"/>
+                    <PARAM NAME="exception_rule" VALUE="TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_443/TCP:;TO_-1548524325910511786#No Name Assigned#All IPv4@:ALLOW:PORT_80/TCP:"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
