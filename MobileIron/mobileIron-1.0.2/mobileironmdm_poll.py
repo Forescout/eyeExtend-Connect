@@ -54,8 +54,7 @@ mi_to_ct_props_map = {
     "ownership": "connect_mobileironmdm_ownership"
 }
 
-poll_url = MI_PROTOCOL + "://" + MI_SERVER_ADDRESS + "/msa/v1/cps/device/?limit=200"
-logging.debug("MI Polling URL " + poll_url)
+STATUS = ['ACTIVE', 'RETIRED', 'WIPED', 'WIPE_SENT', 'UNKNOWN', 'RETIRE_SENT', 'ENROLLMENT_PENDING']
 
 auth_string = "{}:{}".format(MI_SERVER_USERNAME, MI_SERVER_PASSWORD)
 base64string = base64.b64encode(auth_string.encode('utf-8'))
@@ -78,40 +77,44 @@ endpoints = []
 try:
     logging.debug("Starting poll...")
 
-    poll_response = requests.request("GET", poll_url, headers=headers, data=payload, verify=ssl_verify)
-    logging.debug("MI Poll response: " + str(poll_response.text.encode("utf-8")))
+    for status in STATUS:
+        poll_url = f'{MI_PROTOCOL}://{MI_SERVER_ADDRESS}/msa/v1/cps/device?status={status}&limit=200'
+        logging.debug("MI Polling URL " + poll_url)
 
-    polled_response_json = poll_response.json()
+        poll_response = requests.request("GET", poll_url, headers=headers, data=payload, verify=ssl_verify)
+        logging.debug("MI Poll response: " + str(poll_response.text.encode("utf-8")))
 
-    count = polled_response_json["results"]
+        polled_response_json = poll_response.json()
 
-    for i in range(count):
-        prop = polled_response_json["searchResults"][i]
-        endpoint = {}
-        properties = {}
-        # skip adding hosts without a MAC to the response
-        if "macAddress" not in prop.keys():
-            logging.debug("MAC address not found for host with Device UID: " + prop["identifier"])
-            continue
-        else:
-            for prop_key, prop_val in list(prop.items()):
-                # compliance state should be string type
-                if prop_key == "compliant":
-                    if prop_val:
-                        prop_val = "true"
-                    else:
-                        prop_val = "false"
-                # mac address is the key for every endpoint
-                if prop_key == "macAddress":
-                    prop_val = prop_val.replace(":", "")
-                    endpoint["mac"] = prop_val
+        count = polled_response_json["results"]
 
-                if prop_key in mi_to_ct_props_map.keys():
-                    prop_ct_name = mi_to_ct_props_map[prop_key]
-                    properties[prop_ct_name] = prop_val
+        for i in range(count):
+            prop = polled_response_json["searchResults"][i]
+            endpoint = {}
+            properties = {}
+            # skip adding hosts without a MAC to the response
+            if "macAddress" not in prop.keys():
+                logging.debug("MAC address not found for host with Device UID: " + prop["identifier"])
+                continue
+            else:
+                for prop_key, prop_val in list(prop.items()):
+                    # compliance state should be string type
+                    if prop_key == "compliant":
+                        if prop_val:
+                            prop_val = "true"
+                        else:
+                            prop_val = "false"
+                    # mac address is the key for every endpoint
+                    if prop_key == "macAddress":
+                        prop_val = prop_val.replace(":", "")
+                        endpoint["mac"] = prop_val
 
-        endpoint["properties"] = properties
-        endpoints.append(endpoint)
+                    if prop_key in mi_to_ct_props_map.keys():
+                        prop_ct_name = mi_to_ct_props_map[prop_key]
+                        properties[prop_ct_name] = prop_val
+
+            endpoint["properties"] = properties
+            endpoints.append(endpoint)
 
     logging.debug("Poll completed")
     response["endpoints"] = endpoints
