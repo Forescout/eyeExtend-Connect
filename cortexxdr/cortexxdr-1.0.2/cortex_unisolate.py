@@ -23,12 +23,11 @@ SOFTWARE.
 ''' Un-Isolate Cortex XDR Endpoint '''
 import uuid
 import json
-import urllib.request, urllib.error, urllib.parse
+import requests, urllib.error
 from datetime import datetime, timezone
 import secrets
 import string
 import hashlib
-from connectproxyserver import ConnectProxyServer, ProxyProtocol
 
 
 base_url = params['connect_cortexxdr_api_url']
@@ -68,14 +67,28 @@ if 'connect_cortexxdr_read_endpointid' in params:
     data = json.dumps(data)
 
     # Requests Proxy
-    proxy_server = ConnectProxyServer(params)
-    opener = proxy_server.get_urllib_request_https_opener(ProxyProtocol, ssl_context)
+    is_proxy_enabled = params.get("connect_proxy_enable")
+    if is_proxy_enabled == "true":
+        proxy_ip = params.get("connect_proxy_ip")
+        proxy_port = params.get("connect_proxy_port")
+        proxy_user = params.get("connect_proxy_username")
+        proxy_pass = params.get("connect_proxy_password")
+        if not proxy_user:
+            proxy_url = f"https://{proxy_ip}:{proxy_port}"
+            proxies = {"https" : proxy_url}
+            logging.debug("Proxy enabled / no user")
+        else:
+            proxy_url = f"https://{proxy_user}:{proxy_pass}@{proxy_ip}:{proxy_port}"
+            proxies = {"https" : proxy_url}
+            logging.debug("Proxy enabled / user")
+    else:
+        logging.debug("Proxy disabled")
+        proxies = None
 
     try:
-        request = urllib.request.Request(url=base_url+'/public_api/v1/endpoints/unisolate', data=bytes(data.encode("utf-8")), headers=header, method="POST")
-        resp = opener.open(request)
+        resp = requests.post(url=base_url+'/public_api/v1/endpoints/unisolate', data=bytes(data.encode("utf-8")), headers=header, verify=ssl_verify, proxies=proxies)
         # resp = urllib.request.urlopen(request)
-        request_response = json.loads(resp.read())
+        request_response = json.loads(resp.content)
         return_values = request_response['reply']
         if return_values['endpoints_count'] == 1:
             response["succeeded"] = True          
@@ -93,6 +106,18 @@ if 'connect_cortexxdr_read_endpointid' in params:
         else:
            response["succeeded"] = False 
            response["troubleshooting"] = "Failed action. Unknown"
+    except requests.exceptions.HTTPError as errh:
+        response["succeeded"] = False
+        response["troubleshooting"] = "Failed action, HTTP error:{}".format(errh)
+    except requests.exceptions.ConnectionError as errc:
+        response["succeeded"] = False
+        response["troubleshooting"] = "Failed action, Connecting error:{}".format(errc)
+    except requests.exceptions.Timeout as errt:
+        response["succeeded"] = False
+        response["troubleshooting"] = "Failed action, imeout error:{}".format(errt)
+    except requests.exceptions.RequestException as err:
+        response["succeeded"] = False
+        response["troubleshooting"] = "Failed action, error:{}".format(err)
 
 else:
     response["succeeded"] = False
