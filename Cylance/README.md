@@ -1,8 +1,8 @@
 # Forescout
-eyeExtend for Cylance App README.md Version: 1.0.0
+eyeExtend for Cylance App README.md Version: 1.1.0
 
 ## Configuration Guide
-**Version 1.0.0**
+**Version 1.1.0**
 
 ## Contact Information
 Forescout Technologies, Inc.
@@ -19,6 +19,12 @@ Support: 1.708.237.6591
 
 ## Legal Notice
 © 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation. A list of our trademarks and patents can be found at [https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks](https://urldefense.proofpoint.com/v2/url?u=https-3A__www.forescout.com_company_legal_intellectual-2Dproperty-2Dpatents-2Dtrademarks&amp;d=DwMFAg&amp;c=L5E2d05je37i-dadkViuXA&amp;r=Z3cI4QPLlfMimB_63ipHyFuWSHGqqAs50hjX-2X1CEw&amp;m=ypFjb5tb21hH81CxdGe-3FT8l4QXZe-hzuDh-eBT-wQ&amp;s=ATQ1mJb4KkN8L9fn2BnpRuwmDWJcze7zyqTbG1PTwkc&amp;e=). Other brands, products, or service names may be trademarks or service marks of their respective owners.
+
+
+## Release notes for version 1.1.0
+Code is updated to be proxy aware. App only supports from Connect Plugin version 1.6 onwards . That's Connect module 2.0.0. 
+This version of the module only supports from Forescout OS version 8.2.2.
+
 
 # About eyeExtend for Cylance
 Forescout eyeExtend for Cylance is an integration of the Forescout platform with CylancePROTECT®.
@@ -181,13 +187,12 @@ Note the following:
 - If you have apps that discover 50,000 or more endpoints, distribute the apps in such a way so that only up to two of the apps share the same focal (connecting) appliance. An alternative is to split the endpoints across multiple user accounts on multiple servers.
 
 6. Select **Next**.
-7. Enter the Proxy Server information similar to any Forescout Extend Module:
-8. Select **Next**.
-9. Enter the following information:
+
+8. Enter the following information:
 - Enable Host Discovery: Select this option to enable the **Discovery Frequency** field.
 - Discovery Frequency: Select a value for the frequency of host discovery, which is the interval between discoveries. The range is from 1 minute to 72 minutes. The default is 8 minutes.
 - Number of API queries per unit time: Select a value for the rate limiter. The range is from 1 to 1000 requests per second. The default is 100 requests per second.You can rate limit the requests sent to the third-party server. The rate limiter specifies the number of times a script is invoked during the specified time. It is triggered when the app starts.
-10. Select **Finish**. The configured system description is displayed in the **System Description** dialog box.
+9. Select **Finish**. The configured system description is displayed in the **System Description** dialog box.
 
 When the system description is selected, all the buttons on the dialog box are enabled.
 
@@ -201,7 +206,7 @@ You can edit an existing system description for the Cylance App.
 To edit a system description:
 
 1. Select an existing system description and select **Edit**.
-There are tabs for each pane. You can edit the settings in the Cylance Connection, Assign CounterACT Devices, Proxy Server, and Cylance Options tabs.
+There are tabs for each pane. You can edit the settings in the Cylance Connection, Assign CounterACT Devices, and Cylance Options tabs.
 2. Select **OK** to save the system description edits to the CounterACT Appliance.
 
 ## Remove a System Description

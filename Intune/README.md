@@ -1,11 +1,19 @@
 # Forescout  
-eyeExtend for Intune App README.md Version: 2.0.0  
+eyeExtend for Intune App README.md Version: 2.0.9  
 
 ## Configuration Guide  
 **Version 2.0.0**  
 
 **Version 2.0.2**
 - Add support for proxy functionality
+
+**Version 2.0.8 Changes**
+- Added an ACTION request Intune SYNC with the endpoint. Modified the TAG properties to state "PUBLIC" and not "US-PUBLIC". The APP can now connect to the US Government environment. You can select the beta or v1.0 production environments also.
+
+**Version 2.0.9 Changes**
+- Use hashed id as mac value when wifiMacAddress is not present during host discovery.
+- **Warning** By using this version there may be duplicates created in the system if a device with no WiFi address in InTune is discovered on the network.
+
 ## Contact Information  
 - Have feedback or questions? Write to us at
 
@@ -617,7 +625,7 @@ Factory resets a managed endpoint.
 There are a few Python scripts.  
 - **intune_poll.py** : Enable discovery on a specified period to poll endpoint properties.  
 - **intune_test.py** : Test the connection to the Intune server.  
-- **intune_resolve.py** : GRAPH API resolve query using Azure Device ID, obtained from "`intune_nac_resolce.py`"
+- **intune_resolve.py** : GRAPH API resolve query using Azure Device ID, obtained from "`intune_nac_resolve.py`"
 - **intune_remote_lock_managed_device.py** : Issue a request to the Intune server to lock a specific managed endpoint.  
 - **intune_wipe_managed_device.py** : Issue a request to the Intune server to wipe a specific managed endpoint.
 - **intune_authorization.py** : Fetch an Intune REST API authorization tokens for a specific interval.

@@ -29,6 +29,14 @@ The APP queries the device’s properties from the Cortex XDR server.
 
 **Version v1.0.1 Cortex XDR APP**
 
+Added two new OS related properties.
+
+**Version v1.0.2 Cortex XDR APP**
+
+Added Proxy server support.
+
+**Requirements**
+
 Added new properties and enabled Inventory on some attributes.
 
 New properties:
