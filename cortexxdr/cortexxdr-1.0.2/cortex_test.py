@@ -21,7 +21,7 @@ SOFTWARE.
 '''
 
 ''' Cortex XDR Endpoint Test Script '''
-import requests
+import urllib.request
 import json
 import logging
 from datetime import datetime, timezone
@@ -29,6 +29,7 @@ import secrets
 import string
 import hashlib
 import socket
+from connectproxyserver import ConnectProxyServer, ProxyProtocol
 
 logging.info('===>Starting Test of Cortex API Server')
 
@@ -84,32 +85,17 @@ try:
     data = json.dumps(data)
 
     # Requests Proxy
-    is_proxy_enabled = params.get("connect_proxy_enable")
-    if is_proxy_enabled == "true":
-        proxy_ip = params.get("connect_proxy_ip")
-        proxy_port = params.get("connect_proxy_port")
-        proxy_user = params.get("connect_proxy_username")
-        proxy_pass = params.get("connect_proxy_password")
-        if not proxy_user:
-            proxy_url = f"https://{proxy_ip}:{proxy_port}"
-            proxies = {"https" : proxy_url}
-            logging.debug("Proxy enabled / no user")
-        else:
-            proxy_url = f"https://{proxy_user}:{proxy_pass}@{proxy_ip}:{proxy_port}"
-            proxies = {"https" : proxy_url}
-            logging.debug("Proxy enabled / user")
-    else:
-        logging.debug("Proxy disabled")
-        proxies = None
+    proxy_server = ConnectProxyServer(params)
+    opener = proxy_server.get_urllib_request_https_opener(ProxyProtocol.all, ssl_context)
 
     try:
         # create a Post request and connect
-        resp = requests.post(url=base_url+'/public_api/v1/endpoints/get_endpoint', data=bytes(data.encode("utf-8")), headers=header, verify=ssl_verify, proxies=proxies)
+        resp = opener.open(urllib.request.Request(url=base_url+'/public_api/v1/endpoints/get_endpoint', data=bytes(data.encode("utf-8")), headers=header, method="POST"))
 
         # For output only
-        response_data = json.loads(resp.content)
+        response_data = json.loads(resp.read())
         
-        if resp.status_code == 200:
+        if resp.getcode() == 200:
             response['succeeded'] = True
             response['result_msg'] = 'Successfully connected to Cortex API Server.\n'
             bad_chars = ["[", "]","'"]
@@ -140,14 +126,10 @@ try:
 
         logging.error('===>Ending Cortex API Server')
 
-    except requests.exceptions.HTTPError as errh:
-        logging.debug("*** Cortex returned HTTP error:{}".format(errh))
-    except requests.exceptions.ConnectionError as errc:
-        logging.debug("*** Cortex returned Connecting error:{}".format(errc))
-    except requests.exceptions.Timeout as errt:
-        logging.debug("*** Cortex returned Timeout error:{}".format(errt))
-    except requests.exceptions.RequestException as err:
+    except Exception as err:
         logging.debug("*** Cortex returned error:{}".format(err))
+        response['succeeded'] = False
+        response['result_msg'] = "*** Cortex returned error:{}".format(err)
         
 except socket.error:
     response["error"] = "=======>>>>>Cortex: Error invalid IP"

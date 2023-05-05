@@ -23,13 +23,14 @@ SOFTWARE.
 ''' Resolve Cortex XDR Endpoint details '''
 import uuid
 import json
-import requests
+import urllib.request
 from datetime import datetime, timezone
 import secrets
 import string
 import hashlib
 # import logging so that we can log to the python server at /usr/local/forescout/plugin/connect/python_logs
 import logging
+from connectproxyserver import ConnectProxyServer, ProxyProtocol
 
 logging.info("=======>>>>>Starting Cortex API resolve Script.")
 
@@ -106,24 +107,10 @@ if "ip" in params:
 
     #convert the data to post to json
     data = json.dumps(data)
+
     # Requests Proxy
-    is_proxy_enabled = params.get("connect_proxy_enable")
-    if is_proxy_enabled == "true":
-        proxy_ip = params.get("connect_proxy_ip")
-        proxy_port = params.get("connect_proxy_port")
-        proxy_user = params.get("connect_proxy_username")
-        proxy_pass = params.get("connect_proxy_password")
-        if not proxy_user:
-            proxy_url = f"https://{proxy_ip}:{proxy_port}"
-            proxies = {"https" : proxy_url}
-            logging.debug("Proxy enabled / no user")
-        else:
-            proxy_url = f"https://{proxy_user}:{proxy_pass}@{proxy_ip}:{proxy_port}"
-            proxies = {"https" : proxy_url}
-            logging.debug("Proxy enabled / user")
-    else:
-        logging.debug("Proxy disabled")
-        proxies = None
+    proxy_server = ConnectProxyServer(params)
+    opener = proxy_server.get_urllib_request_https_opener(ProxyProtocol.all, ssl_context)
 
     # CT will provide a params{} dictionary with the dependent properties you defined in 'properties.conf' for each of your App's custom properties.
     logging.info("=======>>>>>Cortex: parameters supplied by CT: {}".format(params))
@@ -134,8 +121,8 @@ if "ip" in params:
     logging.info("=======>>>>>Cortex: Resolving IP address: " + ip_addr)
     # Get device information
     try:
-        resp = requests.post(url=base_url+'/public_api/v1/endpoints/get_endpoint', data=bytes(data.encode("utf-8")), headers=header, verify=ssl_verify, proxies=proxies)
-        request_response = json.loads(resp.content)
+        resp = opener.open(urllib.request.Request(url=base_url+'/public_api/v1/endpoints/get_endpoint', data=bytes(data.encode("utf-8")), headers=header, method="POST"))
+        request_response = json.loads(resp.read())
         #save only the required information from original dictionary as the original dictionary is a nested one
         trimmed_response = json.loads(json.dumps(request_response['reply']['endpoints'], indent = 4))
         
@@ -168,14 +155,10 @@ if "ip" in params:
         else:
             response["error"] = "=======>>>>>Cortex: Error " + ip_addr + " Not Found in Cortex Database."
             logging.error(response["error"])
-    except requests.exceptions.HTTPError as errh:
-        logging.debug("*** Cortex returned HTTP error:{}".format(errh))
-    except requests.exceptions.ConnectionError as errc:
-        logging.debug("*** Cortex returned Connecting error:{}".format(errc))
-    except requests.exceptions.Timeout as errt:
-        logging.debug("*** Cortex returned Timeout error:{}".format(errt))
-    except requests.exceptions.RequestException as err:
+    except Exception as err:
         logging.debug("*** Cortex returned error:{}".format(err))
+        response['succeeded'] = False
+        response['result_msg'] = "*** Cortex returned error:{}".format(err)
 
     # All responses from scripts must contain the JSON object 'response'.
     # Host property resolve scriptswill need to populate a 'properties' JSON object within the
