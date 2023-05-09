@@ -11,18 +11,15 @@ Forescout eyeExtend Connect Fortinet VPN APP README.md
 - See Contact Information above.
 
 ## About the eyeExtend Connect Fortinet VPN APP
-### Version v1.1.0 - Fixes issue with integer/string for property connect_fvpn_index which was shown up on 1.5.0 version of Connec; it also has a new property connect_fvpn_poll – this property records the poll time. This can then be used in policy to delete hosts where this value is older than the last poll time
 
-### Version v1.0.3 - Fixes issue related to polling/discovery script failure with SSL-VPN Web User; Removes proxy panel from deployment wizard
-
-### Version v1.0.0 Fortinet VPN APP
+### Version v1.1.2 Fortinet VPN APP
 
 Fortinet VPN APP – connects directly to FMG/FGT using the REST API and retrieves properties on connected VPN user sessions.
 
 Control Actions
 
 - Drop (disconnect) VPN existing VPN sessions.
-- Disable local Users Accounts From accessing the network.
+- Disable local Users Accounts From accessing the network. 
 
 Use Case 1
 
@@ -45,7 +42,7 @@ The APP enhances Forescout data content for remote endpoint sessions.
 - Forescout eyeExtend Connect 1.5 or higher
 
 - See license.txt file for license information
-
+  
   ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## User Interface
@@ -76,7 +73,13 @@ The APP allows for upto 4 FortiGate Devices and Keys on the FortiGate device pan
 
 - Certification validation
 - Authorization
+- Host Discovery
 - Rate limiter
+
+#### Host Discovery
+- User can enable host discovery in order to trigger the discovery/poll script periodically or manually through the console.
+- The default discovery interval is set for 60 minutes (1 hour) and can be adjusted up to 36000 minutes (25 days).
+- Depending on the number of endpoints to poll, it is recommended to adjust the interval to be less frequent, for example to 4-8 hours, in order to lighten the load on the environment.
 
 #### Rate limited API Count
 
@@ -180,43 +183,43 @@ FortiManager - Error: ADOM adom2 doesn't exist
 - User can import the Fortinet VPN Connect APP via eyeExtend Connect module
 
 - APP file shall look like Fortinet-VPNApp.ECP which is signed
-
+  
   ## Start and Stop APP
 
 - User can start and stop the Fortinet VPN App
 
 - When the APP is stopped, all properties resolve, actions and policy are suspended.
-
+  
   ### Remove APP
 
 - User can remove the APP if no longer needed
 
 - User need to delete the Fortinet VPN policy first to remove the App.
-
+  
   ----------------------------------------------------------------------------------------------------------------------------------------------------
-
+  
   ## Policy Templates
 
 - There is a default Fortinet VPN Template
-
+  
   - After importing the APP the policy can be find under Policy > Add > Fortinet VPN > Fortinet VPN disable non-compliant device
-
+    
         The policy has 2 actions enabled.
-
+    
             _Drop VPN_
-
+    
             _Disable Local User_
-
+    
     ----------------------------------------------------------------------------------------------------------------------------------------------------
-
+    
     ## Actions
 
 - Down/Terminate the IPSec / SSL tunnel. **Drop VPN**
 
-- Disable/Enable local users account(s). **Disable Local User**
-
+- Disable/Enable local users account(s). **Disable Local User** 
+  
   - Not Available on FortiManager
-
+    
     ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Properties
@@ -248,7 +251,7 @@ There are a few properties gathered from the Fortinet VPN for the endpoint.
 - Fortinet VPN SSL index
 
 - Fortinet VPN External IP
-
+  
   ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Scripts
@@ -267,7 +270,7 @@ There are a few properties gathered from the Fortinet VPN for the endpoint.
 
 * Test authentication to Fortinet Appliances
   **fvpn_test.py**
-
+  
   ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Footnote
