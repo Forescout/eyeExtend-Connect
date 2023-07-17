@@ -1,0 +1,202 @@
+{
+  "name": "Claroty xDome and Medigate",
+  "version": "1.0.1",
+  "author": "Claroty",
+  "testEnable": true,
+  "panels": [
+    {
+      "title": "Connection Configuration",
+      "description": "Provide the Claroty xDome or Medigate API connection URL and API token parameters.",
+      "fields": [
+        {
+          "display": "API Token",
+          "field ID": "connect_clarotyxdomeandmedigate_token",
+          "type": "shortString",
+          "mandatory": "true",
+          "add to column": "false",
+          "show column": "false",
+          "Tooltip": "Enter your Claroty xDome or Medigate API Token"
+        },
+        {
+          "display": "Connection API URL",
+          "field ID": "connect_clarotyxdomeandmedigate_url",
+          "type": "shortString",
+          "mandatory": "true",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "The URL for your Claroty xDome API or Medigate API"
+        },
+        {
+          "certification validation": true
+        },
+        {
+          "host discovery": true,
+          "display": "Discovery Frequency in Minutes",
+          "max": 43200,
+          "add to column": "false",
+          "show column": "false",
+          "value": 240
+        }
+      ]
+    },
+    {
+      "title": "API-Based Device Selection Filters",
+      "description": "When these filters are applied, the query will fetch the devices corresponding to the specified filter values. The filter relation is set to AND, which means all filters are used collectively. If you provide both filter values and a JSON query, the filter values will be ignored.",
+      "fields": [
+        {
+          "display": "Filter Name",
+          "field ID": "connect_clarotyxdomeandmedigate_name",
+          "type": "shortString",
+          "mandatory": "true",
+          "add to column": "true",
+          "show column": "true",
+          "identifier": "true",
+          "tooltip": "Enter a unique filter name.",
+          "value": "All devices"
+        },
+        {
+          "display": "Site Name",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_site_name",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on the specific site within the organization to which the device is linked."
+        },
+        {
+          "display": "Subnets",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_subnets",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on the IP Subnet in CIDR notation."
+        },
+        {
+          "display": "MAC",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_mac_list",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on the MAC address associated with the device."
+        },
+        {
+          "display": "VLAN",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_vlan",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on the virtual LAN to which the device belongs."
+        },
+        {
+          "display": "Network",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_network",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on the type of network the device belongs to. For example, Corporate or Guest."
+        },
+        {
+          "display": "Category",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_device_category",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on their category. For example, IoT, OT, IT, or Medical."
+        },
+        {
+          "display": "Subcategory",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_device_subcategory",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on their subcategory. For example, Control, Building Management, or Imaging."
+        },
+        {
+          "display": "Device Type Family",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_device_type_family",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on the device type family. For example, Infusion Pumps."
+        },
+        {
+          "display": "Device Type",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_device_type",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on the device type. For example, Infusion Pump Module or PLC."
+        },
+        {
+          "display": "Model",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_model",
+          "type": "shortString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices based on the device model. For example, 8015 PC Unit or 1756-ENBT\u200B/\u200BA."
+        },
+        {
+          "display": "Other (JSON)",
+          "field ID": "connect_clarotyxdomeandmedigate_filter_full_json",
+          "type": "longString",
+          "mandatory": "false",
+          "add to column": "true",
+          "show column": "false",
+          "identifier": "false",
+          "tooltip": "Filter devices using a comprehensive JSON query. Note that if you specify both filter values and a JSON query, the JSON query will take precedence, and the filter values will be ignored."
+        }
+      ]
+    },
+    {
+      "focal appliance": true,
+      "title": "Assign CounterACT Devices",
+      "description": "<html>Select the connecting CounterACT device that will communicate with the targeted xDome instance, including requests by other CounterACT devices. Specific CounterACT devices assigned here cannot be assigned to another server elsewhere.<br><br>If you do not assign specific devices, by default, all devices will be assigned to one server. This server becomes known as the Default Server.<html>",
+      "add to column": "true",
+      "show column": "true"
+    },
+    {
+      "title": "xDome Advanced Settings",
+      "description": "xDome Connection",
+      "fields": [
+        {
+          "display": "Max Devices per Request",
+          "field ID": "connect_clarotyxdomeandmedigate_max_devices_per_page",
+          "type": "integer",
+          "mandatory": "true",
+          "add to column": "false",
+          "show column": "false",
+          "value": 1000
+        },
+        {
+          "display": "Total Device Limit",
+          "field ID": "connect_clarotyxdomeandmedigate_max_devices_limit",
+          "type": "integer",
+          "mandatory": "true",
+          "add to column": "false",
+          "show column": "false",
+          "value": 100000
+        }
+      ]
+    }
+  ]
+}
