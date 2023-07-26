@@ -54,7 +54,7 @@ Property                      | Type       | Label                          | De
 `connect_ordrhealthcare_vulnLevel` | String     | Ordr Vulnerability Level | Device Vulnerability Level in Ordr
 `connect_ordrhealthcare_alarmCount` | String     | Ordr Alarm Count | Device Alarm Count in Ordr
 `connect_ordrhealthcare_deviceCriticality` | String     | Ordr Criticality | Device Criticality in Ordr
-`connect_ordrhealthcare_internetCommunication` | String     | Ordr Internet Communications | Device Internet Communications Stauts in Ordr
+`connect_ordrhealthcare_internetCommunication` | String     | Ordr Internet Communications | Device Internet Communications Status in Ordr
 `connect_ordrhealthcare_hasPhi` | String     | Ordr Contains PHI | Device Contains PHI Data Status in Ordr
 `connect_ordrhealthcare_clinicalRisk` | String     | Ordr Clinical Risk | Device Clinical Risk in Ordr
 `connect_ordrhealthcare_devicePortability` | String     | Ordr Device Portability | Device Portability in Ordr
@@ -172,7 +172,7 @@ Use the refresh button to manually poll Ordr for device updates.
 
 - When the App is stopped, all attribute updates are suspended.
 
-### Remove the Ordr Healthcare Connect Ap
+### Remove the Ordr Healthcare Connect App
 
 - User can remove the Ordr Healthcare Connect App
 
@@ -211,7 +211,7 @@ To trigger data collection from Ordr SCE, at least one policy must be configured
   
 ### Sample Host Properties View of Ordr Attributes
 
-<img src="README.assets/OrdrHealthcareConnectApp-HostProperties.jpg" width="794" height="783" align="center"/>
+<img src="README.assets/OrdrHealthcareConnectApp-HostProperties.jpg" width="887" height="875" align="center"/>
 
 ## Future Enhancements
 
