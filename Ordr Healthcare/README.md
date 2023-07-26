@@ -77,15 +77,16 @@ ordr_resolve.py | Poll Script, collects device attributes from Ordr
 - Forescout CounterACT 8.x or above
 - Forescout eyeExtend Connect 1.5 or higher
 - Forescout Policy based on Ordr host attribute(s)
+- See [license.txt](./license.txt) file for license information
 
 ## Ordr SCE Configuration
 
 The Ordr Healthcare Connect App requires API access to Ordr SCE.
 
 - From the Ordr SCE <b>Integrations</b> page, select SCE API
-- Under the Configuration tab, configure the Ordr SCE credentials and click Save.
+- Under the <b>Configuration</b> tab, configure the Ordr SCE credentials and click Save.
 
-<img src="README.assets/OrdrConnectApp-Config.jpg" style="zoom:70%;" align="center"/>  <br />
+<img src="README.assets/OrdrConnectApp-Config.jpg" width="714" height="353"  align="center"/>  <br />
 
 Below are descriptions for each field:
 
@@ -106,7 +107,7 @@ Next, import the Connect App for Ordr Healthcare and add a system description.
 1. Go to **Tools** > **Options** > **Connect**.
 2. In the App Configuration tab of the **Connect** pane, click **Import**.
 3. Apps that can be imported are in .zip or .eca format. Select the Ordr App file and click **Import**.
-4. Select **Close** when the import has finished. A blank **System Description** dialog box opens.
+4. Select **Close** when the import has finished. A blank **System Description** dialog box opens. 
 
 ### Add a System Description
 To configure the Ordr App, you add a system description to define the connection to Ordr SCE. To add the system description:
@@ -121,7 +122,7 @@ There are two system panels provided with the App that must be configured.
 
 ### Ordr Healthcare Connection Panel
 
-<img src="README.assets/OrdrHealthcareConnectApp-ConnectionPanel.jpg" style="zoom:50%;" align="center"/>  <br />
+<img src="README.assets/OrdrHealthcareConnectApp-ConnectionPanel.jpg" width="567" height="486" align="center"/>  <br />
 
 Below are descriptions for each field:
 
@@ -134,7 +135,7 @@ Validate Server Certificate      | If checked, eyeSight will validate the Ordr c
 
 ### Ordr Healthcare Options Panel
 
-<img src="README.assets/OrdrHealthcareConnectApp-OptionsPanel.jpg" style="zoom:50%;" align="center"/>  <br />
+<img src="README.assets/OrdrHealthcareConnectApp-OptionsPanel.jpg" width="567" height="486" align="center"/>  <br />
 
 Below are descriptions for each field:
 
@@ -151,7 +152,7 @@ Number of API queries per second    | API query rate (default = 20)
 
 Example Test Result
 
-<img src="README.assets/OrdrConnectApp-Test.jpg" style="zoom:50%;" align="center"/>
+<img src="README.assets/OrdrConnectApp-Test.jpg" width="539" heaight="498" align="center"/>
 
 ### Refreshing Discovery of Hosts and Ordr Attributes
 
@@ -162,6 +163,8 @@ Use the refresh button to manually poll Ordr for device updates.
 ### Import the Ordr Healthcare Connect App
 
 - User can import the Ordr Healthcare Connect App via the eyeExtend Connect module
+
+  See <a href="#import-the-ordr-app">Import the Ordr App</a> for additional details.
 
 ### Start and Stop the Ordr Healthcare Connect App
 
@@ -179,7 +182,7 @@ Use the refresh button to manually poll Ordr for device updates.
 
 There are 4 default Ordr Policy Templates that enable continuous update of host information learned by Ordr. After importing the Ordr Healthcare Connect App, these policies can be found under Policy > Add > Ordr. Additional custom policies can be created to enforce segmentation or take other actions based on Ordr host attributes.
 
-<img src="README.assets/OrdrConnectApp-Policy.jpg" style="zoom:50%;" align="center"/>
+<img src="README.assets/OrdrConnectApp-Policy.jpg" width="708" height="627" align="center"/>
 
 - Ordr Host Update
 
@@ -204,11 +207,11 @@ Optionally, a custom policy can be configured to trigger periodic host updates f
 ### Sample Host Update Policy
 To trigger data collection from Ordr SCE, at least one policy must be configured and enabled using an Ordr device attribute as a condition. Under Policy Manager, Add a custom policy to match on any value of the Ordr Category or Ordr Group attribute; no actions are required for host updates only.
 
-<img src="README.assets/OrdrConnectApp-HostUpdatePolicy.jpg" style="zoom:50%;" align="center"/>
+<img src="README.assets/OrdrConnectApp-HostUpdatePolicy.jpg" width="578" height="768" align="center"/>
   
 ### Sample Host Properties View of Ordr Attributes
 
-<img src="README.assets/OrdrHealthcareConnectApp-HostProperties.jpg" style="zoom:50%;" align="center"/>
+<img src="README.assets/OrdrHealthcareConnectApp-HostProperties.jpg" width="794" height="783" align="center"/>
 
 ## Future Enhancements
 
