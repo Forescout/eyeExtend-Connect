@@ -1,5 +1,5 @@
 # Forescout
-eyeExtend Connect Custom Properties App README.md Version: 1.0.1
+eyeExtend Connect Custom Properties App README.md Version: 1.0.2
 
 ## Configuration Guide
 **Version 1.0.0**
@@ -7,6 +7,9 @@ eyeExtend Connect Custom Properties App README.md Version: 1.0.1
 
 **Version 1.0.1**
 - Combined with Short DNS Name to create Custom Properties app
+
+**Version 1.0.2**
+- Resolved an issue with Short DNS Name not updating the host properties correctly
 
 
 ## Contact Information  
