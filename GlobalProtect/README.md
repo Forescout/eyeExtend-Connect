@@ -150,4 +150,4 @@ Add HIP data visibility to the GlobalProtect App
 Fixed an issue with disconnect action failing when a GlobalProtect endpoint was missing a domain
 
 ## About 1.2.2
-Switched the API call show user ip-user-mapping ip to improve performance
+Modified the API call ip-user-mapping to improve performance
