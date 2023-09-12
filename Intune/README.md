@@ -8,10 +8,11 @@ eyeExtend for Intune App README.md Version: 2.0.9
 - Add support for proxy functionality
 
 **Version 2.0.8 Changes**
-- Added an ACTION request Intune SYNC with the endpoint. Modified the TAG properties to state "PUBLIC" and not "US-PUBLIC". The APP can now connect to the US Government environment. You can select the bet or v1.0 production environments also.
+- Added an ACTION request Intune SYNC with the endpoint. Modified the TAG properties to state "PUBLIC" and not "US-PUBLIC". The APP can now connect to the US Government environment. You can select the beta or v1.0 production environments also.
 
 **Version 2.0.9 Changes**
 - Use hashed id as mac value when wifiMacAddress is not present during host discovery.
+**Warning** By using this version there may be duplicates created in the system if a device with no WiFi address in InTune is discovered on the network.
 
 **Version 2.0.10 Changes**
 - Add support to process new date format in NAC query response, new format: %m/%d/%Y %H:%M:%S %z
