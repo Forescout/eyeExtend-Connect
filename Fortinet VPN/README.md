@@ -16,6 +16,10 @@ Forescout eyeExtend Connect Fortinet VPN APP README.md
 
 Fortinet VPN APP – connects directly to FMG/FGT using the REST API and retrieves properties on connected VPN user sessions.
 
+### Version v1.1.3 Fortinet VPN APP - to support FortiOS 7.4
+
+When dropping VPN session, FortiOS 7.4.0 requires to use websession index, not like in prior versions using subsession index.
+
 Control Actions
 
 - Drop (disconnect) VPN existing VPN sessions.
