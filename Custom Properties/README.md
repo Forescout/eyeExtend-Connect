@@ -11,6 +11,8 @@ eyeExtend Connect Custom Properties App README.md Version: 1.0.2
 **Version 1.0.2**
 - Resolved an issue with Short DNS Name not updating the host properties correctly
 
+**Version 1.0.3**
+- Added Active Network Adapter property
 
 ## Contact Information  
 - Have feedback or questions? Write to us at
@@ -186,11 +188,12 @@ Select
 **Close**.
 
 ## Properties
-The Custom Properties App provides 3 new properties available for use in policies and actions.
+The Custom Properties App provides 4 new properties available for use in policies and actions.
 
 - **Short DNS Name**: This provides the resolved Short DNS Name for a host if a DNS reverse lookup successfully retrieves an entry for the host. This can be used in policy or to send in actions, including integrations via any of the Forescout eyeExtend modules.
 - **Current Time Formatted**: This provides a timestamp against a host set by an action. The formatted version of this property can be used in policies to identify timestamps *Older than* or *Before* a set time period or time.
 - **Current Time**: This provides a timestamp against a host set by an action. This version of the property is provided as a string value which can be used in actions such as notifications, or as part of any integrations via any of the Forescout eyeExtend modules.
+- **Active Network Adapter**: This property requires that the *Hardware Inventory > Network Adapter* property is resolved for devices first. This standard property retrieves all network adapter details discovered on a host. The custom property shortens this list to only provide the active network adapter details, as defined by a matching IP address, so that this information can easily be included in notifications or integrations.
 
 ## Actions
 The Custom Properties App provides 1 new action available for use in policies or manually.
