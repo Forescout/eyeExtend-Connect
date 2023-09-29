@@ -1,148 +1,47 @@
-# Forescout
-eyeExtend Connect DHCP SysLog Receiver App README.md Version: 1.0.0
+# eyeExtend-Connect
+Easily build, consume and share apps to integrate with the Forescout platform. Terms of use apply please see attached link.
 
-## Configuration Guide
-**Version 1.0.0**
-- Initial App to receive dhcpd logs via Syslog
+## Apps
+Each integration app has been posted with a .eca file and folder of the content of the App. Use the .eca file to run the app in your Forescout enviorment. The App folder also contains the source-code of the integration App. 
+Details on the App content and how to build and App can be found here. 
+* [Training Videos](https://www.youtube.com/playlist?list=PL2HYJud3zBqcjUoiJzVG33_ubuRqv3crQ)
+* [App Build Guide](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
+* [Tools](https://github.com/fs-connect) - App creation tools to simplify aspects of the app building process
 
+## App Submission Process
+1.	Build your app and ensure it installs and behaves as expected on the latest version of Connect
+2.	Create a README.md file for your app, or update the existing app README.
+3.	Email a download link to connect-app-submission@forescout.com. In your email, please include the following information:
+    - The README.md file containing information about configuration, app use cases, required permissions, and any other information required to use the app.
+    - A download link for the zip file.
+    - If applicable, a request to release the app privately, rather than displaying it on the Forescout EyeExtend-Connect GitHub page.
+  5.	Once connect-app-submission has the zip file, allow 3-5 days for analysis and signing. If there are any issues with the app, a Forescout Engineer will contact you to make the appropriate changes.
 
-## Contact Information  
-- Have feedback or questions? Write to us at
+## README file for App
+Each app should have its own README.md file (.md format only). It should follow the README.md in GlobalProtect app, containing at least these 3 sections on the top:
 
-**[connect-app-help@forescout.com](mailto:connect-app-help@forescout.com)**
+#### Contact Information
+Forescout Technologies, Inc. 190 West Tasman Drive San Jose, CA 95134 USA https://www.Forescout.com/support/ Toll-Free (US): 1.866.377.8771 Tel (Intl): 1.408.213.3191 Support: 1.708.237.6591
+
+#### About the Documentation
+Refer to the Technical Documentation page on the Forescout website for additional documentation: https://www.Forescout.com/company/technical-documentation/
+Have feedback or questions? Write to us at documentation@forescout.com
+
+#### Legal Notice
+© 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation. A list of our trademarks and patents can be found at https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks. Other brands, products, or service names may be trademarks or service marks of their respective owners.
 
 ## App Support
 
-- All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team.
-- See Contact Information above.
+All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team. If you have questions or are in need of support please reach out to our growing community of over 300 people at the following resources:
 
-## About eyeExtend Connect DHCP SysLog Receiver App
-
-# About This App
-
-The eyeExtend Connect DHCP SysLog Receiver App provides functionality to receive dhcpd logs via Syslog, and extract host IP and MAC Address from this for extended visibility in the Forescout platform.
-
-A standard dhcpd log will contain DHCPDISCOVER, DHCPOFFER, DHCPREQUEST and DHCPACK log messages which can all be sent via Syslog. This app only utilises the DHCPACK message, specifically in the format:
-
-`DHCPACK on 1.1.1.1 to aa:bb:cc:dd:ee:ff (hostname) via eth0`
-
-# What to Do  
-To set up your system for using the eyeExtend Connect DHCP SysLog Receiver App, perform the following steps:  
-
-1. Download and install the module. See How to Install.  
-2. Configure the module. See Configure the Module.  
-3. Configure policy templates.  
-4. Configure properties.  
-5. Configure actions.  
-
-# How to Install  
-Get Forescout eyeExtend Connect plugin and DHCP SysLog Receiver App from Forescout.  
-
-## Ensure That the Plugin is Running  
-After installing the Connect plugin, ensure that it is running.  
-
-To verify:  
-
-1. Select **Tools** > **Options** > **Modules**.  
-2. Navigate to the component and hover over the name to view a tooltip indicating if it is running on Forescout devices in your deployment. In addition, next to the component name, you will see one of the following icons:  
-
-- The component is stopped on all Forescout devices.  
-- The component is stopped on some Forescout devices.  
-- The component is running on all Forescout devices.  
-
-3. If the component is not running, select **Start** , and then select the relevant Forescout devices.  
-4. Select **OK**.
-
-# Configure the Module
-After eyeExtend Connect is installed, **Connect** is displayed under **Options**.
-
-## Configure DHCP SysLog Receiver App
-To configure eyeExtend Connect DHCP SysLog Receiver App, you import the DHCP SysLog Receiver App.
-
-Initially, the App Configuration tab of the **Connect** pane is blank. The DHCP SysLog Receiver App has not been imported yet.
-
-## Import an App
-You can import the DHCP SysLog Receiver App.
-
-To import the DHCP SysLog Receiver App:
-
-In the App Configuration tab of the **Connect** pane, select **Import**.
-Apps that can be imported are in .zip or .eca format. They can be in any folder.
-	Select **Import**.  
-If the app is imported successfully, a message is displayed at the bottom of the **Sending** dialog box. If the app is not imported successfully, error messages are displayed in the **Sending** dialog box.  
-
-Select
-**Close** when the import has finished.
-A blank **System Description** dialog box opens. 
-
-- If you select **Close** before the import has finished, it will fail.  
-
-## Panels
+* https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
+* https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
 
 
-After the app is imported, the **System Description** dialog box opens. It is initially blank and only the **Add** and **Import** buttons are enabled.  
+## Connect Plugin
+You must have the Connect plugin installed on your Forescout platform to run these apps. 
 
-To configure the DHCP SysLog Receiver App, you add a system description to define a configuration.  
-
-If a system description has not been configured and you select **OK** now, a warning message is displayed.  
-
-Select **Add**
-
-### DHCP SysLog Receiver
+## Deploying an App
+Under the 'Options' select the 'Connect' panel to access the settings. Use the 'Import' button to upload the App's .eca file. Follow the configuraiton requirements per the App to deploy the integration.
 
 
-On this panel, enter a name for the Syslog Source to be used. This name is only for identification purposes within the Forescout platform.
-
-Select **Next**
-
-
-### Assign Forescout Devices
-
-
- - Initially, the Assign Forescout Devices panel has only one option, **Assign all devices by default** , and it is selected so that one device is added.
-
-If you want to add a second device, the Assign Forescout Devices panel has more options.
-
-Enter the following information:
-
-- Connecting Forescout Device: Select Enterprise Manager or an IP address of the connecting Forescout device. This is the device which will receive syslog messages.  
-- Assign specific devices: This Forescout Appliance is assigned to the connecting Forescout device for receiving syslog via this Connect App.
-  - Select **Available Devices** and then select an IP address or Appliance name from the Available Devices list.  
-  - Select **Add**. The selected device will send its requests to the connecting Appliance.  
-- Assign all devices by default: This is the connecting Appliance to which Forescout Appliances are assigned by default if they are not explicitly assigned to another connecting Appliance. Select this option to make this connecting Appliance the appliance to receive syslog for all Forescout Appliances not assigned to another connecting device.
-
-
-Note the following:  
-
-- An error message is displayed if you try to add a device that is already used.  
-- If you have apps that discover 50,000 or more endpoints, distribute the apps in such a way so that only up to two of the apps share the same focal (connecting) appliance. An alternative is to split the endpoints across multiple user accounts on multiple servers.  
-
-
-Select **Next**.
-
-### Syslog Source
-
-
-On this panel, enable the Syslog Source and specify the source name or IP that Forescout will receive syslog messages from. Only syslog messages received from this source will be processed by the app, all other syslog messages will be ignored.
-
-Select **Finish**
-
-## Edit a System Description  
-You can edit an existing system description for the DHCP SysLog Receiver App.  
-
-To edit a system description:  
-
-Select an existing system description and select **Edit**.  
-
-There are tabs for each pane. You can edit the settings in the DHCP SysLog Receiver, Assign Forescout Devices, and Syslog Source tabs.  
-
-Select **OK** to save the system description edits to the Forescout Appliance.  
-
-## Remove a System Description  
-You can remove an existing system description.  
-
-To remove a system description:  
-Select an existing system description
-Select **Remove**. A confirmation is displayed.  
-
-**More** for details or **Ok**.  
