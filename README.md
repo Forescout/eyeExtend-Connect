@@ -11,10 +11,11 @@ Details on the App content and how to build and App can be found here.
 ## App Submission Process
   1.	Build your app and ensure it installs and behaves as expected on the latest version of Connect
   2.	Create a README.md file for your app, or update the existing app README.
-  3.	Email a download link to connect-app-submission@forescout.com. In your email, please include the following information:\
-    a.	The README.md file containing information about configuration, app use cases, required permissions, and any other information required to use the app.\
-    b.	A download link for the zip file.\
-    c.	If applicable, a request to release the app privately, rather than displaying it on the Forescout EyeExtend-Connect GitHub page.\
+  3.	Email a download link to connect-app-submission@forescout.com. In your email, please include the following information:
+  
+    * The README.md file containing information about configuration, app use cases, required permissions, and any other information required to use the app.
+    * A download link for the zip file.
+    * If applicable, a request to release the app privately, rather than displaying it on the Forescout EyeExtend-Connect GitHub page.
   4.	Once connect-app-submission has the zip file, allow 3-5 days for analysis and signing. If there are any issues with the app, a Forescout Engineer will contact you to make the appropriate changes.
 
 ## README file for App
