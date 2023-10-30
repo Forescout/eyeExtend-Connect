@@ -1,10 +1,24 @@
-# Cisco Vulnerability Management (Cisco VM) App
+# eyeExtend-Connect
+Easily build, consume and share apps to integrate with the Forescout platform. Terms of use apply please see attached link.
 
-### About the App
-The app exports endpoints' data to Cisco Vulnerability Management.
+## Apps
+Each integration app has been posted with a .eca file and folder of the content of the App. Use the .eca file to run the app in your Forescout enviorment. The App folder also contains the source-code of the integration App. 
+Details on the App content and how to build and App can be found here. 
+* [Training Videos](https://www.youtube.com/playlist?list=PL2HYJud3zBqcjUoiJzVG33_ubuRqv3crQ)
+* [App Build Guide](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
+* [Tools](https://github.com/fs-connect) - App creation tools to simplify aspects of the app building process
 
-#### Versions
-- 1.0.0 - base release
+## App Submission Process
+1.	Build your app and ensure it installs and behaves as expected on the latest version of Connect
+2.	Create a README.md file for your app, or update the existing app README.
+3.	Email a download link to connect-app-submission@forescout.com. In your email, please include the following information:
+    - The README.md file containing information about configuration, app use cases, required permissions, and any other information required to use the app.
+    - A download link for the zip file.
+    - If applicable, a request to release the app privately, rather than displaying it on the Forescout EyeExtend-Connect GitHub page.
+  5.	Once connect-app-submission has the zip file, allow 3-5 days for analysis and signing. If there are any issues with the app, a Forescout Engineer will contact you to make the appropriate changes.
+
+## README file for App
+Each app should have its own README.md file (.md format only). It should follow the README.md in GlobalProtect app, containing at least these 3 sections on the top:
 
 #### Contact Information
 Forescout Technologies, Inc. 190 West Tasman Drive San Jose, CA 95134 USA https://www.Forescout.com/support/ Toll-Free (US): 1.866.377.8771 Tel (Intl): 1.408.213.3191 Support: 1.708.237.6591
@@ -16,53 +30,17 @@ Have feedback or questions? Write to us at documentation@forescout.com
 #### Legal Notice
 © 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation. A list of our trademarks and patents can be found at https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks. Other brands, products, or service names may be trademarks or service marks of their respective owners.
 
-#### Requirements
-The App supports:
-- ForeScout CounterACT 8.4
-- ForeScout eyeExtend Connect 2.0.15
-- ForeScout Connect Plugin 1.7.4
+## App Support
 
-#### Licenses
-This App includes a license file. Please review the `license.txt` file included in the distribution.
+All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team. If you have questions or are in need of support please reach out to our growing community of over 300 people at the following resources:
 
-### How it works
-Forescout Cisco VM App exports endpoints' data to Cisco Vulnerability Management REST API.
-The app contains Policy template that controls the export process by applying Export or Reset actions.
+* https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
+* https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
 
-#### Export flow
-1. By default, the policy exports data only for new endpoints or endpoints that were changed from the last export. 
-By default, the recheck for the changed endpoints happens every day at 12 AM (Forescout Appliance time zone).  
-2. If export for an endpoint fails, the app retries an export in 10 minutes. If the export fails again, the app attempts to reexport every 2 hours.
-3. In case the endpoint doesn't have any changes for the exported properties for 1 month, it's reexported.
-4. Endpoints that have Exported and Unchanged state are also following a daily recheck schedule. They are not moved to the Pending state before the recheck to avoid redundant execution of the Reset action.
 
-#### Exported properties mapping
-Forescout        | Cisco Vulnerability Management
-------------- | -----------------------------
-IPv4 Address | IP Address
-DHCP Hostname | Hostname
-MAC Address | MAC Address
-Function | "FS Function" tag
-Vendor and Model | "FS Vendor and Model" tag
-NIC Vendor | "FS NIC Vendor" tag
+## Connect Plugin
+You must have the Connect plugin installed on your Forescout platform to run these apps. 
 
-#### Properties
-Property        | Description
-------------- | -----------------------------
-Cisco VM Exported State | Defines the state of the latest export (Pending, Failed, Exported, Unchanged)
-Cisco VM Exported Hash | Hash of the latest exported payload
+## Deploying an App
+Under the 'Options' select the 'Connect' panel to access the settings. Use the 'Import' button to upload the App's .eca file. Follow the configuraiton requirements per the App to deploy the integration.
 
-### Configuration
-Before starting the configuration process, Forescout connector must be created in Cisco Vulnerability Management UI.
-The connector generates configuration parameters that are required to configure Cisco VM eyeExtend Connect app.
-
-#### Configure App
-Parameters required during the configuration process:
-* URL - URL of Cisco VM Webhook which saves the exported data to Cisco VM environment
-* UID - a unique identifier defined per client per connector
-* AUTH Token - Token for Cisco VM REST API
-
-#### Apply policy
-The policy must be added manually after the app is imported and configured.
-1. Go to ForeScout Policy tab -> Add -> "Cisco VM" policy template group -> "Cisco VM Export" template
-2. Follow configuration instructions. The user must set IP range of endpoints that should be exported. Other configuration steps are optional as the template includes default configuration. 
