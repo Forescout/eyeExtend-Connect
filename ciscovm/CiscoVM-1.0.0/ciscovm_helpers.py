@@ -101,6 +101,10 @@ class DataGenerator:
         "vendor_classification",
         "vendor",
         "prim_classification",
+        "hostname",
+        "os_classification",
+        "segment_path",
+        "nbthost"
     )
     HASH_KEY = "connect_ciscovm_exported_hash"
 

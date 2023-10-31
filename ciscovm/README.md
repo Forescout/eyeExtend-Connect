@@ -39,9 +39,13 @@ By default, the recheck for the changed endpoints happens every day at 12 AM (Fo
 #### Exported properties mapping
 Forescout        | Cisco Vulnerability Management
 ------------- | -----------------------------
-IPv4 Address | IP Address
-DHCP Hostname | Hostname
 MAC Address | MAC Address
+DHCP Hostname | Hostname
+IPv4 Address | IP Address
+NetBIOS Host name | NetBIOS
+DNS Name | FQDN
+Operating System | Operating System
+Segment path | "FS Segment path" tag
 Function | "FS Function" tag
 Vendor and Model | "FS Vendor and Model" tag
 NIC Vendor | "FS NIC Vendor" tag
