@@ -1,10 +1,12 @@
 # Forescout
-eyeExtend Connect DHCP SysLog Receiver App README.md Version: 1.0.0
+eyeExtend Connect DHCP Syslog Receiver App README.md Version: 1.0.0
 
 ## Configuration Guide
 **Version 1.0.0**
 - Initial App to receive dhcpd logs via Syslog
 
+**Version 1.0.1**
+- Added properties to show information learnt via DHCP Syslog messages
 
 ## Contact Information  
 - Have feedback or questions? Write to us at
@@ -16,18 +18,18 @@ eyeExtend Connect DHCP SysLog Receiver App README.md Version: 1.0.0
 - All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team.
 - See Contact Information above.
 
-## About eyeExtend Connect DHCP SysLog Receiver App
+## About eyeExtend Connect DHCP Syslog Receiver App
 
 # About This App
 
-The eyeExtend Connect DHCP SysLog Receiver App provides functionality to receive dhcpd logs via Syslog, and extract host IP and MAC Address from this for extended visibility in the Forescout platform.
+The eyeExtend Connect DHCP Syslog Receiver App provides functionality to receive dhcpd logs via Syslog, and extract host IP and MAC Address from this for extended visibility in the Forescout platform.
 
 A standard dhcpd log will contain DHCPDISCOVER, DHCPOFFER, DHCPREQUEST and DHCPACK log messages which can all be sent via Syslog. This app only utilises the DHCPACK message, specifically in the format:
 
 `DHCPACK on 1.1.1.1 to aa:bb:cc:dd:ee:ff (hostname) via eth0`
 
 # What to Do  
-To set up your system for using the eyeExtend Connect DHCP SysLog Receiver App, perform the following steps:  
+To set up your system for using the eyeExtend Connect DHCP Syslog Receiver App, perform the following steps:  
 
 1. Download and install the module. See How to Install.  
 2. Configure the module. See Configure the Module.  
@@ -36,7 +38,7 @@ To set up your system for using the eyeExtend Connect DHCP SysLog Receiver App, 
 5. Configure actions.  
 
 # How to Install  
-Get Forescout eyeExtend Connect plugin and DHCP SysLog Receiver App from Forescout.  
+Get Forescout eyeExtend Connect plugin and DHCP Syslog Receiver App from Forescout.  
 
 ## Ensure That the Plugin is Running  
 After installing the Connect plugin, ensure that it is running.  
@@ -56,15 +58,15 @@ To verify:
 # Configure the Module
 After eyeExtend Connect is installed, **Connect** is displayed under **Options**.
 
-## Configure DHCP SysLog Receiver App
-To configure eyeExtend Connect DHCP SysLog Receiver App, you import the DHCP SysLog Receiver App.
+## Configure DHCP Syslog Receiver App
+To configure eyeExtend Connect DHCP Syslog Receiver App, you import the DHCP Syslog Receiver App.
 
-Initially, the App Configuration tab of the **Connect** pane is blank. The DHCP SysLog Receiver App has not been imported yet.
+Initially, the App Configuration tab of the **Connect** pane is blank. The DHCP Syslog Receiver App has not been imported yet.
 
 ## Import an App
-You can import the DHCP SysLog Receiver App.
+You can import the DHCP Syslog Receiver App.
 
-To import the DHCP SysLog Receiver App:
+To import the DHCP Syslog Receiver App:
 
 In the App Configuration tab of the **Connect** pane, select **Import**.
 Apps that can be imported are in .zip or .eca format. They can be in any folder.
@@ -82,13 +84,13 @@ A blank **System Description** dialog box opens.
 
 After the app is imported, the **System Description** dialog box opens. It is initially blank and only the **Add** and **Import** buttons are enabled.  
 
-To configure the DHCP SysLog Receiver App, you add a system description to define a configuration.  
+To configure the DHCP Syslog Receiver App, you add a system description to define a configuration.  
 
 If a system description has not been configured and you select **OK** now, a warning message is displayed.  
 
 Select **Add**
 
-### DHCP SysLog Receiver
+### DHCP Syslog Receiver
 
 
 On this panel, enter a name for the Syslog Source to be used. This name is only for identification purposes within the Forescout platform.
@@ -128,13 +130,13 @@ On this panel, enable the Syslog Source and specify the source name or IP that F
 Select **Finish**
 
 ## Edit a System Description  
-You can edit an existing system description for the DHCP SysLog Receiver App.  
+You can edit an existing system description for the DHCP Syslog Receiver App.  
 
 To edit a system description:  
 
 Select an existing system description and select **Edit**.  
 
-There are tabs for each pane. You can edit the settings in the DHCP SysLog Receiver, Assign Forescout Devices, and Syslog Source tabs.  
+There are tabs for each pane. You can edit the settings in the DHCP Syslog Receiver, Assign Forescout Devices, and Syslog Source tabs.  
 
 Select **OK** to save the system description edits to the Forescout Appliance.  
 
