@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <RULES>
-    <RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="1210057295694671664" NAME="Cisco VM Export" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+    <RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-4432067549088643623" NAME="Cisco VM Export" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
         <GROUP_IN_FILTER/>
         <INACTIVITY_TTL TTL="259200000" USE_DEFAULT="true"/>
         <ADMISSION_RESOLVE_DELAY TTL="30000" USE_DEFAULT="true"/>
@@ -20,11 +20,10 @@
         <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
         <ORIGIN NAME="CUSTOM"/>
         <UNMATCH_TIMING SKIP_INACTIVE="true"/>
-        <SEGMENT ID="5991652951332954912" NAME="fake">
-            <RANGE FROM="175.0.0.0" TO="175.255.255.255"/>
-        </SEGMENT>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
         <RULE_CHAIN>
-            <INNER_RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-3155006380831081871" NAME="Pending" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+            <INNER_RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="2438229011676425286" NAME="Pending" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
                 <MATCH_TIMING SKIP_INACTIVE="true"/>
                 <EXPRESSION EXPR_TYPE="OR">
                     <!--Rule expression. Rule name is: Pending-->
@@ -51,7 +50,7 @@
                 <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
                 <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
             </INNER_RULE>
-            <INNER_RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="4482613734772324838" NAME="Failed" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+            <INNER_RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="8462457766007566048" NAME="Failed" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
                 <MATCH_TIMING SKIP_INACTIVE="true"/>
                 <EXPRESSION EXPR_TYPE="AND">
                     <!--Rule expression. Rule name is: Failed-->
@@ -77,7 +76,7 @@
                 <ACTION DISABLED="false" NAME="connect_ciscovm_export">
                     <SCHEDULE>
                         <START Class="Delayed" TIMEPERIOD="10 MINUTE"/>
-                        <OCCURENCE onEvery="2 HOUR" onStart="true"/>
+                        <OCCURENCE onEvery="1 HOUR" onStart="true"/>
                     </SCHEDULE>
                 </ACTION>
                 <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
@@ -86,7 +85,7 @@
                 <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
                 <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
             </INNER_RULE>
-            <INNER_RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-5692655381910928781" NAME="Exported" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+            <INNER_RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4724147308646683205" NAME="Exported" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
                 <MATCH_TIMING SKIP_INACTIVE="true"/>
                 <EXPRESSION EXPR_TYPE="SIMPLE">
                     <!--Rule expression. Rule name is: Exported-->
@@ -102,7 +101,7 @@
                 <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
                 <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
             </INNER_RULE>
-            <INNER_RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="8948537177946023832" NAME="Unchanged" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
+            <INNER_RULE APP_VERSION="8.4.2-668" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4740376034152331509" NAME="Unchanged" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="false">
                 <MATCH_TIMING SKIP_INACTIVE="true"/>
                 <EXPRESSION EXPR_TYPE="SIMPLE">
                     <!--Rule expression. Rule name is: Unchanged-->
