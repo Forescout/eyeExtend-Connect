@@ -135,7 +135,7 @@ Add Front-channel Logout URI [**https://example**](https://example)
 Checkmark* **Access tokens**
 
 ![](README.assets/Aspose.Words.d76a5564-34b7-42a9-a7a8-b1d848e46985.003.png)
-## Configure Intune App in the Forescout Console
+## Configure Azure App in the Forescout Console
 Retrieve and Install an eyeExtend Connect App: <https://docs.forescout.com/bundle/connect-1-7-h/page/c-deploy-an-app-with.html>
 
 Navigate to **Tools > options > Connect.** Import* the **AzureAD** **application** file.
