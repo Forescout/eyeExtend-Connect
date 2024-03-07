@@ -24,6 +24,10 @@ The APP gathers <mark>Wireless AP</mark>, <mark>Endpoint (Clients) Wired / Wirel
 
 - Make sure '**Host Discovery**' *flag* is enabled **Recommended**
 
+### Version v1.0.2 Aruba Central APP
+
+Aruba Central authentication API change from client_id to customer_id. 
+
 ## Requirements
 
 - Access to Aruba Central
