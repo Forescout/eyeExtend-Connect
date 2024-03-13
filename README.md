@@ -1,95 +1,38 @@
-Forescout eyeExtend Connect NETSKOPE APP README.md
+# eyeExtend-Connect
+Easily build, consume and share apps to integrate with the Forescout platform. Terms of use apply please see attached link.
+
+## Apps
+Each integration app has been posted with a .eca file and folder of the content of the App. Use the .eca file to run the app in your Forescout enviornment. The App folder also contains the source-code of the integration App. 
+Details on the App content and how to build and App can be found here. 
+* [Training Videos](https://www.youtube.com/playlist?list=PL2HYJud3zBqcjUoiJzVG33_ubuRqv3crQ)
+* [App Build Guide](https://github.com/Forescout/eyeExtend-Connect/blob/master/eyeExtend%20Connect%20App%20Building%20Guide.pdf)
+* [Tools](https://github.com/fs-connect) - App creation tools to simplify aspects of the app building process
+
+## README file for App
+Each app should have its own README.md file (.md format only). It should follow the README.md in GlobalProtect app, containing at least these 3 sections on the top:
+
+#### Contact Information
+Forescout Technologies, Inc. 190 West Tasman Drive San Jose, CA 95134 USA https://www.Forescout.com/support/ Toll-Free (US): 1.866.377.8771 Tel (Intl): 1.408.213.3191 Support: 1.708.237.6591
+
+#### About the Documentation
+Refer to the Technical Documentation page on the Forescout website for additional documentation: https://www.Forescout.com/company/technical-documentation/
+Have feedback or questions? Write to us at documentation@forescout.com
+
+#### Legal Notice
+© 2020 Forescout Technologies, Inc. All rights reserved. Forescout Technologies, Inc. is a Delaware corporation. A list of our trademarks and patents can be found at https://www.Forescout.com/company/legal/intellectual-property-patents-trademarks. Other brands, products, or service names may be trademarks or service marks of their respective owners.
+
+## App Support
+
+All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team. If you have questions or are in need of support please reach out to our growing community of over 300 people at the following resources:
+
+* https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
+* https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
 
 
-## Contact Information
+## Connect Plugin
+You must have the Connect plugin installed on your Forescout platform to run these apps. 
 
-- Have feedback or questions? Write to us at
+## Deploying an App
+Under the 'Options' select the 'Connect' panel to access the settings. Use the 'Import' button to upload the App's .eca file. Follow the configuraiton requirements per the App to deploy the integration.
 
-        **[connect-app-help@forescout.com](mailto:connect-app-help@forescout.com)**
-
-## APP Support
-
-- All eyeExtend Connect Apps posted here are community contributed and community supported. These Apps are not supported by the Forescout Customer Support team.
-- See Contact Information above.
-
-## About Netskope app
-
-Version 1 of Forescout Connect app for Netskope. https://www.netskope.com/
-
-## What does it do:
- 
-In its current state we use the Netskope API (version 1) to query client information from ‘api/v1/clients. This allows for additional discovery of properties that an be used to discover devices not on the customer network, properties for compliance management such as NPA status, client status, version and more.
- 
-### Sample:
-
-"attributes": {
-    "_id": "[masked]",
-    "client_version": "[masked]",
-    "device_id": "[masked]",
-    "host_info": {
-        "device_make": "[masked]",
-        "device_model": "[masked]",
-        "hostname": "[masked]",
-        "last_hostinfo_update_timestamp": "[masked]",
-        "managementID": "[masked]",
-        "migrated_revision": "[masked]",
-        "nsdeviceuid": "[masked]",
-        "old_nsdeviceuid": "[masked]",
-        "os": "[masked]",
-        "os_version": "[masked]",
-        "serialNumber": "[masked]"
-    },
-    "last_event": {
-        "actor": "[masked]",
-        "event": "[masked]",
-        "npa_status": "[masked]",
-        "service_name": "[masked]",
-        "status": "[masked]",
-        "status_v2": "[masked]",
-        "timestamp": "[masked]"
-    },
-    "last_event_service_name": "[masked]",
-    "users": [
-        {
-            "_id": "[masked]",
-            "device_classification_custom_status": "[masked]",
-            "device_classification_status": "[masked]",
-            "last_event": {
-                "actor": "[masked]",
-                "event": "[masked]",
-                "npa_status": "[masked]",
-                "service_name": "[masked]",
-                "status": "[masked]",
-                "status_v2": "[masked]",
-                "timestamp": "[masked]"
-            },
-            "user_added_time": "[masked]",
-            "user_source": "[masked]",
-            "user_state": "[masked]",
-            "userkey": "[masked]",
-            "username": "[masked]"
-        }
-    ]
-}
-
- 
-## Properties
-
-| Property| Comment|
-| :------------------------------- | :-------------------------------- |
-| URL          | *Netskope tenant URL i.e https://tenant.eu.goskope.com* |
-| Token          | *Netskope API token |
-
-
-
-## Whats next?
- 
-In the next release we are planning to add the functionality for syslog ingestion, as this will provide more near real time discovery of assets.
- 
-Prioritizing accessibility for all Netskope customers, we've opted to begin with the API integration. It's important to note that if syslog is utilized in a future release, additional on-premises infrastructure will be necessary but will also provide more real time ingestion
- 
-## Considerations:
- 
-- APIv1 is available to all Netskope customers currently, and should be used to generate a token for authentication against customer tenant. 
-- In order for the API to work it is important to note that the latest version of the client needs to be used (over version 111.1.0.1994) as this supports polling IP address information
 
