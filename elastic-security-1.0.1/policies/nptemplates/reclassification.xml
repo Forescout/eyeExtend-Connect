@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-4561146448124068875" META_TYPE="CLASSIFY" NAME="4. Elastic Agent Metadata Reclassification" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER>
+            <GROUP ID="5194535691627506662" NAME="Has Agent ID"/>
+        </GROUP_IN_FILTER>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: 4. Elastic Agent Metadata Reclassification-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="online" LABEL="Host is online" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER FILTER_ID="2979161920135179331" VALUE="true"/>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8366438461746228990" NAME="Windows 11 Pro" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="CLASSIFIER"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Windows 11 Pro-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="7254081421417945928">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_variant" TYPE="equals">
+                                <VALUE VALUE2="Windows 11 Pro"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_name" TYPE="contains">
+                                <VALUE VALUE2="Windows"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Windows 11 Professional"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-255516789843857716" NAME="Windows 10 Pro" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="CLASSIFIER"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Windows 10 Pro-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="1705924804665295543">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_variant" TYPE="equals">
+                                <VALUE VALUE2="Windows 10 Pro"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_name" TYPE="contains">
+                                <VALUE VALUE2="Windows"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Windows 10 Professional"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="6516917252035371116" NAME="Other Windows" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Other Windows-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="-7256660776523898655">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_name" TYPE="contains">
+                                <VALUE VALUE2="Windows"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Windows"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-2593757789244610607" NAME="Debian 12" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="CLASSIFIER"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Debian 12-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="7149907533369055406">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_version" TYPE="startswith">
+                                <VALUE VALUE2="12."/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_variant" TYPE="equals">
+                                <VALUE VALUE2="Debian"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Debian 12"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-6670050453475944152" NAME="Other Debian" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Other Debian-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="-2960585121821630368">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_variant" TYPE="equals">
+                                <VALUE VALUE2="Debian"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Debian"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="860545361714813306" NAME="Other Linux" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Other Linux-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="6157525454439691518">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_name" TYPE="equals">
+                                <VALUE VALUE2="Linux"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Linux"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-5488318404173925640" NAME="macOS 13.4.7" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="CLASSIFIER"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: macOS 13.4.7-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="-2178794352294804221">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_version" TYPE="startswith">
+                                <VALUE VALUE2="13.7.4"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_name" TYPE="equals">
+                                <VALUE VALUE2="macOS"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Apple macOS 13.7.4"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4303681010030683120" NAME="macOS 13.4" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: macOS 13.4-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="-8072645552330393145">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_version" TYPE="startswith">
+                                <VALUE VALUE2="13.7"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_name" TYPE="equals">
+                                <VALUE VALUE2="macOS"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Apple macOS 13.7"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-4634221763687552941" NAME="macOS 13" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: macOS 13-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="5975325833997840513">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_version" TYPE="startswith">
+                                <VALUE VALUE2="13"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_name" TYPE="equals">
+                                <VALUE VALUE2="macOS"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Apple macOS 13"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-3397262289427923499" NAME="Other macOS" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Other macOS-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_elasticsecurity_meta_host" LABEL="Elastic Agent Host Metadata" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="2.0.1" PLUGIN_VESRION_NUMBER="20010016" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_elasticsecurity_meta_host" FILTER_ID="7538820903483749254">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="os_name" TYPE="equals">
+                                <VALUE VALUE2="macOS"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="os_classify">
+                    <PARAM NAME="os_classification_comment" VALUE=""/>
+                    <PARAM NAME="classes" VALUE="Apple macOS"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.1-47" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-1254603864743971411" NAME="Other" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <META_TYPE STATE="NA"/>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

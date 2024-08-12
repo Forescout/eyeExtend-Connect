@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.4.3-715" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Bucket all devices found by Dell Wyse Management Suite Connect App and add to group. All other policies leverage the group this adds devices to." ENABLED="true" ID="6899390370342187138" NAME="1. Dell Wyse Management Suite Discovery" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: 1. Dell Wyse Management Suite Discovery-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_dellwysemanagementsuite_id" LABEL="Dell Wyse Management Suite Device ID" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="-6171072771987862328" TYPE="any">
+                    <VALUE VALUE2="Any"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <ACTION DISABLED="false" NAME="add-to-group">
+            <PARAM NAME="temporary" VALUE="true"/>
+            <PARAM NAME="group-name" VALUE="id:8059134149899201102;name:Dell Wyse Management Suite s"/>
+            <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+            <PARAM NAME="comment" VALUE=""/>
+            <SCHEDULE>
+                <START Class="Immediately"/>
+                <OCCURENCE onStart="true"/>
+            </SCHEDULE>
+        </ACTION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RESERVED>
+            <RANGE FROM="224.0.0.0" TO="247.255.255.255"/>
+        </RESERVED>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
