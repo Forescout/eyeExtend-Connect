@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.4.3-727" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-6802441786657423898" NAME="Darktrace Quarantine" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: Darktrace Quarantine-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_darktrace_syslog_inhibitor" LABEL="Darktrace Inhibitor" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="-1003632831791427531" TYPE="equals">
+                    <VALUE VALUE2="Quarantine"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.4.3-727" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8138568004854713323" NAME="Unblock" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Unblock-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_darktrace_syslog_action" LABEL="Darktrace Action" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER AUTO_UPDATE="false" FILTER_ID="3780795430804563486" OPTIONS_DIGEST="13414de69521979a34a7310175822344">
+                            <OPT VALUE="CLEAR"/>
+                            <OPT VALUE="EXPIRE"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.4.3-727" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-8965818380816059778" NAME="Block" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Block-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_darktrace_syslog_action" LABEL="Darktrace Action" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER AUTO_UPDATE="false" FILTER_ID="22682766667725182" OPTIONS_DIGEST="5dbc665b56abfef19a311b9124f25397">
+                            <OPT VALUE="CREATE"/>
+                            <OPT VALUE="REACTIVATE_CLEARED"/>
+                            <OPT VALUE="REACTIVATE_EXPIRED"/>
+                            <OPT VALUE="EXTEND"/>
+                            <OPT VALUE="CONFIRM"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="sw_block">
+                    <PARAM NAME="dont_force_sw_block" VALUE="true"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
