@@ -2,7 +2,7 @@
 eyeExtend for Intune App README.md Version: 2.0.9  
 
 ## Important Details
-**Please be aware that as of 2024 this module has been deprecated. It currently utilizes Microsoft NAC api that is no longer supported. We have kept this code here in case crowdsourced users would like to update this. Tn the meantime, forescout offers a microsoft module that supports Intune.**
+**Please be aware that as of 2024 this app has been deprecated. It currently utilizes Microsoft NAC api that is no longer supported. We have kept this code here in case crowdsourced users would like to update this. Tn the meantime, forescout offers a microsoft module that supports Intune.**
 
 ## Configuration Guide  
 **Version 2.0.0**  
