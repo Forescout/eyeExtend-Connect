@@ -1,7 +1,11 @@
 # Forescout
-eyeExtend Connect Infoblox App README.md Version: 1.0.0
+eyeExtend Connect Infoblox App README.md Version: 1.0.1
 
 ## Configuration Guide
+**Version 1.0.1**
+- Updated error handling to provide more detail for network failure errors
+- Modified Test Query to avoid 400 error when response is too large
+
 **Version 1.0.0**
 - Initial App to retrieve DHCP Fingerprint and Device Class from Infoblox
 
@@ -12,6 +16,8 @@ eyeExtend Connect Infoblox App README.md Version: 1.0.0
 The eyeExtend Connect Infoblox App provides functionality to retrieve the matched DHCP Fingerprint, Device Class and DHCP Option Sequence in Infoblox and report this in the Forescout platform to assist with device classification.
 
 Currently, if there is a conflict for a device within Infoblox, this App will not retrieve any data to avoid pulling incorrect data into Forescout host profiles.
+
+This app has been tested with Infoblox Web API version 2.12.3
 
 # What to Do  
 To set up your system for using the eyeExtend Connect Infoblox App, perform the following steps:  
@@ -78,7 +84,7 @@ Select **Add**
 ### Infoblox Connection
 
 
-On this panel, enter the Infoblox server IP or FQDN that will be used for the API connection, along with the port if changed from the default TCP/443.
+On this panel, enter the Infoblox Grid Master IP or FQDN that will be used for the API connection, along with the port if changed from the default TCP/443.
 
 Enter the username and password that has been configured for the API calls, ensure that the relevant permissions as detailed below are set correctly.
 
