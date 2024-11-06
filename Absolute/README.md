@@ -1,10 +1,10 @@
 Forescout eyeExtend Connect Absolute App README.md
-Version: 1.1.37
+Version: 1.2.4
  
 ## Contact Information
 Absolute Software Corporation, d/b/a Absolute Security
-1505 Westlake Avenue N
-Seattle, WA 98109 USA
+520 Pike Street
+Seattle, WA 98101 USA
 https://www.absolute.com/support/
 
 ## Legal Notice
@@ -67,6 +67,7 @@ User can select a Proxy Server device to manage all communications between Count
 ## Properties
 The following properties for active endpoints are discovered or resolved as applicable:
 - Absolute Device UID
+- Absolute Device Name
 - Absolute Status
 - Absolute Public IP Address
 - Absolute Device Last Connected
@@ -89,7 +90,13 @@ The following properties for active endpoints are discovered or resolved as appl
     Non-Compliant Type
  
 ## Actions
-User can Freeze or send End User Message to endpoint through the Absolute service. 
+User can Freeze endpoint, or send End User Message to endpoint, or run Reach Script on endpoint through the Absolute service. 
+
+Since the UI available in the Forescout console to specify Reach Script parameters is limited, the following limitations apply to Reach Script execution:
+- There is no option to select “Run” mode, so “System” context is set by default. Scripts that are required to run in “User Logged In” context are not applicable.
+- Submitting a Reach script request for multiple devices with different OS is not supported because there is only one textbox for script parameters and they vary by OS type.
+
+There is an additional known issue where script parameters containing double quote characters cause action to fail with a “401” error code. This is a known issue with the Absolute system and is being tracked for a fix (ABS-249686).
 
 ## Scripts
 There are five scripts and one library files.
