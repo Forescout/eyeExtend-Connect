@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<USER_DEF_EXPR>
+    <USER_DEF_EXPR EXPR_TYPE="USER_DEF_EXPR">
+        <CONDITION DESCRIPTION="Stamus has detected a Ransomware activity on the asset." EMPTY_LIST_VALUE="false" ID="-3534986010325447447" LEFT_PARENTHESIS="0" LOCAL="false" LOGIC="AND" NAME="Ransomware Detected" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0"/>
+    </USER_DEF_EXPR>
+    <EXPRESSION EXPR_TYPE="SIMPLE">
+        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_stamus_threats_family_list" LABEL="Stamus Threats Families" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+            <FILTER CASE_SENSITIVE="false" FILTER_ID="-2522252650658940520" TYPE="contains">
+                <VALUE VALUE2="Ransomware"/>
+            </FILTER>
+        </CONDITION>
+    </EXPRESSION>
+</USER_DEF_EXPR>
