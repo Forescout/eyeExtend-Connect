@@ -1,7 +1,12 @@
 # Forescout
-eyeExtend Connect Infoblox App README.md Version: 1.0.1
+eyeExtend Connect Infoblox App README.md Version: 1.0.2
 
 ## Configuration Guide
+**Version 1.0.2**
+- Added Infoblox MAC Address and DHCP Hostname properties, along with configuration option to normalise MAC by removing " : "
+- Added option to disable Inbound API
+- Updated authentication mechanism to use token for subsequent requests
+
 **Version 1.0.1**
 - Updated error handling to provide more detail for network failure errors
 - Modified Test Query to avoid 400 error when response is too large
@@ -121,6 +126,17 @@ Select **Next**.
 If a Proxy Server is required, enter the Proxy Server information here.
 
 Select **Next**.
+
+### Infoblox Options
+
+
+Optionally disable using the Infoblox Inbound API during testing or production if required by unselecting the **Use Inbound API** checkbox.
+
+When using the API, define the **Authorization refresh interval**. This is every *9* minutes by default, however can be modified if the validity duration of the authentication cookie in Infoblox has been modified from it's default.
+
+The **Number of API queries per minute** can also be adjusted here, the default value is *100*.
+
+Choose to **Normalise MAC Address** which removes any ":" to allow for easier use of the value in policies or other integrations which may have this data shared with them.
 
 ## Edit a System Description  
 You can edit an existing system description for the Infoblox App.  
