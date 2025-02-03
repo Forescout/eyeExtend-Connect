@@ -1,0 +1,212 @@
+{
+  "name": "Claroty xDome and Medigate",
+  "groups": [
+    {
+      "name": "connect_clarotyxdomeandmedigate_xdome",
+      "label": "xDome",
+      "title_image": "connect_clarotyxdomeandmedigate_xdome.png"
+    }
+  ],
+  "properties": [
+    {
+      "tag": "connect_clarotyxdomeandmedigate_ap_location",
+      "label": "xDome AP Location",
+      "description": "The location of the access point the device is connected to, extracted from Network Management integrations.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_authentication_user",
+      "label": "xDome Authentication User",
+      "description": "The User name used to authenticate the device to the network using Radius/802.1x is extracted from the NAC integration and the traffic.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_connection_type",
+      "label": "xDome Connection Type",
+      "description": "The connection types of a device, such as \"Ethernet\".",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_device_category",
+      "label": "xDome Category",
+      "description": "The device category group (see \"About Device Categorization\" in the Knowledge Base).",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_device_subcategory",
+      "label": "xDome Subcategory",
+      "description": "The device sub-category group (see \"About Device Categorization\" in the Knowledge Base).",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_device_type",
+      "label": "xDome Type",
+      "description": "The device type group (see \"About Device Categorization\" in the Knowledge Base).",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_enforcement_or_auth_profiles",
+      "label": "xDome Enforcement/Auth. Profile",
+      "description": "The device's Enforcement/Authorization Profiles extracted from the Cisco ISE and Aruba ClearPass integrations.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_equipment_class",
+      "label": "xDome Equipment Class",
+      "description": "Determines the equipment class of the device, according to The Joint Commission (TJC).",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_first_seen",
+      "label": "xDome First Seen",
+      "description": "The date and time a device's NIC was first seen.",
+      "type": "date",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_last_seen",
+      "label": "xDome Last Seen",
+      "description": "The date and time a device's NIC was last seen.",
+      "type": "date",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_switch_name",
+      "label": "xDome Switch Name",
+      "description": "The name of the switch the device is connected to.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_http_hostnames",
+      "label": "xDome Hostname (HTTP)",
+      "description": "The unique hostname identifier of the device, extracted from HTTP protocol traffic.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_ip_assignment",
+      "label": "xDome IP Assignment",
+      "description": "The device's IP assignment method, extracted from DHCP protocol traffic.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_labels",
+      "label": "xDome Label",
+      "description": "The labels added to the xDome device manually or automatically.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_manufacturer",
+      "label": "xDome Manufacturer",
+      "description": "Manufacturer of the device.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_model",
+      "label": "xDome Model",
+      "description": "The device's model.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_risk_score",
+      "label": "xDome Risk Score",
+      "description": "The calculated risk level of a device.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_site_name",
+      "label": "xDome Site Name",
+      "description": "The name of the site within the organization the xDome device is associated with.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_snmp_hostnames",
+      "label": "xDome Hostname (SNMP)",
+      "description": "The unique hostname identifier of the device, extracted from SNMP protocol traffic.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_ssid",
+      "label": "xDome SSID",
+      "description": "The name of the wireless network the device is connected to.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_switch_location",
+      "label": "xDome Switch Location",
+      "description": "The location of the switch the device is connected to.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_switch_port_id",
+      "label": "xDome Switch Port ID",
+      "description": "The port identifier of the switch the device is connected to.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_uid",
+      "label": "xDome Device ID",
+      "description": "A universal unique identifier (UUID) for the device.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_os",
+      "label": "xDome OS",
+      "description": "The aggregated value of OS name, version and revision.",
+      "type": "string",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    },
+    {
+      "tag": "connect_clarotyxdomeandmedigate_status",
+      "label": "xDome Status",
+      "description": "A boolean field indicating whether the device is online or not.",
+      "type": "boolean",
+      "group": "connect_clarotyxdomeandmedigate_xdome"
+    }
+  ],
+  "action_groups": [
+    {
+      "name": "connect_clarotyxdomeandmedigate_xdome",
+      "label": "xDome"
+    }
+  ],
+  "actions": [],
+  "scripts": [
+    {
+      "name": "xdome_poll.py",
+      "discovery": true
+    },
+    {
+      "name": "xdome_test.py",
+      "test": true
+    },
+    {
+      "name": "xdome_works.py",
+      "library_file": true
+    },
+    {
+      "name": "xdome_filter.py",
+      "library_file": true
+    }
+  ]
+}
