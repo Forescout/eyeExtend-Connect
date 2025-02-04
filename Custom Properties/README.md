@@ -2,17 +2,24 @@
 eyeExtend Connect Custom Properties App README.md Version: 1.0.2
 
 ## Configuration Guide
-**Version 1.0.0**
-- Current Time App
+**Version 1.0.5**
+- Added new Normalised Hostname property to work with DNS, DHCP and NetBIOS hostname and produce a single normalised hostname that can be used for further integrations
 
-**Version 1.0.1**
-- Combined with Short DNS Name to create Custom Properties app
+**Version 1.0.4**
+- Updated Active Network Adapter property to account for network adapters with multiple IP's assigned
+
+**Version 1.0.3**
+- Added Active Network Adapter property
 
 **Version 1.0.2**
 - Resolved an issue with Short DNS Name not updating the host properties correctly
 
-**Version 1.0.3**
-- Added Active Network Adapter property
+**Version 1.0.1**
+- Combined with Short DNS Name to create Custom Properties app
+
+**Version 1.0.0**
+- Current Time App
+
 
 ## Contact Information  
 - Have feedback or questions? Write to us at
