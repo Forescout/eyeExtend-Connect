@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.4.3-717" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Quarantines a device on Nile Network by moving to Quarantine Segment" ENABLED="true" ID="1683353648375207759" NAME="NileQuarantine" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: NileQuarantine-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="sc_compatibility_status" LABEL="SecureConnector Compatibility" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="HPS Inspection Engine" PLUGIN_UNIQUE_NAME="va" PLUGIN_VESRION="11.3.7" PLUGIN_VESRION_NUMBER="113070145" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER AUTO_UPDATE="false" FILTER_ID="-5665089120803447336" OPTIONS_DIGEST="c4c171e89f669a93fdc1e80a1a47584e">
+                    <OPT VALUE="compatible_newer"/>
+                    <OPT VALUE="compatible_older"/>
+                    <OPT VALUE="compatible_false"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <ACTION DISABLED="false" NAME="connect_nile_quarantine">
+            <PARAM NAME="netseg_name" VALUE="&lt;default&gt;"/>
+            <SCHEDULE>
+                <START Class="Immediately"/>
+                <OCCURENCE onStart="true"/>
+            </SCHEDULE>
+        </ACTION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
