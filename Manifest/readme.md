@@ -21,14 +21,14 @@ This integration between Manifest and Forescout enables Forescout to connect to 
 4. Manifest data will now be available in the Forescout console for use in policies and rules. 
 ## Usage Prereqs:
 The Manifest integration app looks for 3 properties on the device. These are:
-  - `mfst_vendor`: The vendor of the device firmware.
-  - `mfst_model`: The model of the device (or its firmware, as applicable).
-  - `mfst_firmware`: The firmware version of the device.
+  - `vendor_classification`: The vendor of the device firmware.
+  - `model_classification`: The model of the device (or its firmware, as applicable).
+  - `firmware_classification`: The firmware version of the device.
 
 
 ## Usage
 - The app will automatically fetch SBOM and vulnerability data for devices in the Forescout network. This data will be available in the Forescout console for use in policies and rules.
-- Create a mapping between any collected firmware (for example, from Cloud Data Exchange) and the device's `mfst_vendor`, `mfst_model`, and `mfst_firmware` properties. This will allow the app to fetch the correct SBOM and vulnerability data for the device.
+- Create a mapping between any collected firmware (for example, from Cloud Data Exchange) and the device's `vendor_classification`, `model_classification`, and `firmware_classification` properties. This will allow the app to fetch the correct SBOM and vulnerability data for the device.
 - The integration expects that the appropriate SBOMs are available in the Manifest tenant. If the SBOMs are not available, the app will not be able to fetch the SBOM and vulnerability data for the device.
 
 
