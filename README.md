@@ -28,7 +28,6 @@ All eyeExtend Connect Apps posted here are community contributed and community s
 * https://forescout.force.com/support/s/ - Please post your questions in the Discussion Thread
 * https://app.slack.com/client/TCG0HGFUG/CCGSRQDCZ  - User run Forescout Community ‘Connect-OIM’ Channel
 
-
 ## Connect Plugin
 You must have the Connect plugin installed on your Forescout platform to run these apps. 
 
