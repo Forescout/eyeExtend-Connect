@@ -23,6 +23,7 @@ The eyeExtend Connect Infoblox App provides functionality to retrieve the matche
 Currently, if there is a conflict for a device within Infoblox, this App will not retrieve any data to avoid pulling incorrect data into Forescout host profiles.
 
 This app has been tested with Infoblox Web API version 2.12.3
+Connect Module 2.1.3 and Connect Plugin 2.0.3 required for this app
 
 # What to Do  
 To set up your system for using the eyeExtend Connect Infoblox App, perform the following steps:  
