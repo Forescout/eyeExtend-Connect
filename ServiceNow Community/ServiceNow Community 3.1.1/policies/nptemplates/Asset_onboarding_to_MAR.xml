@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="9.1.2-602" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-1176595196098946132" NAME="SNOW Onboarding" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="AND">
+            <!--Rule expression. Rule name is: SNOW Onboarding-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_servicenowonboarding_serial" LABEL="ServiceNow serial" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="-8662580292156206318" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_servicenowonboarding_status" LABEL="ServiceNow Install Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="7799283294891643454" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_servicenowonboarding_tag" LABEL="ServiceNow asset tag" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="-5312522025911639805" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RESERVED>
+            <RANGE FROM="224.0.0.0" TO="247.255.255.255"/>
+        </RESERVED>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="9.1.2-602" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-3946959809519616051" NAME="Has MAC" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Has MAC-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="mac" LABEL="MAC Address" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="4328757538871295452" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="dot1x_update_mar">
+                    <PARAM NAME="mar_delete_entry" VALUE="false"/>
+                    <PARAM NAME="inactive_mar_action" VALUE="None"/>
+                    <PARAM NAME="force_reauth" VALUE="false"/>
+                    <PARAM NAME="schedule_mar_action_time_after" VALUE=""/>
+                    <PARAM NAME="auth_section_modified" VALUE="false"/>
+                    <PARAM NAME="inactive_timeout_val" VALUE=""/>
+                    <PARAM NAME="authz_dont_update" VALUE="false"/>
+                    <PARAM NAME="comment_modified" VALUE="false"/>
+                    <PARAM NAME="schedule_modified" VALUE="false"/>
+                    <PARAM NAME="schedule_mar_action" VALUE="None"/>
+                    <PARAM NAME="schedule_mar_action_time_on" VALUE=""/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <PARAM NAME="comment_dont_update" VALUE="false"/>
+                    <PARAM NAME="inactivity_modified" VALUE="false"/>
+                    <PARAM NAME="authz" VALUE="vlan:&#9;IsCOA:false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

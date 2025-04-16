@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="9.1.2-602" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-1904590583699501276" NAME="SNOW install status" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: SNOW install status-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_servicenowonboarding_status" LABEL="ServiceNow Install Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="4027345494519875098" TYPE="any">
+                    <VALUE VALUE2="Any"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SUBNET address="::" prefix="0"/>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="9.1.2-602" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-3601809933589779993" NAME="Retired" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Retired-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_servicenowonboarding_status" LABEL="ServiceNow Install Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="5865116778320501181" TYPE="equals">
+                            <VALUE VALUE2="7"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="dot1x_update_mar">
+                    <PARAM NAME="inactive_mar_action" VALUE="None"/>
+                    <PARAM NAME="mar_delete_entry" VALUE="true"/>
+                    <PARAM NAME="force_reauth" VALUE="false"/>
+                    <PARAM NAME="schedule_mar_action_time_after" VALUE=""/>
+                    <PARAM NAME="auth_section_modified" VALUE="false"/>
+                    <PARAM NAME="inactive_timeout_val" VALUE=""/>
+                    <PARAM NAME="authz_dont_update" VALUE="false"/>
+                    <PARAM NAME="comment_modified" VALUE="false"/>
+                    <PARAM NAME="schedule_modified" VALUE="false"/>
+                    <PARAM NAME="schedule_mar_action" VALUE="None"/>
+                    <PARAM NAME="schedule_mar_action_time_on" VALUE=""/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <PARAM NAME="comment_dont_update" VALUE="false"/>
+                    <PARAM NAME="inactivity_modified" VALUE="false"/>
+                    <PARAM NAME="authz" VALUE="vlan:&#9;IsCOA:false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="9.1.2-602" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="1867328477534498326" NAME="Stolen" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Stolen-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_servicenowonboarding_status" LABEL="ServiceNow Install Status" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="-2821752144997128374" TYPE="equals">
+                            <VALUE VALUE2="8"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="false" NAME="dot1x_update_mar">
+                    <PARAM NAME="inactive_mar_action" VALUE="None"/>
+                    <PARAM NAME="mar_delete_entry" VALUE="true"/>
+                    <PARAM NAME="force_reauth" VALUE="false"/>
+                    <PARAM NAME="schedule_mar_action_time_after" VALUE=""/>
+                    <PARAM NAME="auth_section_modified" VALUE="false"/>
+                    <PARAM NAME="inactive_timeout_val" VALUE=""/>
+                    <PARAM NAME="authz_dont_update" VALUE="false"/>
+                    <PARAM NAME="comment_modified" VALUE="false"/>
+                    <PARAM NAME="schedule_modified" VALUE="false"/>
+                    <PARAM NAME="schedule_mar_action" VALUE="None"/>
+                    <PARAM NAME="schedule_mar_action_time_on" VALUE=""/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <PARAM NAME="comment_dont_update" VALUE="false"/>
+                    <PARAM NAME="inactivity_modified" VALUE="false"/>
+                    <PARAM NAME="authz" VALUE="vlan:&#9;IsCOA:false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="9.1.2-602" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Do Not Remove" ID="6261753284828755152" NAME="All Other Status" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
