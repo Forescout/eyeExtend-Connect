@@ -12,6 +12,11 @@ With Sepio’s unique **AssetDNA™** technology, Forescout users gain unparalle
 - Fixed Sepio API token expiration issue
 - Optimized the process for retrieving Sepio assets to reduce load
 
+## Version 1.0.7 Release Notes
+
+- Log enhancement
+- Add configurable parameter to change number of assets per single API call to Sepio
+
 ## Key Features
 
 - Enhanced Asset Visibility  
