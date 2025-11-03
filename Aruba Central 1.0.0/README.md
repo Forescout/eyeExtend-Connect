@@ -18,7 +18,7 @@ Forescout eyeExtend Connect Aruba Central APP README.md
 
 - WARNING:  Please contact Aruba support to change default API limits  before using this App.
 
-### Version v1.0.1 Aruba Central APP -- reomved proxy configs
+### Version v1.0.1 Aruba Central APP -- removed proxy configs
 
 The APP gathers <mark>Wireless AP</mark>, <mark>Endpoint (Clients) Wired / Wireless</mark> information, allowing you to build Forescout policies relating to the Aruba Central
 
@@ -26,7 +26,11 @@ The APP gathers <mark>Wireless AP</mark>, <mark>Endpoint (Clients) Wired / Wirel
 
 ### Version v1.0.2 Aruba Central APP
 
-Aruba Central authentication API change from client_id to customer_id. 
+Aruba Central authentication API change from client_id to customer_id.
+
+### Version v1.0.3 Aruba Central APP -- bug fix
+
+- Fixed issue with Test, Token Refresh and Host Discovery all showing not able to find matching scripts, in all previous revisions.
 
 ## Requirements
 
