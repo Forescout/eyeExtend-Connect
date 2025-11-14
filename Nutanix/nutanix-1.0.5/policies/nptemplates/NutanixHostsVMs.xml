@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-7065632541067449031" NAME="Nutanix Compliance" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="OR">
+            <!--Rule expression. Rule name is: Nutanix Compliance-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_nutanix_host_details" LABEL="Nutanix Host Details" LEFT_PARENTHESIS="0" LOGIC="OR" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.5.1" PLUGIN_VESRION_NUMBER="15010038" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER COMP_FIELD_NAME="connect_nutanix_host_details" FILTER_ID="-7019212798197123863">
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_vms" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="hypervisor_full_name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="controller_vm_op_log_usage" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cpu_capacity_hz" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="serial_number" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="host_type" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="controller_vm_ip" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_cpu_sockets" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_cpu_cores" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="memory_capacity_mib" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cpu_model" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="state" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_nutanix_vm_details" LABEL="Nutanix VM Details" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.5.1" PLUGIN_VESRION_NUMBER="15010038" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER COMP_FIELD_NAME="connect_nutanix_vm_details" FILTER_ID="3604935127978238156">
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_is_connected" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_subnet_reference" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cluster_reference_kind" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cluster_reference_uuid" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cluster_reference_name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="state" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="machine_type" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_sockets" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_threads_per_core" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="is_agent_vm" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="protection_type" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="disable_branding" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="host_reference_uuid" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="power_state" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_vcpus_per_socket" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vga_console_enabled" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="memory_size_mib" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="host_reference_kind" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="enable_cpu_passthrough" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="hypervisor_type" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_vlan_mode" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="host_reference_name" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_type" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                        <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_uuid" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </SUB_FILTER>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="0" NAME="Segments">
+            <RANGE FROM="10.0.0.0" TO="10.255.255.255"/>
+            <RANGE FROM="172.16.0.0" TO="172.16.255.255"/>
+            <RANGE FROM="192.168.0.0" TO="192.168.255.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="8237181890229593692" NAME="Nutanix VMs" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Nutanix VMs-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_nutanix_vm_details" LABEL="Nutanix VM Details" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.5.1" PLUGIN_VESRION_NUMBER="15010038" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_nutanix_vm_details" FILTER_ID="-2743179423808358568">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_is_connected" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_subnet_reference" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cluster_reference_kind" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cluster_reference_uuid" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cluster_reference_name" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="state" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="machine_type" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_sockets" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_threads_per_core" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="is_agent_vm" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="protection_type" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="disable_branding" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="host_reference_uuid" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="power_state" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_vcpus_per_socket" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vga_console_enabled" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="memory_size_mib" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="host_reference_kind" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="enable_cpu_passthrough" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="name" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="hypervisor_type" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_vlan_mode" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="host_reference_name" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_type" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="vm_nic_uuid" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-6014136565819609985" NAME="Nutanix Hosts" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Nutanix Hosts-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_nutanix_host_details" LABEL="Nutanix Host Details" LEFT_PARENTHESIS="0" LOGIC="AND" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.5.1" PLUGIN_VESRION_NUMBER="15010038" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_nutanix_host_details" FILTER_ID="6195738466940776094">
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_vms" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="hypervisor_full_name" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="controller_vm_op_log_usage" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cpu_capacity_hz" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="serial_number" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="host_type" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="controller_vm_ip" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_cpu_sockets" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="num_cpu_cores" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="memory_capacity_mib" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="cpu_model" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="name" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="state" TYPE="any">
+                                <VALUE VALUE2="Any"/>
+                            </SUB_FILTER>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.2-731" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="7523898854379459056" NAME="Others" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
