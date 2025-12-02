@@ -17,6 +17,11 @@ With Sepio’s unique **AssetDNA™** technology, Forescout users gain unparalle
 - Log enhancement
 - Add configurable parameter to change number of assets per single API call to Sepio
 
+## Version 1.0.8 Release Notes & Compatibility (November 2025)
+
+- Supported Platforms: Forescout Platform v8.3 and later
+- Environments: Linux and Windows appliance deployments
+
 ## Key Features
 
 - Enhanced Asset Visibility  
