@@ -22,6 +22,12 @@ With Sepio’s unique **AssetDNA™** technology, Forescout users gain unparalle
 - Supported Platforms: Forescout Platform v8.3 and later
 - Environments: Linux and Windows appliance deployments
 
+## Version 1.0.9 Release Notes & Compatibility (January 2026)
+
+- Added new custom attribute - "Sepio Asset ID".
+- Supported Platforms: Forescout Platform v8.3 and later
+- Environments: Linux and Windows appliance deployments
+
 ## Key Features
 
 - Enhanced Asset Visibility  
