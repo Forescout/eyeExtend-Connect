@@ -5,6 +5,11 @@ Forescout connect plugin for SentinelOne using EyeConnect (OIM) module.
 
 ## **Release Notes**
 
+### **Version 1.1.3**
+- **Bug Fixes:**
+  - Resolved an issue where the app reads the host name from Forescout hostname field instead of dhcp_hostname_v2 field.
+  - Fixed a bug where the Authentication Key name was "APIToken" instead of "ApiToken" causing authentication with SentinelOne API to fail.
+
 ### **Version 1.1.2**
 - **New Features:**
   - Added a **hostname down select** feature which forces the resolver to use both MAC and Hostname. This helps eliminate MAC address collisions, particularly in cases such as VPN clients.
