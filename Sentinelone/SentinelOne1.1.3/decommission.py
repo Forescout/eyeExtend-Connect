@@ -35,7 +35,7 @@ token = params.get("connect_sentinelone_api_token")
 server = params.get("connect_sentinelone_server")
 headers = {
     "Content-type": "application/json",
-    "Authorization": f"APIToken {token}"
+    "Authorization": f"ApiToken {token}"
 }
 
 try:

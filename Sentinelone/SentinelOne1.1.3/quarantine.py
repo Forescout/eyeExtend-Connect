@@ -36,7 +36,7 @@ server = params.get("connect_sentinelone_server")
 
 headers = {
     "Content-type": "application/json",
-    "Authorization": f"APIToken {token}"
+    "Authorization": f"ApiToken {token}"
 }
 try:
     logging.debug("The params mac value is: " + str(params['mac']))
