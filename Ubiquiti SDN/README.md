@@ -10,36 +10,42 @@ eyeExtend Connect App for Ubiquiti enabling discovery, application integillence 
 1.2.2
 1.2.3
 1.2.4
+1.2.6
 
 ## Change Log
-1.2.4
-<ul>
-<li>Fixed a bug that prevented network device mac/ip mapping from being learned</li>
-</ul>
+### 1.2.6
+#### Prerequisites
+- connect_module need to be on v2.0.5 or above for multi-cluster support
+- Host Discovery has to be enabled so that each endpoint knows under which controller
 
-1.2.3
-<ul>
-<li>Updated test script to not query all sites if configured for UnifiOS controllers.  UnifiOS only supports a single site currently.</li>
-<li>Re-added action icons that were removed in previous versions by mistake.  All actions should have an icon now, console restart may be required for change to apply after upgrade</li>
-<li>Updated app's internal name to remove space, went from 'Unifi SDN' to 'UnifiSDN' - this will allow app upgrades to work from here on out.</li>
-<li>Updated firewall group action error messaging to be more specific on actual issue when group has case mis match</li>
-</ul>
+#### Multi-cluster Support
 
-1.2.2
-<ul>
-<li>Removed 2 lines from UB_API_NONOO.py containing print function calls which is now rejected in connect apps.  This corrects a failure on installing the app on newer versions of connect plugin.</li>
-<li>Incremented version to 1.2.2</li>
-</ul>
+- Controller routing support with new configuration options. 
+- Updated API Key and Controller Address fields to support longer strings (longString type) for better compatibility with extended credential formats.
+- Enter multiple controller IPs, comma separated.
+- Enter multiple API Keys, comma separated, in the same order of controller IPs.
+- Standardized internal parameter naming across all scripts for improved maintainability:
+  - API key parameter now uses standardized "connect_controller_api_key_tag"
+  - Controller address parameter now uses standardized "connect_controller_ip_tag"
 
-1.2.1
-<ul>
-<li> unreleased, removed unused proxy configuration</li>
-</ul>
+### 1.2.4
+- Fixed a bug that prevented network device mac/ip mapping from being learned
 
-1.2.0
-<ul>
-<li> Introduced new properties as well as actions </li>
-</ul>
+### 1.2.3
+- Updated test script to not query all sites if configured for UnifiOS controllers. UnifiOS only supports a single site currently.
+- Re-added action icons that were removed in previous versions by mistake. All actions should have an icon now, console restart may be required for change to apply after upgrade
+- Updated app's internal name to remove space, went from 'Unifi SDN' to 'UnifiSDN' - this will allow app upgrades to work from here on out.
+- Updated firewall group action error messaging to be more specific on actual issue when group has case mis match
+
+### 1.2.2
+- Removed 2 lines from UB_API_NONOO.py containing print function calls which is now rejected in connect apps. This corrects a failure on installing the app on newer versions of connect plugin.
+- Incremented version to 1.2.2
+
+### 1.2.1
+- Unreleased, removed unused proxy configuration
+
+### 1.2.0
+- Introduced new properties as well as actions
 
 
 
