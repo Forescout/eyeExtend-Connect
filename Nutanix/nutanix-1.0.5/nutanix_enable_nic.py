@@ -137,7 +137,7 @@ password = params.get('connect_nutanix_password', '')
 host_uuid = params.get('connect_nutanix_host_uuid', '')
 vm_uuid = params.get('connect_nutanix_vm_uuid', '')
 ip = params.get('ip', '')
-
+ssl_verify = params.get("connect_nutanix_ssl_verify", False)
 
 # prepare encoded credentials based on username/password
 encoded_credentials = b64encode(bytes(f'{username}:{password}',\
@@ -177,17 +177,17 @@ response = {}
 if vm_uuid != '':
     url = f'{base_uri}/vms/{vm_uuid}'
     try:
-        resp = requests.request('get', url,  headers=headers, verify=False)
+        resp = requests.request('get', url,  headers=headers, verify=ssl_verify)
         if resp.status_code == 200: 
             vm = json.loads(resp.content)
             # vm = {'spec': {'name': 'vm_from_v3_api', 'resources': {'num_threads_per_core': 1, 'vnuma_config': {'num_vnuma_nodes': 0}, 'serial_port_list': [], 'nic_list': [{'nic_type': 'NORMAL_NIC', 'uuid': '391cde02-0075-4e57-be80-78113c7d96eb', 'ip_endpoint_list': [], 'mac_address': '50:6b:8d:b7:9b:cf', 'vlan_mode': 'ACCESS', 'subnet_reference': {'kind': 'subnet', 'name': 'Application', 'uuid': '545f5abb-361e-4e1f-8fde-17e57afaa81b'}, 'is_connected': True, 'trunked_vlan_list':[]}], 'num_vcpus_per_socket': 1, 'num_sockets': 1, 'gpu_list': [], 'is_agent_vm': False, 'memory_size_mib': '1024', 'power_state': 'OFF', 'hardware_clock_timezone': 'UTC', 'disable_branding': False}}}
             # response = resolve_vm_endpoint(vm, ip)
             # spec object and metadata object must be included
             vm_details_to_put = enable_nic_adapters(vm)
-            r = requests.put(url, headers=headers, json=vm_details_to_put, verify=False)
+            r = requests.put(url, headers=headers, json=vm_details_to_put, verify=ssl_verify)
             if r.status_code == 202 or r.status_code == 200:
                 logging.info('{}: NICs have been enabled successfully'.format(r.status_code))
-                # response['status'] = 'NICs have been disabled successfully'
+                # response['status'] = 'NICs have been enabled successfully'
                 response['succeeded'] = True
             else:
                 response['troubleshooting'] = f'Could not connect to Nutanix Server while disabling NICs for vm_uuid: {vm_uuid}'

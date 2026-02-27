@@ -121,7 +121,7 @@ password = params.get('connect_nutanix_password', '')
 host_uuid = params.get('connect_nutanix_host_uuid', '')
 vm_uuid = params.get('connect_nutanix_vm_uuid', '')
 ip = params.get('ip', '')
-
+ssl_verify = params.get("connect_nutanix_ssl_verify", False)
 
 # prepare encoded credentials based on username/password
 encoded_credentials = b64encode(bytes(f'{username}:{password}',\
@@ -144,7 +144,7 @@ response = {}
 if host_uuid != '':
     url = f'{base_uri}/hosts/{host_uuid}'
     try: 
-        resp = requests.request('get', url,  headers=headers, verify=False)
+        resp = requests.request('get', url,  headers=headers, verify=ssl_verify)
 
         
         if resp.status_code == 200: 
@@ -161,7 +161,7 @@ if host_uuid != '':
 if vm_uuid != '':
     url = f'{base_uri}/vms/{vm_uuid}'
     try:
-        resp = requests.request('get', url,  headers=headers, verify=False)
+        resp = requests.request('get', url,  headers=headers, verify=ssl_verify)
         if resp.status_code == 200: 
             vm = json.loads(resp.content)
             response = resolve_vm_endpoint(vm, ip)

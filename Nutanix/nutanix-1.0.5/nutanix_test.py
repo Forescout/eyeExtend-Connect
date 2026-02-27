@@ -8,6 +8,7 @@ logging.info('===>Starting Nutanix Test Script')
 prism_api_ip = params.get('connect_nutanix_prism_api_ip', '')
 username = params.get('connect_nutanix_username', '')
 password = params.get('connect_nutanix_password', '')
+ssl_verify = params.get("connect_nutanix_ssl_verify", False)
 
 # prepare encoded credentials based on username/password
 encoded_credentials = b64encode(bytes(f'{username}:{password}',\
@@ -29,9 +30,9 @@ data = '{"kind":"host"}'
 response = {}
 
 try: 
-    resp = requests.request('post', url, data=data, headers=headers, verify=False)
+    resp = requests.request('post', url, data=data, headers=headers, verify=ssl_verify)
 
-    # Return the 'response' dictionary, must have a 'succeded' field.
+    # Return the 'response' dictionary, must have a 'succeeded' field.
     
     if resp.status_code == 200: 
         content = json.loads(resp.content)

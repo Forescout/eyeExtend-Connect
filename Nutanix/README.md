@@ -8,6 +8,50 @@ eyeExtend Connect for Nutanix App README.md Version: 1.0.0
 **Version 3.0.1**
 - Resolved issue with proxy usage
 
+## Release Notes
+
+### Version 1.0.5 (February 2026)
+#### Prerequisite
+- connect_module need to be on v2.0.5 or above for multi-cluster support
+- Host Discovery has to be enabled so that each endpoint knows under which controller
+
+#### New Features
+- **VM NIC Control Actions**: Added two new remediation actions for managing VM network interfaces
+  - **Disable VM NIC**: Action to disconnect VM network adapters through Prism API
+  - **Enable VM NIC**: Action to connect VM network adapters through Prism API
+  - Undo capability: "Disable VM NIC" action includes automatic undo that re-enables the NIC
+- **Controller IP Property**: Added new property `connect_nutanix_controller_ip` to track Nutanix VM Controller IP address for each endpoint
+- **Controller Routing**: Enabled controller routing configuration with support for managing endpoints based on controller IP
+
+#### Enhancements
+- **Multi-cluster support**. Added controller IP property to all VM endpoints during poll and resolve operations
+- Enhanced polling script with debug logging for host metadata to improve troubleshooting
+- Added action icons for all action states (normal, failed, gray, waiting) for both enable and disable operations
+
+#### Script Changes
+- New scripts:
+  - `nutanix_disable_nic.py`: Implements VM NIC disconnection via Prism v3 API
+  - `nutanix_enable_nic.py`: Implements VM NIC connection via Prism v3 API and serves as undo action
+- Updated scripts:
+  - `nutanix_poll.py`: Added controller IP tracking and enhanced logging
+  - `nutanix_resolve.py`: Updated to include controller IP in resolved properties
+  - `nutanix_test.py`: Fixed comment typos
+
+#### Configuration Updates
+- Updated property.conf:
+  - Added `connect_nutanix_controller_ip` property definition
+  - Added action definitions for enable/disable VM NIC operations
+  - Configured undo relationship between disable and enable actions
+  - Added script mappings for new action scripts
+- Updated system.conf:
+  - Version bump: 1.0.1 → 1.0.5
+  - Enabled controller routing
+  - Added controller config field name mapping
+
+### Version 1.0.1
+- Initial release with Prism v3 API integration
+- Host and VM polling and resolution capabilities
+
 ## Contact Information  
 - Have feedback or questions? Write to us at
 

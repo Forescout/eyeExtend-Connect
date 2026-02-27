@@ -175,6 +175,7 @@ logging.info('===>Starting Nutanix Poll Script')
 prism_api_ip = params.get('connect_nutanix_prism_api_ip', '')
 username = params.get('connect_nutanix_username', '')
 password = params.get('connect_nutanix_password', '')
+ssl_verify = params.get("connect_nutanix_ssl_verify", False)
 
 # prepare encoded credentials based on username/password
 encoded_credentials = b64encode(bytes(f'{username}:{password}',\
@@ -198,7 +199,7 @@ endpoints = []
 # final response to be shared
 response = {}
 
-# Number of hosts to rectrieve per request 
+# Number of hosts to retrieve per request
 length_limit = 100 
 hosts_offset = 0
 
@@ -208,7 +209,7 @@ data = f'{{"kind":"host", "offset":{hosts_offset}, "length":{length_limit} }}'
 
 try:
     logging.info("Polling Hosts Started.")
-    resp = requests.request('post', url, data=data, headers=headers, verify=False)
+    resp = requests.request('post', url, data=data, headers=headers, verify=ssl_verify)
     
     if resp.status_code == 200: 
         content = json.loads(resp.content)
@@ -248,7 +249,7 @@ try:
                 logging.info(f"sending poll request for hosts with offset {hosts_offset}, and length : {length}") 
                 
                 data = f'{{"kind":"host", "offset":{hosts_offset}, "length":{length} }}'
-                resp = requests.request('post', url, data=data, headers=headers, verify=False)
+                resp = requests.request('post', url, data=data, headers=headers, verify=ssl_verify)
                 if resp.status_code == 200: 
                     content = json.loads(resp.content)
                     received_length = int(get_property(content, 'metadata.length'))
@@ -299,7 +300,7 @@ data = f'{{"kind":"vm", "offset":{vms_offset}, "length":{length_limit} }}'
 
 try:
     logging.info("Polling VMs Started.")
-    resp = requests.request('post', url, data=data, headers=headers, verify=False)
+    resp = requests.request('post', url, data=data, headers=headers, verify=ssl_verify)
     
     if resp.status_code == 200: 
         content = json.loads(resp.content)
@@ -331,7 +332,7 @@ try:
                 logging.info(f"sending poll request for VMs with offset {vms_offset}, and length : {length}") 
                 
                 data = f'{{"kind":"vm", "offset":{vms_offset}, "length":{length_limit} }}'
-                resp = requests.request('post', url, data=data, headers=headers, verify=False)
+                resp = requests.request('post', url, data=data, headers=headers, verify=ssl_verify)
                 if resp.status_code == 200: 
                     content = json.loads(resp.content)
                     received_length = int(get_property(content, 'metadata.length'))
