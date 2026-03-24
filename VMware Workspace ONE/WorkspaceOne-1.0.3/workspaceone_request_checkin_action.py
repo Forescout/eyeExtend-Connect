@@ -21,73 +21,84 @@ SOFTWARE.
 """
 
 import logging
-
 import requests
-from requests.exceptions import HTTPError
 
-WO_PROTOCOL = "https"
 WO_SERVER_USERNAME= params.get("connect_workspaceone_user")
 WO_SERVER_PASSWORD = params.get("connect_workspaceone_password")
 WO_SERVER_ADDRESS = params.get("connect_workspaceone_server_url")
 WO_API_KEY = params.get("connect_workspaceone_api_key")
 WO_DEVICE_MAC_ADDRESS = params.get("mac")
+WO_AUTH_MODE = params.get("connect_workspaceone_auth_mode")
+WO_TOKEN_URL = params.get("connect_workspaceone_token_url")
 
-
-# Proxy support -- requests only needs proxy_dict
-workspaceone_proxy_enabled = params.get("connect_proxy_enable")
-workspaceone_proxy_basic_auth_ip = params.get("connect_proxy_ip")
-workspaceone_proxy_port = params.get("connect_proxy_port")
-workspaceone_proxy_username = params.get("connect_proxy_username")
-workspaceone_proxy_password = params.get("connect_proxy_password")
-if workspaceone_proxy_enabled == "true":
-	proxy_dict = workspaceone_proxy_support.get_proxy_dict(workspaceone_proxy_basic_auth_ip,
-																		workspaceone_proxy_port,
-																		workspaceone_proxy_username,
-																		workspaceone_proxy_password)
+# Requests Proxy
+is_proxy_enabled = params.get("connect_proxy_enable")
+if is_proxy_enabled == "true":
+    proxy_ip = params.get("connect_proxy_ip")
+    proxy_port = params.get("connect_proxy_port")
+    proxy_user = params.get("connect_proxy_username")
+    proxy_pass = params.get("connect_proxy_password")
+    if not proxy_user:
+        proxy_url = f"https://{proxy_ip}:{proxy_port}"
+        proxies = {"https" : proxy_url}
+        logging.debug ("Proxy enabled / no user")
+    else:
+        proxy_url = f"https://{proxy_user}:{proxy_pass}@{proxy_ip}:{proxy_port}"
+        proxies = {"https" : proxy_url}
+        logging.debug ("Proxy enabled / user")
 else:
-	proxy_dict = None
+    logging.debug ("Proxy disabled")
+    proxies = None
 
-
-headers = workspaceone_authentication_and_epoch.get_general_authentication_headers(WO_SERVER_USERNAME, WO_SERVER_PASSWORD, WO_API_KEY)
-
-# construct 'check-in action' response to CounterACT
 response = {}
 
-# initialize to None
-action_url = None
-
-device_id = params.get("connect_workspaceone_deviceID")
-if device_id:
-	action_url = WO_PROTOCOL + "://" + WO_SERVER_ADDRESS + "/api/mdm/devices/" + device_id + "/commands?command=devicequery"
-
-elif WO_DEVICE_MAC_ADDRESS:
-	action_url = WO_PROTOCOL + "://" + WO_SERVER_ADDRESS + "/api/mdm/devices/commands?command=devicequery&searchby=macaddress&id=" + WO_DEVICE_MAC_ADDRESS
-
-if action_url:
-	logging.debug("WO Action URL " + action_url)
-
-	try:
-		logging.debug("Starting Request device check-in action...")
-
-		action_response = requests.request("POST", action_url, headers=headers, verify=ssl_verify, proxies=proxy_dict)
-		logging.debug("WO Device check-in response: " + str(action_response.text) )
-
-		if (200 <= action_response.status_code <= 210):
-			response["succeeded"] = True
-		else:
-			device_check_in_response = action_response.json()
-			response["succeeded"] = False
-			response["error"] = "Device Check-In Action Failed for Device ID= {}. {}".format(device_id, device_check_in_response.get("message") )
-
-		logging.debug("Device check-in action completed")
-
-	except HTTPError as e:
+if WO_AUTH_MODE == "oauth":
+	access_token = params.get("connect_authorization_token")
+	if not access_token:
 		response["succeeded"] = False
-		response["error"] = "Device Check-in failed. HTTP Response code: {}".format(e.code)
-	except Exception as e:
-		response["succeeded"] = False
-		response["error"] = "Device Check-in failed. {}".format(str(e))
-
+		response["error"] = "No OAuth token found. Check authorization."
+	else:
+		headers = workspaceone_authentication_and_epoch.get_oauth_headers(access_token, WO_API_KEY)
 else:
-	response["succeeded"] = False
-	response["error"] = "Device identifier field is empty."
+	headers = workspaceone_authentication_and_epoch.get_general_authentication_headers(WO_SERVER_USERNAME, WO_SERVER_PASSWORD, WO_API_KEY)
+
+# construct 'check-in action' response to CounterACT
+if "succeeded" not in response:
+	# initialize to None
+	action_url = None
+
+	device_id = params.get("connect_workspaceone_deviceID")
+	if device_id:
+		action_url = "https://" + WO_SERVER_ADDRESS + "/api/mdm/devices/" + device_id + "/commands?command=devicequery"
+
+	elif WO_DEVICE_MAC_ADDRESS:
+		action_url = "https://" + WO_SERVER_ADDRESS + "/api/mdm/devices/commands?command=devicequery&searchby=macaddress&id=" + WO_DEVICE_MAC_ADDRESS
+
+	if action_url:
+		logging.debug("WO Action URL " + action_url)
+
+		try:
+			logging.debug("Starting Request device check-in action...")
+
+			action_response = requests.request("POST", action_url, headers=headers, verify=ssl_verify, proxies=proxies)
+			action_response.raise_for_status()
+			logging.debug("WO Device check-in response: " + str(action_response.text) )
+
+			if action_response.status_code == 210:
+				device_check_in_response = action_response.json()
+				response["succeeded"] = False
+				response["error"] = "Device Check-In Action Failed for Device ID= {}. {}".format(device_id, device_check_in_response.get("message") )
+			else:
+				response["succeeded"] = True
+				logging.debug("Device check-in action completed")
+
+		except requests.exceptions.HTTPError as e:
+			response["succeeded"] = False
+			response["error"] = "Device Check-in failed. HTTP Response code: {}".format(e.response.status_code)
+		except Exception as e:
+			response["succeeded"] = False
+			response["error"] = "Device Check-in failed. {}".format(str(e))
+
+	else:
+		response["succeeded"] = False
+		response["error"] = "Device identifier field is empty."

@@ -38,7 +38,6 @@ def get_general_authentication_headers(WO_SERVER_USERNAME, WO_SERVER_PASSWORD, W
 	}
 	return(headers)
 
-
 def get_action_authentication_headers_with_xmlmessage_encoding(WO_SERVER_USERNAME, WO_SERVER_PASSWORD, WO_API_KEY, payload):
 	logging.debug("Generating data for actions and headers for authentication...")
 	auth_string = "{}:{}".format(WO_SERVER_USERNAME, WO_SERVER_PASSWORD)
@@ -56,6 +55,29 @@ def get_action_authentication_headers_with_xmlmessage_encoding(WO_SERVER_USERNAM
 	headers['Content-Type'] = 'text/xml'
 	return(headers, data)
 
+# --- New OAuth Functions Start ---
+
+def get_oauth_headers(access_token, WO_API_KEY):
+    logging.debug("Generating general headers for OAuth authentication...")
+    headers = {
+        'Content-Type': 'application/json',
+        'Aw-Tenant-Code': WO_API_KEY,
+        'Authorization': 'Bearer ' + access_token
+    }
+    return headers
+
+def get_oauth_headers_with_xmlmessage_encoding(access_token, WO_API_KEY, payload):
+    logging.debug("Generating XML action headers for OAuth authentication...")
+    headers = {}
+    headers['Authorization'] = 'Bearer ' + access_token
+    headers['Aw-Tenant-Code'] = WO_API_KEY
+    logging.debug("XML MessageBody: " + payload)
+    data = payload.encode("utf-8")
+    headers['Content-Length'] = str(len(payload))
+    headers['Content-Type'] = 'text/xml'
+    return headers, data
+
+# --- New OAuth Functions End ---
 
 def convert_to_epoch(timestamp_str):
 	try:

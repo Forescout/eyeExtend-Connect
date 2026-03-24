@@ -1,8 +1,11 @@
 # Forescout  
-eyeExtend for Workspace ONE App README.md Version: 1.0.0  
+eyeExtend for Workspace ONE App README.md Version: 1.0.3
   
 ## Configuration Guide  
-**Version 1.0.0**  
+**Version 1.0.3**
+- Migrated app fully to requests library from urllib/requests mix
+- Updated proxy support
+- Added OAuth support
   
 ## Contact Information  
 Forescout Technologies, Inc.  
@@ -35,7 +38,7 @@ Connect Apps, including those provided by Forescout, are not supported by Foresc
 This section describes important use cases supported by Forescout eyeExtend for Workspace ONE.  
 
 ## Workspace ONE Device Compliance Policy
-Use this policy template to detect non-compliant corporate devices, and redirect non-complaint users to a notification message that indicates:
+Use this policy template to detect non-compliant corporate devices, and redirect non-compliant users to a notification message that indicates:
 -Why the device is not-compliant
 -Network access limitations
 -Steps for remediation
@@ -128,10 +131,12 @@ If a system description has not been configured and you select **OK** now, a war
 1. Select **Add**.  
 2. Enter the following information:  
   
-- Workspace ONE Server URL: Enter the login.   
-- User: Enter the username for the Workspace ONE UEM account.  
-- Password: Enter the password for the Workspace ONE UEM account.  
+- Server URL: Enter the server URL for Workspace ONE.
+- Authentication Mode: Select either Basic Authentication or OAuth 2.0 (Client Credentials)
+- User: For Basic Authentication enter the username for the Workspace ONE UEM account. For OAuth enter the Client ID.
+- Password: For Basic Authentication enter the password for the Workspace ONE UEM account.  For OAuth enter the Client Secret.
 - Workspace ONE API Key: Enter the API for the Workspace ONE UEM account.
+- OAuth Token URL: For OAuth only, enter the region specific token URL.
 - Disable Individual Discovery Property Updates: Enable this checkbox to disable individual API requests for properties that can be retrieved by polling.
   
 3. Select **Next**.  
@@ -161,6 +166,7 @@ Note the following:
 - Enable Host Discovery: Select this option to enable the **Discovery Frequency** field.  
 - Discovery Frequency: Select a value for the frequency of host discovery, which is the interval between discoveries. The range is from 1 minute to 2880 minutes (48 hours). The default is 1440 minutes (every 24 hours).  
 - MDM Query Threshold Interval: Specify how often (in seconds) the module should query the Workspace ONE service. The range is from 1 to 1000 seconds; the default is every 10 seconds. You can rate limit the frequency in which requests are sent to the third-party server. The rate limiter specifies the number of times a script is invoked during the specified time. It is triggered when the app starts.  
+- Authorization refresh interval (in minutes): By default this is set to refresh the OAuth token every 50 minutes, the default expiry in Workspace One is 60 minutes. If this expiry time has been modified, then the refresh interval should be changed to refresh in a shorter time interval than what is configured.
 10. Select **Finish**. The configured system description is displayed in the **System Description** dialog box.  
   
 When the system description is selected, all the buttons on the dialog box are enabled.  
@@ -186,7 +192,7 @@ To remove a system description:
 2. Select **More** for details or select **Ok**.  
   
 ## Test a System Description  
-You can test a system description, which tests the connection of the Intue App to the Workspace ONE server. The app must be in the Running state.  
+You can test a system description, which tests the connection of the Workspace ONE App to the Workspace ONE server. The app must be in the Running state.  
   
 Also, the app must be saved before selecting **Test**. Select **OK** in the **System Description** dialog box and then select **Apply** in the **Connect** pane to save the system description. Please wait about 5-10 seconds after clicking apply.  
   
@@ -270,7 +276,7 @@ The following action is available:
 There are several Python scripts.  
 - **workspaceone_poll.py** User can enable discovery on a specified period to poll endpoint properties.
 - **workspaceone_test.py** User can test the connection to the Workspace ONE server.  
-- **workspaceone_resolve.py** User can retrieve Workspace ONE genreal properties of an endpoint.  
+- **workspaceone_resolve.py** User can retrieve Workspace ONE general properties of an endpoint.  
 - **workspaceone_app_resolve.py** User can retrieve all the software applications running on a specific managed endpoint.
 - **workspaceone_security_resolve.py**: User can retrieve the Workspace ONE security properties of an endpoint.
 - **workspaceone_user_resolve.py**: User can retrieve the Workspace ONE endpoint user-related properties.
