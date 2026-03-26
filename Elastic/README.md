@@ -2,6 +2,19 @@
 
 The eyeExtend Connect Elastic App is an integration tool designed to seamlessly connect Forescout data with Elastic, enhancing your organization's data management and security capabilities. This app allows you to efficiently push endpoint data from Forescout into Elastic, enabling comprehensive visibility and analysis within your Elastic environment.
 
+## Version History
+
+### Version 0.2.0
+**Changes:**
+- **Data Stream Update**: Default datastream changed from `forescout.log` to `forescout.host` for better alignment with Elastic conventions
+- **Enhanced Data Processing**:
+  - Added automatic timestamp to property tags for each host record
+  - Modified message structure to send property_tags as JSON string in message field
+  - Added tag-based metadata for data processing control
+- **New Configuration Options**:
+  - **Preserve Original Event**: Option to preserve raw copy of the original event in the `event.original` field
+  - **Preserve Duplicate Custom Field**: Option to preserve `forescout.host` fields that were copied to Elastic Common Schema (ECS) fields
+
 ## Requirements
 The App has been primarily validated using:
 - Elastic Stack v9.2.3
@@ -22,7 +35,11 @@ While it may work with other versions of Elastic and Forescout, these are the ve
 	- If Forescout should reject HTTPS requests to Elastic server if server certificate is untrusted.
 ### Elastic Target
 - Elastic Datastream
-	- Elastic datastream where you want to push data.
+	- Elastic datastream where you want to push data (default: `forescout.host`)
+- Preserve Original Event
+	- Optional boolean to preserve a raw copy of the original event, added to the field `event.original`
+- Preserve Duplicate Custom Field
+	- Optional boolean to preserve `forescout.host` fields that were copied to Elastic Common Schema (ECS) fields
 
 #### Assign Forescout Devices
 It is recommended to run the integration on a focal appliance, not the Enterprise Manager.
