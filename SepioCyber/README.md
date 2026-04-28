@@ -6,6 +6,11 @@ The **Sepio Connector for Forescout** enhances Forescout’s network visibility 
 
 With Sepio’s unique **AssetDNA™** technology, Forescout users gain unparalleled visibility into connected assets, including rogue, spoofed, or unauthorized hardware. This integration helps mitigate hardware-based threats, reduce attack surfaces, and strengthen compliance across IT, OT, and IoT environments.
 
+## Version 1.1.0 Release Notes (June 2026)
+
+- Added new custom attributes - "Sepio First Seen", "Sepio Last Seen", "Sepio Status".
+- Added a configurable option to push only online assets from Sepio to Forescout
+
 ## Version 1.0.10 Release Notes (February 2026)
 
 - Added new custom attribute - "Sepio Risk Acceptance".
@@ -73,11 +78,11 @@ With Sepio’s unique **AssetDNA™** technology, Forescout users gain unparalle
 3. Documentation
    - For detailed setup and configuration guidance, refer to the [Integration Guide](https://docs.sepiocyber.com/integrations/configuring-and-editing-integration-settings/configuring-integrations/forescout-connector-app-configuration/).
 
-## Support
+## Contact & Support
 
-For support and questions regarding this integration, please contact:  
-Email: support@sepiocyber.com  
-Website: https://www.sepiocyber.com
+Joint Sepio + Forescout customers with valid licenses can deploy the Connector to view Sepio risk insights and device telemetry directly within the Forescout console.
+General Inquiries: contact@sepiocyber.com
+Technical Support: support@sepiocyber.com
 
 ## About Sepio
 
