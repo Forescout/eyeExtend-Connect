@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="9.1.4-791" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="REFERENCE TEMPLATE - DO NOT RUN AGAINST MULTIPLE HOSTS. This policy is a helper for the Custom Uninstall template (2.6); it returns WinGet package IDs that contain a partial software name, so you can copy the exact package ID into a Custom Uninstall policy. Example: a partial name of 'Firefox' typically returns Mozilla.Firefox and Mozilla.Firefox.ESR. TO USE: (1) Identify ONE test host that has the software installed and copy its IP address. (2) Edit this policy and replace 192.0.2.1 in the Access IP condition with the IP from step 1. (3) Replace [INSERT-SOFTWARE-NAME-HERE] in the WingetInventory.ps1 command with the partial software name (e.g., 'Firefox', 'Shockwave', 'iTunes'). Case-insensitive substring match against package name AND package ID. (4) Enable the policy. (5) Read the WINGET_INVENTORY_MATCH=&lt;PackageId&gt; lines from the policy detection view in Host Details. (6) DISABLE this policy when done - it is not intended for continuous use." ENABLED="false" ID="-1136081759310527001" NAME="WinGet Inventory - Find Package ID" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="3600" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="AND">
+            <!--Rule expression. Rule name is: WinGet Inventory - Find Package ID-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="access_ip" LABEL="Access IP" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="-6603413329529107359" TYPE="equals">
+                        <VALUE VALUE2="192.0.2.1"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="script_result.afb79835055dacaafac819577b948598" LABEL="Windows Expected Script Result Command or Script file:WingetInventory.ps1 -SearchTerm &quot;[INSERT-SOFTWARE-NAME-HERE]&quot;, Run Interactive:false" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                    <FIELD METANAME="script_result" NAME="script_result.afb79835055dacaafac819577b948598">
+                        <PARAM NAME="script_howtorun_prop" TYPE="string" VALUE="WingetInventory.ps1 -SearchTerm &quot;[INSERT-SOFTWARE-NAME-HERE]&quot;"/>
+                        <PARAM NAME="script_interactive" TYPE="string" VALUE="false"/>
+                    </FIELD>
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="-3464293294492268957" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="3600" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SUBNET address="::" prefix="0"/>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
