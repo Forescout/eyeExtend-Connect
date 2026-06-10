@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="9.1.4-791" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Runs WingetDiscover_v3.ps1 on scoped endpoints to enumerate out-of-date applications via Windows Package Manager (winget). The script output is captured by Forescout and made available to the WinGet Patcher Connect app, which resolves it into the 'WinGet Updates Info' composite property (Count, Package IDs, Version Detail subfields). Default recheck is every 24 hours. Customers can decrease this for more aggressive update detection; the script_result cache TTL is 72 hours so 24h leaves a healthy buffer." ENABLED="false" ID="-1136081759310526900" NAME="WinGet Discovery" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="86400" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: WinGet Discovery-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="script_result.836bc66aeb43db5a544233dec55a1f0b" LABEL="Windows Expected Script Result Command or Script file:WingetDiscover_v3.ps1, Run Interactive:false" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                <FIELD METANAME="script_result" NAME="script_result.836bc66aeb43db5a544233dec55a1f0b">
+                    <PARAM NAME="script_howtorun_prop" TYPE="string" VALUE="WingetDiscover_v3.ps1"/>
+                    <PARAM NAME="script_interactive" TYPE="string" VALUE="false"/>
+                </FIELD>
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="7580174584053326311" TYPE="any">
+                    <VALUE VALUE2="Any"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="86400" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SUBNET address="::" prefix="0"/>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

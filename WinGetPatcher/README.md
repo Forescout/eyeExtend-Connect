@@ -2,11 +2,45 @@
 
 A Forescout eyeExtend Connect app that uses Windows Package Manager (`winget`) to discover, patch, and remove software on Windows endpoints. Replaces dozens of per-application PowerShell scripts with a small set of reusable policy templates organized in two cascading subfolders in the Policy Wizard.
 
-**Version:** 2.1.1
+**Version:** 2.2.0
 **Authors:** Travis Matthews / Liz Akridge — Forescout
 **Requires:** Forescout eyeSight 8.3.0+, **Connect Plugin 2.0.4 or higher** (Connect Module 2.1.6+). The 2.0.4 minimum is required for the multiple-folder Policy Wizard feature this app uses.
 
 ---
+
+## What's New in 2.2.0
+
+- **Asset Inventory support.** Outdated software is now visible fleet-wide in the console's Asset Inventory view — one row per WinGet package ID with live host counts. See *Fleet-Wide Visibility* below.
+- **Uninstall templates (2.2–2.6) fixed.** The 2.1.1 templates failed Policy Wizard validation with "The following fields(conditions) are not familiar: Windows Applications Installed(apps)...". The condition now uses the correct native field (`comp_application`, matched on the application name subfield) and templates open cleanly.
+- **Custom uninstall template (2.6) uses two distinct placeholders.** The condition takes a display-name substring, the action takes an exact WinGet package ID — they are different values, and the placeholders now make that impossible to miss.
+
+## Release Notes (2.2.0)
+
+These release has been verified in production testing (EM 8.5.2.2, Connect Plugin 2.0.6).
+
+### Included updates
+
+- `WingetDiscover_v3.ps1` updated to v3.5 (from v3.3)
+- `WingetUpdate.ps1` updated to v3.1 (from v3.0)
+
+### Functional changes
+
+1. **Uninstall policy templates 2.2–2.6 corrected.**
+    The invalid `apps` field reference was replaced with the native composite field `comp_application` using its application-name subfield, resolving the Policy Wizard validation failure.
+2. **Asset Inventory support added.**
+    New list property `connect_wingetpatcher_outdated_pkg` provides one outdated WinGet package ID per element, enabling fleet-wide package-level inventory views.
+3. **Custom uninstall template 2.6 placeholder fix.**
+    Condition and action placeholders are now intentionally different to reflect different value types:
+    `[PASTE-APP-NAME-SUBSTRING-HERE]` for matching and `[PASTE-PACKAGE-ID-HERE]` for action execution.
+4. **Version/resolver updates.**
+    `system.conf` was bumped to 2.2.0 and resolver logic was updated to populate the new list property.
+
+### Structural notes
+
+- `property.conf` adds top-level `connect_wingetpatcher_outdated_pkg`.
+- Inventory flags were added to existing composite update-info fields (including count subfield).
+- Resolver script bindings include the new property output.
+- No action-group or policy-template framework changes beyond the five corrected uninstall template XMLs.
 
 ## The Problem This Solves
 
@@ -18,14 +52,13 @@ Traditional Forescout deployments accumulate 100+ hand-crafted per-application P
 
 | File | Purpose | Where it goes |
 |---|---|---|
-| `ForeScout-eca-winget-2.1.1.eca` | Connect app | Forescout Console → Tools → Options → Connect → Import |
+| `ForeScout-eca-winget-2.2.0.eca` | Connect app | Forescout Console → Tools → Options → Connect → Import |
 | `WingetDiscover_v3.ps1` | Discovery script | Expected Script Results |
 | `WingetUpdate.ps1` | Update script | Run Script on Windows |
 | `WingetInventory.ps1` | Inventory script | Expected Script Results |
 | `WingetUninstall.ps1` | Uninstall script | Run Script on Windows |
 | `README.md` | This file | Reference |
 | `User_Guide.md` | Day-to-day workflows | Reference |
-| `Signing_Review.md` | For signing teams | Reference |
 
 ---
 
@@ -68,7 +101,7 @@ To register: open any custom policy, add an action, choose **Run Script on Windo
 ### Step 2: Import the Connect app
 
 1. Forescout console → **Tools → Options → Connect**
-2. Click **Import** → browse to `ForeScout-eca-winget-2.1.1.eca` → Import
+2. Click **Import** → browse to `ForeScout-eca-winget-2.2.0.eca` → Import
 3. Wait for "Successfully reloaded system configuration file"
 4. Verify the app appears with **Status: Running**
 
@@ -125,6 +158,20 @@ See the **User Guide** for step-by-step workflows. Quick summary:
 
 ---
 
+## Fleet-Wide Visibility: Asset Inventory (new in 2.2.0)
+
+Once discovery is running, open the console's **Asset Inventory** view. Under the **Software Updating** group you'll find:
+
+- **WinGet Outdated Packages** — one row per WinGet package ID, with the number of hosts reporting that package as out of date. Click a row to see the hosts. This is your fleet-wide patch-debt map, sorted by impact.
+- **WinGet Updates Info** — slice the fleet by pending-update count per host.
+
+Two reading notes:
+
+- **System-namespace rows are informational.** Entries like `Microsoft.WindowsAppRuntime.*`, `Microsoft.VCLibs.*`, `Microsoft.UI.Xaml.*`, and .NET runtimes will appear in the view because winget reports them, but they are deliberately outside this app's remediation scope — they're serviced by Windows/Store mechanisms, and the uninstall script's blocklist refuses the namespace for the same reason.
+- **Counts can lag slightly high.** A host that just patched its last outdated package keeps its previous list value until the cached property expires, so freshly-cleaned hosts may briefly still be counted. Treat the view as accurate to act on, not gospel to the single digit.
+
+---
+
 ## What's In Each Subfolder
 
 ### Software Updating (1.x templates)
@@ -175,11 +222,12 @@ You can still patch these via 1.6 Custom if your environment specifically requir
 
 ## Re-installing or Upgrading
 
-**Forescout's Connect Plugin caches aggressively.** When updating the app, the console only honors an in-place "Update" if `property.json` and `system.json` are structurally identical. Any structural change requires:
+**Forescout's Connect Plugin caches aggressively.** When updating the app, the console only honors an in-place "Update" if `property.conf` and `system.conf` are structurally identical. Any structural change requires:
 
 1. **Remove** the existing app from Tools → Options → Connect
 2. **Delete any policies** still referencing the old templates (especially the 2.1 Inventory template)
 3. **Re-import** the new `.eca`
+4. **Re-link policy conditions.** Forescout silently strips this app's properties from any existing policy conditions during remove/re-import. After importing, open each policy that referenced a WinGet property and re-add the condition.
 
 ### Special note on 2.1 Inventory template re-imports
 
@@ -228,7 +276,9 @@ Forescout's `script_result.<hash>` cache is holding an old binding. Fix:
 
 ### Custom template's package ID isn't matching
 
-- Confirm you replaced ALL occurrences of the placeholder (condition AND action — two places)
+- **1.6 Custom Update:** replace `[PASTE-PACKAGE-ID-HERE]` in BOTH places (condition and action) with the same exact package ID
+- **2.6 Custom Uninstall:** the two placeholders are DIFFERENT values — `[PASTE-APP-NAME-SUBSTRING-HERE]` in the condition takes a display-name substring (e.g. `iTunes`); `[PASTE-PACKAGE-ID-HERE]` in the action takes the exact WinGet ID (e.g. `Apple.iTunes`)
+- A typo'd package ID matches nothing and the script exits SUCCESS without doing anything — verify character-by-character
 - Copy the package ID verbatim from an actual host's Profile tab — typos are the #1 cause
 - For wildcards: prefix must end with `.*` (period-asterisk)
 
@@ -239,5 +289,14 @@ Forescout's `script_result.<hash>` cache is holding an old binding. Fix:
 Internally developed.
 
 - Functional questions → consult the User Guide
-- Architectural / build questions → see `WinGetPatcher_Handoff_v4.2.md`
+- Bugs and feature requests → open an issue on the [eyeExtend-Connect GitHub repository](https://github.com/Forescout/eyeExtend-Connect)
 - Production issues → contact your Forescout administrator
+
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---|---|---|
+| 2.2.0 | June 2026 | Asset Inventory view support (new `WinGet Outdated Packages` list property); fixed uninstall templates 2.2–2.6 (Policy Wizard "fields not familiar" error — condition now uses the native `comp_application` field); distinct placeholders in the 2.6 custom template; bundled scripts updated to Discovery v3.5 and Update v3.1 |
+| 2.1.1 | 2026 | Initial public release |

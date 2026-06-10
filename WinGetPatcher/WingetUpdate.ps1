@@ -1,10 +1,40 @@
 # ============================================================
-#  WinGet Update Script  (v3)
+#  WinGet Update Script  (v3.1)
 #  Performs a silent WinGet update for a single, explicitly-named
 #  package OR a bounded family of packages (prefix wildcard mode).
 #
 #  Designed to be called by Forescout HPS "Run Script on Windows"
 #  actions configured by per-application policy templates.
+# ============================================================
+#
+#  v3.1 change: fixed wildcard mode silently skipping long-named
+#  packages (e.g. Microsoft.VCRedist.2015+.x86/.x64 were not being
+#  updated, while the shorter Microsoft.VCRedist.2013.x86 was).
+#
+#  Root cause: Get-InstalledPackagesByPrefix enumerated via
+#  `winget list`, which returns hundreds of rows. winget narrows the
+#  Id column to fit, truncating long IDs with an ellipsis. When that
+#  ellipsis is captured non-interactively it becomes multi-character
+#  mojibake junk, so the truncated ID failed the ASCII sanity check
+#  and was dropped from the match list -> never upgraded. Only the
+#  longest IDs were affected, which is why 2013 worked but 2015+ did
+#  not.
+#
+#  Fix (mirrors WingetDiscover_v3.ps1 v3.5):
+#    * Enumerate via `winget upgrade --include-unknown` instead of
+#      `winget list`. It returns only out-of-date packages (few rows),
+#      so the Id column stays wide and long IDs are not truncated.
+#      This is also semantically correct: wildcard mode only needs the
+#      packages that actually have an upgrade available. (This is what
+#      the older v2 script did, and why; the v3 rewrite regressed it.)
+#    * Force UTF-8 output encoding so the ellipsis decodes cleanly.
+#    * Locate the real Id token (first ASCII, dotted Publisher.Package
+#      token) rather than trusting a fixed column offset, with a
+#      fixed-width fallback so a row can't be silently lost.
+#
+#  The DESIGN GUARANTEE below is UNCHANGED: still per-package only,
+#  still one `winget upgrade --id <exact>` per matched package, still
+#  never `--all`. Only HOW the matched list is discovered changed.
 # ============================================================
 #
 #  ⚠️ DESIGN GUARANTEE — DO NOT BREAK THIS ⚠️
@@ -153,11 +183,23 @@ function Find-WinGet {
     return $null
 }
 
-# ---- Helper: enumerate installed packages matching a prefix ----
-# Used only in wildcard mode. Calls `winget list` (no upgrade), parses
-# the output for package IDs, returns those that start with $prefix.
-# This is bounded enumeration over packages winget ALREADY KNOWS about
-# on this endpoint - it cannot reach beyond winget's catalog.
+# ---- Helper: enumerate OUT-OF-DATE packages matching a prefix ----
+# Used only in wildcard mode. Returns the IDs of packages that (a) have an
+# upgrade available and (b) start with $Prefix.
+#
+# Enumerates via `winget upgrade --include-unknown` rather than `winget list`.
+# `winget list` returns hundreds of rows, which makes winget narrow the Id
+# column and TRUNCATE long IDs with an ellipsis -- and that truncated ID then
+# fails the sanity check and gets dropped (this is what caused the long
+# Microsoft.VCRedist.2015+.x86/.x64 packages to be skipped while the shorter
+# 2013 ID slipped through). `winget upgrade` returns only out-of-date packages
+# (few rows), so the Id column stays wide and the IDs are not truncated. It is
+# also semantically correct: wildcard mode only needs packages that actually
+# have an upgrade available.
+#
+# This remains bounded enumeration over packages winget ALREADY KNOWS need
+# updating on this endpoint - it cannot reach beyond winget's catalog or the
+# prefix scope.
 function Get-InstalledPackagesByPrefix {
     param(
         [string]$WingetExe,
@@ -165,36 +207,78 @@ function Get-InstalledPackagesByPrefix {
     )
 
     try {
-        # `winget list` outputs a table with columns: Name, Id, Version, Available, Source
-        # We parse it line by line. The Id is the second column.
-        $listOutput = & "$WingetExe" list --accept-source-agreements 2>&1 | Out-String
-        $lines = $listOutput -split "`r?`n"
+        # Force UTF-8 so winget's truncation ellipsis decodes cleanly instead
+        # of becoming column-shifting mojibake. Wrapped in try/catch: some
+        # service contexts have no console to set encoding on; if it throws,
+        # the token-locating parser below still recovers the IDs.
+        try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
+        try { $OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
 
+        $rawOutput = & "$WingetExe" upgrade --include-unknown --accept-source-agreements 2>&1 | Out-String
+        $lines = $rawOutput -split "`r?`n"
+
+        # Locate the header line (Name / Id / Version / Available / Source).
+        $headerIndex = -1
+        for ($i = 0; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^\s*Name\s+Id\s+Version\s+Available') {
+                $headerIndex = $i
+                break
+            }
+        }
+        if ($headerIndex -eq -1) {
+            # No header = no upgrades available, or unexpected output.
+            return @()
+        }
+
+        $headerLine   = $lines[$headerIndex]
+        $idCol        = $headerLine.IndexOf("Id")
+        $versionCol   = $headerLine.IndexOf("Version")
+        $availableCol = $headerLine.IndexOf("Available")
+        $sourceCol    = $headerLine.IndexOf("Source")
+
+        # A real winget Id is ASCII, starts alphanumeric, and contains at least
+        # one dot (Publisher.Package). That lets us tell a genuine Id apart from
+        # mojibake junk (non-ASCII) and from plain name words (no dot).
+        $idPattern = '^[A-Za-z0-9][A-Za-z0-9._+\-]*\.[A-Za-z0-9._+\-]+$'
+
+        $dataStart = $headerIndex + 2
         $matched = @()
-        foreach ($line in $lines) {
-            # Skip headers, separators, and empty lines
-            if ($line -match '^\s*$') { continue }
-            if ($line -match '^Name\s+Id\s+Version') { continue }
-            if ($line -match '^-+\s*$') { continue }
-            if ($line -match '^\\\s+') { continue }   # spinner artifacts
 
-            # The Id field is the second whitespace-separated token. Package
-            # names can contain spaces, so the Id is identified by being the
-            # first token that matches winget's ID format (no spaces, dots
-            # and alphanumerics typical).
-            # A reasonable heuristic: split on 2+ spaces (column separator)
-            # and look for a token that starts with our prefix.
-            $tokens = $line -split '\s{2,}'
-            foreach ($t in $tokens) {
-                $t = $t.Trim()
-                if ($t.StartsWith($Prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
-                    # Sanity: make sure it actually looks like a winget ID
-                    # (no spaces, has at least one dot or is identifier-like).
-                    if ($t -match '^[A-Za-z0-9\._\-+]+$') {
-                        $matched += $t
-                        break  # only one ID per line
-                    }
+        for ($i = $dataStart; $i -lt $lines.Count; $i++) {
+            $line = $lines[$i]
+
+            if ([string]::IsNullOrWhiteSpace($line)) { continue }
+            if ($line -match '^\d+ upgrades? available') { break }
+            if ($line -match '^The following packages') { break }
+            if ($line.Length -le $idCol) { continue }
+
+            $id = $null
+
+            # Primary: from the Id column onward, lock onto the first token that
+            # is a valid winget Id (skipping any leading mojibake junk fragments
+            # from a truncated name).
+            $tokens = $line.Substring($idCol).Trim() -split '\s+'
+            foreach ($tok in $tokens) {
+                $cand = ($tok -replace '^[^A-Za-z0-9]+', '') -replace '[^A-Za-z0-9\._\-+]+$', ''
+                if ($cand -match $idPattern) {
+                    $id = $cand
+                    break
                 }
+            }
+
+            # Fallback: original fixed-width slice, so a row is never lost.
+            if ([string]::IsNullOrWhiteSpace($id) -and ($line.Length -ge $sourceCol)) {
+                try {
+                    $id = $line.Substring($idCol, $versionCol - $idCol).Trim()
+                    $id = ($id -replace '^[^A-Za-z0-9]+', '') -replace '[^A-Za-z0-9\._\-+]+$', ''
+                } catch { }
+            }
+
+            if ([string]::IsNullOrWhiteSpace($id)) { continue }
+            if ($id -match '^-+$') { continue }
+
+            if ($id.StartsWith($Prefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+                $matched += $id
             }
         }
 

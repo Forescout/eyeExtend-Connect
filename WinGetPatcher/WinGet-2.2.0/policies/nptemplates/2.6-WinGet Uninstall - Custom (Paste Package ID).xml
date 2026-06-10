@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="9.1.4-791" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="CUSTOM UNINSTALL TEMPLATE - admin fills in the blanks. (1) Replace [PASTE-APP-NAME-SUBSTRING-HERE] in the condition's Value with a human-readable display-name substring (like 'iTunes') - this matches against Windows Applications Installed. (2) Replace [PASTE-PACKAGE-ID-HERE] in the action's Command line with the EXACT WinGet package ID (like 'Apple.iTunes') - these are two DIFFERENT strings; do not paste the same value into both. Verify the package ID character-by-character: a typo'd ID matches nothing and the script exits SUCCESS without removing anything. (3) Rename this policy to include the app name. (4) Scope to ONE test endpoint first. (5) Enable both the policy AND the Run Script action. WILDCARDS BLOCKED: single-vendor wildcards (Microsoft.*, Adobe.*, Google.*, etc.) are refused by the script at runtime. System-namespace packages (Microsoft.VCLibs.*, Windows.*, .NET runtimes) are always refused regardless of how the request is spelled. For app families use vendor.product.* (e.g., Adobe.Acrobat.*) - not single-vendor wildcards." ENABLED="false" ID="-1136081759310527006" NAME="WinGet Uninstall - Custom (Paste Package ID)" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: WinGet Uninstall - Custom (Paste Package ID)-->
+            <!-- MAIN RULE CONDITION: Forescout-native "Windows Applications Installed" property.
+                 Condition shape verified against a genuine console export (Forescout 8.5.2.2,
+                 APP_VERSION 9.1.4-791): composite field comp_application, matched on the
+                 app_name subfield. Replace VALUE2 with the display-name substring to match. -->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="comp_application" LABEL="Windows Applications Installed" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                <FILTER COMP_FIELD_NAME="comp_application" FILTER_ID="8150739732574975006">
+                    <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="app_name" TYPE="contains">
+                        <VALUE VALUE2="[PASTE-APP-NAME-SUBSTRING-HERE]"/>
+                    </SUB_FILTER>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SUBNET address="::" prefix="0"/>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="9.1.4-791" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="8422113115917751006" NAME="Uninstall Custom Package" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <ACTION DISABLED="true" NAME="run_script">
+                    <PARAM NAME="define_time_to_run" VALUE="false"/>
+                    <PARAM NAME="script_howtorun_ac" VALUE="WingetUninstall.ps1 -PackageId &quot;[PASTE-PACKAGE-ID-HERE]&quot;"/>
+                    <PARAM NAME="time_to_run" VALUE="1"/>
+                    <PARAM NAME="script_interactive" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

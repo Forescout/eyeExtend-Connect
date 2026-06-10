@@ -1,5 +1,7 @@
 # WinGet Patcher — User Guide
 
+**App version:** 2.2.0
+
 A day-to-day walkthrough for Forescout administrators using the WinGet Patcher Connect app. This guide assumes the app is already installed (see `README.md`).
 
 ---
@@ -98,6 +100,10 @@ On each matching endpoint, open its **Host Details → Profile tab**. Under **Wi
   ```
 
 This is the source of truth for everything else in the patching workflow.
+
+### Fleet-wide view (new in 2.2.0)
+
+Per-host properties answer "what does this endpoint need?" For "what does the *fleet* need?", open **Asset Inventory → Software Updating → WinGet Outdated Packages**: one row per package ID with a live host count, click-through to the affected hosts. Use it to pick which update templates to enable next — the top rows are your biggest wins. (System-namespace packages like `Microsoft.WindowsAppRuntime.*` and `Microsoft.VCLibs.*` appear in the view but are intentionally outside this app's patching scope.)
 
 ### Tuning
 
@@ -277,9 +283,9 @@ The built-in 2.2 template targets `Mozilla.Firefox` (release channel) only. For 
 ### Steps
 
 1. Policy → Add → Custom → **WinGet Patcher → Software Removal → 2.6-WinGet Uninstall - Custom (Paste Package ID)** → Next
-2. The template ships with `[PASTE-PACKAGE-ID-HERE]` in **two places** — replace BOTH with the package ID you found in Workflow 4:
-   - **In the condition:** "Windows Applications Installed contains `[PASTE-PACKAGE-ID-HERE]`" → edit to a recognizable substring of the display name
-   - **In the action:** "Run Script: WingetUninstall.ps1 -PackageId `[PASTE-PACKAGE-ID-HERE]`" → edit the command to the exact WinGet package ID
+2. The template ships with **two different placeholders** for **two different values** — do not paste the same string into both:
+   - **In the condition:** "Windows Applications Installed contains `[PASTE-APP-NAME-SUBSTRING-HERE]`" → replace with a recognizable substring of the app's *display name* (e.g. `iTunes`)
+   - **In the action:** "Run Script: WingetUninstall.ps1 -PackageId `[PASTE-PACKAGE-ID-HERE]`" → replace with the *exact WinGet package ID* you found in Workflow 4 (e.g. `Apple.iTunes`), copied verbatim — a typo'd ID matches nothing and the script reports SUCCESS while removing nothing
 3. **Rename the policy** to include the app name
 4. **Scope to a test segment** first
 5. Finish, enable both the policy and the action
@@ -368,7 +374,7 @@ The built-in templates intentionally exclude these. You can use the 1.6 Custom P
 | Remove Flash | Software Removal → 2.3 | None | Just scope it |
 | Remove Shockwave | Software Removal → 2.4 | None | Just scope it |
 | Remove Spotify | Software Removal → 2.5 | None | Just scope it |
-| Remove anything else | Software Removal → 2.6 Custom | 2.1 done | Yes — replace placeholder in 2 places |
+| Remove anything else | Software Removal → 2.6 Custom | 2.1 done | Yes — two placeholders, two different values (name substring + package ID) |
 
 ---
 
@@ -379,4 +385,5 @@ The built-in templates intentionally exclude these. You can use the 1.6 Custom P
 3. **Use the 2.1 Inventory template before custom uninstall.** Don't guess package IDs — verify them.
 4. **Disable the 2.1 Inventory policy when you're done with it.** It's a helper, not a monitoring tool.
 5. **Don't enable everything at once.** Add templates as needed. Twelve enabled policies that each match dozens of endpoints can saturate HPS in busy environments.
-6. **Rename your policies.** "WinGet Update - Custom (Paste Package ID)" is not what you want to see in your policy list three months later. Rename it to the actual app.
+6. **Copy package IDs, never type them.** A misspelled ID matches zero packages, the script exits SUCCESS, and the policy looks green while doing nothing — the most invisible failure mode this app has. Copy IDs verbatim from the 2.1 Inventory output or a host's Profile tab.
+7. **Rename your policies.** "WinGet Update - Custom (Paste Package ID)" is not what you want to see in your policy list three months later. Rename it to the actual app.
