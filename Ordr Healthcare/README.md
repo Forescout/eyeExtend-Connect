@@ -18,6 +18,11 @@ To access Forescout documentation, please refer to [https://docs.forescout.com/]
 
 The Connect App for [Ordr](https://www.ordr.net) Healthcare provides an interface for the eyeSight Platform to communicate with the Ordr Systems Control Engine (SCE).  
 
+### Version 1.2.0
+This version introduces support for dynamic quarantine and threat containment of hosts in Forescout based on the Ordr blocklist action. Ordr administrators can manually blocklist devices or define rules to automatically blocklist devices based on matching conditions such as device type, location, business function, risk level, anonamlous behavior, security event triggers, and other criteria. Once a device is blocklisted in Ordr, Ordr automatically updates the Ordr Blocklist Status attribute to "True" in Forescout to trigger a designated action such as Block Network, assign a quarantine VLAN, or restrictive ACL. Forescout policies can further define specific actions to take based on numerous Ordr attributes. Once the blocklist action is removed in Ordr, the Ordr Blocklist Status is reset to "False" and quarantine actions are automatically removed in Forescout. 
+
+Dynamic blocklisting requires Web Service Authentication to be configured in the Connect App for Ordr Healthcare.
+
 ### Version 1.1.0
 This version introduces support for the push of host data from Forescout to Ordr on host IP address changes. This feature allows more immediate update of Ordr device attributes including current MAC-to-IP binding data. A new Ordr Push Data policy template is included in this version to automate the push of updates from Forescout to Ordr.
 
@@ -66,6 +71,7 @@ Property                      | Type       | Label                          | De
 `connect_ordrhealthcare_fdaClass` | String     | Ordr FDA Class | Device FDA Class in Ordr
 `connect_ordrhealthcare_fdaProductCode` | String     | Ordr FDA Product Code | Device FDA Product Code in Ordr
 `connect_ordrhealthcare_fdaProductName` | String     | Ordr FDA Product Name | Device FDA Product Name in Ordr
+`connect_ordrhealthcare_blocklistStatus` | String     | Ordr Blocklist Status | Blocklist Status in Ordr
 
 ### Scripts
 
@@ -75,17 +81,24 @@ ordr_test.py    | Test Script, will return device attributes from Ordr
 ordr_resolve.py | Poll Script, collects device attributes from Ordr
 ordr_push.py    | Push script, pushes device attributes to Ordr
 
-## Requirements
+## Base Requirements
 
-- Ordr Systems Control Engine 8.2.0(R2)-FIPS, 9.0.1-FIPS, 9.0.1 or higher 
+- Ordr Systems Control Engine 9.0.1-FIPS, 9.0.1 or higher 
 - Forescout CounterACT 8.3 or higher
 - Forescout eyeExtend Connect Module 2.1 (Connect Plugin 2.0.0) or higher
 - Forescout Policy based on Ordr host attribute(s)
-- Review [license.txt](Ordr_Healthcare_1.1.0/license.txt) file for license information
+- Review [license.txt](Ordr_Healthcare_1.2.0/license.txt) file for license information
+
+## Additional Requirements for Dynamic Blocklisting
+
+- Forescout eyeExtend Connect Module 2.1.6 (Connect Plugin 2.0.6) or higher
+- Forescout Policy based on Ordr Blocklist attribute
+- Forescout Switch or Wireless Plugin installed with support for your switch vendor or wireless network
+- Switch or wireless communication configured with read and write access permissions
 
 ## Ordr SCE Configuration
 
-The Ordr Healthcare Connect App requires API access to Ordr SCE. Additionally, Ordr can fetch data from Forescout using the Web API.
+The Ordr Healthcare Connect App requires API access to Ordr SCE. Additionally, Ordr can fetch data from Forescout using the Web API, or trigger blocklisting actions using the Web Service API.
 
 - From the Ordr SCE <b>Integrations</b> page, select Forescout
 - Under the <b>Configuration</b> tab, configure the Forescout Server, Web API credentials, Ordr API credentials, and click Save.
@@ -97,8 +110,8 @@ Below are descriptions for each field:
 Field                            | Description
 -------------------------------- | -------------------------------------------------
 Forescout Server                 | Forescout Enterprise Manager IP address or FQDN
-Forescout Username               | Forescout Web API Username
-Forescout Password               | Forescout Web API Password
+Forescout Username               | Forescout Web API and Web Service API Username
+Forescout Password               | Forescout Web API and Web Service API Password
 API Username                     | Ordr SCE API Username
 API Password                     | Ordr SCE API Password
 Forescout Refresh Interval       | Polling Interval (in minutes) for Web API queries
@@ -139,7 +152,7 @@ Field                            | Description
 -------------------------------- | ------------------------------------------
 URL                              | The URL of Ordr SCE
 User Name                        | The SCE API Username configured in Ordr <br />[Refer to Ordr SCE Configuration section]
-Password                         | The SCE API Pssword configured in Ordr <br />[Refer to Ordr SCE Configuration section]
+Password                         | The SCE API Password configured in Ordr <br />[Refer to Ordr SCE Configuration section]
 Push Data                        | Check to enable Forescout to push updates to Ordr SCE
 Validate Server Certificate      | If checked, eyeSight will validate the Ordr certificate
 
@@ -160,15 +173,52 @@ Click <b>OK</b> to save the system description. The system description is displa
 ### Test button
 
 - Test is enabled by default.
-- Device info need to be saved (applied) before test can be successfully run.
+- Device info needs to be saved (applied) before test can be successfully run.
 
 Example Test Result
 
-<img src="README.assets/OrdrConnectApp-Test.jpg" width="539" heaight="498" align="center"/> <br />
+<img src="README.assets/OrdrConnectApp-Test.jpg" width="539" heaight="498" align="center"/>
 
 ### Refresh Discovery of Hosts and Ordr Attributes
 
 Use the refresh button to manually poll Ordr for device updates.
+
+When testing is complete, click <b>Ok</b> to close the System Description. Click <b>Apply</b> to save the Connect module configuration.
+
+## Configure Web Service Authentication
+
+Web Service Authentication sets the API credentials used by Ordr to update the Blocklist Status of Forescout hosts and trigger dynamic quarantine actions in Forescout.
+
+1. Go to **Tools** > **Options** > **Connect**.
+2. In the Web Service Authentication tab of the **Connect** pane, click **Add**.
+3. Enter the credentials to be used by Ordr to update the Blocklist Status attribute in Forescout.
+
+<img src="README.assets/OrdrConnectApp-WebServicesAuthentication.jpg" width="610" height="482" align="center"/>  <br />
+
+Below are descriptions for each field:
+
+Field                            | Description
+-------------------------------- | ------------------------------------------
+Name                             | Descriptive name of the Ordr API account
+Description                      | Optional description
+Authentication Type              | Type is 'Authentication'
+Username                         | The Forescout API username for Ordr access <br />[Refer to Ordr SCE Configuration section]
+Password                         | The Forescout API password for Ordr access <br />[Refer to Ordr SCE Configuration section]
+Verify Password                  | Confirmation of password
+
+<b>Note: The credentials entered here must match the Web API credentials entered in the <a href="#configure-the-web-api">Configure the Web API</a> section.</b>
+
+4. Click **Next** and select **Ordr Healthcare** as an authorized app.
+
+<img src="README.assets/OrdrHealthcareConnectApp-WebServicesAuthorizedApps.jpg" width="521" height="472" align="center"/>  <br />
+
+5. Click **Finish** to view the completed Web Service Authentication entry.
+
+<img src="README.assets/OrdrHealthcareConnectApp-WebServicesConfigured.jpg" width="764" height="328" align="center"/>  <br />
+
+6. Click **Apply** to update the Connect App for Ordr Healthcare configuration.
+
+<img src="README.assets/OrdrHealthcareConnectApp-Configured.jpg" width="896" height="316" align="center"/>  <br />
 
 ## Manage the Ordr Healthcare Connect App
 
@@ -192,42 +242,49 @@ Use the refresh button to manually poll Ordr for device updates.
 
 ## Policy Templates
 
-There are five default Ordr Policy Templates that enable continuous update of host information learned by Ordr and Forescout. After importing the Ordr Healthcare Connect App, these policies can be found under Policy > Add > Ordr. Additional custom policies can be created to enforce segmentation or take other actions based on Ordr host attributes.
+There are six default Ordr Policy Templates that enable continuous update of host information learned by Ordr and Forescout. After importing the Ordr Healthcare Connect App, these policies can be found under Policy > Add > Ordr. Additional custom policies can be created to enforce segmentation or take other actions based on Ordr host attributes.
 
-<img src="README.assets/OrdrConnectApp-Policy.jpg" width="708" height="627" align="center"/> <br />
+<img src="README.assets/OrdrConnectApp-Policy.jpg" width="732" height="711" align="center"/>
 
 - Ordr Host Update
 
-  Query Ordr for updates to host attributes. 
+  Query Ordr for updates to host attributes.
   
 - Ordr Group
 
-  Query Ordr for device classification groups.
+  Query Ordr for device classification groups. 
+  The host view is organized based on the Ordr Group attribute.
 
 - Ordr Risk
 
-  Query Ordr for device risk level.
+  Query Ordr for device risk level. 
+  The host view is organized based on the Ordr Risk Level attribute.
 
 - Ordr Vulnerability
 
-  Query Ordr for device vulnerability level.  
+  Query Ordr for device vulnerability level. 
+  The host view is organized based on the Ordr Vulnerability Level attribute. 
   
 - Ordr Push Data
 
-  Push host attribute updates to Ordr.  <br />
+  Push host attribute updates to Ordr.
+  
+- Ordr Blocklist
 
-<b>Note: One policy is required to regularly update Forescout hosts with current Ordr attributes. Additionally, to push Forescout host attributes to Ordr when a host changes its IP address, it is recommended to include the Ordr Push Data policy.</b>
+  Block wired and wireless network access in Forescout when host is blocklisted in Ordr. <br />
+
+One policy (Host Update, Group, Risk, or Vulnerability) is required to regularly update Forescout hosts with current Ordr attributes. To push Forescout host attributes to Ordr when a host changes its IP address, it is recommended to include the Ordr Push Data policy. To allow Ordr to dynamically mark devices for quarantine, configure the Blocklist policy.
 
 Optionally, a custom policy can be configured to trigger periodic host updates from Ordr as shown in the following example.
 
 ### Sample Host Update Policy
 To trigger data collection from Ordr SCE, at least one policy must be configured and enabled using an Ordr device attribute as a condition. Under Policy Manager, Add a custom policy to match on any value of the Ordr Category or Ordr Group attribute; no actions are required for host updates only.
 
-<img src="README.assets/OrdrConnectApp-HostUpdatePolicy.jpg" width="578" height="768" align="center"/> <br />
+<img src="README.assets/OrdrConnectApp-HostUpdatePolicy.jpg" width="578" height="768" align="center"/>
   
 ### Sample Host Properties View of Ordr Attributes
 
-<img src="README.assets/OrdrHealthcareConnectApp-HostProperties.jpg" width="887" height="875" align="center"/> <br />
+<img src="README.assets/OrdrHealthcareConnectApp-HostProperties.jpg" width="887" height="875" align="center"/>
 
 ## Configure the Web API
 
@@ -239,6 +296,8 @@ The Web API enables Ordr to periodically retrieve host data from Forescout indep
 2. In the User Settings tab of the **Web API** pane, click **Add**.
 3. The **Credentials** dialog box opens. Enter the credentials for the Web API and click **OK**.
 4. Click **Apply** to save changes.
+
+<b>Note: The credentials entered here must match the Web Service Authentication credentials, if configured, in the <a href="#configure-web-service-authentication">Configure Web Service Authentication</a> section.</b>
 
 ### Web API Access Restrictions
 
