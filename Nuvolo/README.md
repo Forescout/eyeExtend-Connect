@@ -3,8 +3,8 @@
 ## Overview
 Nuvolo Connect App for the Forescout platform that enables seamless synchronization of endpoint discovery data with Nuvolo's ServiceNow-based IT Service Management platform.
 
-## Version
-1.0.0
+## Release Notes
+1.0.2 - Use mac to replace otsm_details_host_mac_addresses
 
 ## Features
 - **OAuth2 Authentication**: Secure authentication using client credentials flow
@@ -27,9 +27,9 @@ Some Forescout properties may not be passed from the managing appliance to actio
 
 #### Custom Properties:
 - **connect_nuvolo_host_mac**: Custom property that resolves the MAC address
-  - **Source**: `otsm_details_host_mac_addresses`
+  - **Source**: `mac`
   - **Resolver**: `nuvolo_resolve_properties.py`
-  - **Format Handling**: Strips brackets and quotes from array format (e.g., `["08:92:04:c0:8b:ee"]` → `08:92:04:c0:8b:ee`)
+  - **Format Handling**: Accepts string or array format and normalizes to a clean MAC value
   
 - **connect_nuvolo_host_role**: Custom property that resolves the device role
   - **Source**: `otsm_details_role`
@@ -93,7 +93,7 @@ The plugin maps the following Forescout properties to Nuvolo table columns:
   - `build` field → `u_discovered_os_revision` (e.g., "7623.26200")
 - `****` The `u_discovered_device` property is constructed with `manufacturer_classification` field with `-` and the device's role `connect_nuvolo_host_role` (e.g., "Laptop", "Server", "IoT Device"). The final value in `u_discovered_device` would be a combination of the manufacturer and role (e.g., "Dell Inc. - Laptop").
 - `*****` Custom Nuvolo properties that resolve values from other properties:
-  - `connect_nuvolo_host_mac` resolves from `otsm_details_host_mac_addresses`
+  - `connect_nuvolo_host_mac` resolves from `mac`
   - `connect_nuvolo_host_role` resolves from `otsm_details_role`
 
 ## Authentication Flow
