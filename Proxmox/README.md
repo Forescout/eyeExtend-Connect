@@ -6,6 +6,16 @@ This Connect App integrates Proxmox VE v9 with the Forescout platform, discoveri
 
 Version 2 adds 8 actions for power management, snapshotting, and tagging — all with policy-driven undo support. Version 3 adds PVE host node discovery with hardware, OS, and update status properties.
 
+## Release Notes
+
+### Version 2.0.1
+ - **Enhanced Guest NIC/IP Detection**: Guest discovery and resolve now consider all configured MAC addresses (net*) and all available IP addresses (live interfaces when running + configured static IPs), improving matching and discovery when the primary NIC is not the one seen by Forescout.
+
+### Version 2.0.0
+- Initial release with guest discovery for VMs and LXC containers
+- PVE host node discovery with hardware and OS properties
+- 8 power management and snapshotting actions with policy-driven undo support
+
 ## Requirements
 
 - Forescout platform with Connect module installed
