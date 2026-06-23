@@ -77,12 +77,11 @@ The plugin maps the following Forescout properties to Nuvolo table columns:
 | os_details_classification       | u_discovered_os, u_discovered_os_version, u_discovered_os_revision *** |
 | otsm_details_firmware_version   | u_discovered_firmware_version                         |
 | comp_application                | u_discovered_software_version                         |
-| connect_nuvolo_host_mac         | u_discovered_mac *****                                |
+| mac                             | u_discovered_mac                                      |
 | ip                              | u_discovered_ip                                       |
 | manufacturer_classification     | u_discovered_device                                   |
-| connect_nuvolo_host_role        | + u_discovered_device **** *****                      |
+| connect_nuvolo_host_role        | + u_discovered_device ****                            |
 | otsm_details_serial_number      | u_discovered_sn                                       |
-| sw_ipport                       | u_switch_ip_and_port_number                           |
 
 **Notes**: 
 - `*` The `u_discovery_source_url` field is constructed by combining the Forescout Cloud URL (configured in system.conf) with the `cde_eyefocus_asset_id` property in the format: `<forescout_cloud_url>/#/assets/<cde_eyefocus_asset_id>` (e.g., `https://stg.cloud.forescout.com/#/assets/019bb926-b441-7e19-86fb-f07318642ea9`)
