@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.5.5-6" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="true" ID="-7109821189642438782" NAME="Ordr Blocklist" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="259200000" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="30000" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="3600" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: Ordr Blocklist-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_ordr_blocklistStatus" LABEL="Ordr Blocklist Status" LEFT_PARENTHESIS="0" LOGIC="OR" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER CASE_SENSITIVE="false" FILTER_ID="-4956635087857593259" TYPE="equals">
+                    <VALUE VALUE2="True"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <ACTION DISABLED="false" NAME="sw_block">
+            <PARAM NAME="dont_force_sw_block" VALUE="true"/>
+            <SCHEDULE>
+                <START Class="Immediately"/>
+                <OCCURENCE onStart="true"/>
+            </SCHEDULE>
+        </ACTION>
+        <ACTION DISABLED="false" NAME="wifi_block">
+            <PARAM NAME="block_connected_only" VALUE="false"/>
+            <SCHEDULE>
+                <START Class="Immediately"/>
+                <OCCURENCE onStart="true"/>
+            </SCHEDULE>
+        </ACTION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="3600" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SUBNET address="::" prefix="0"/>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <RULE_CHAIN/>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
