@@ -1,18 +1,11 @@
 # Ubiquiti SDN
 eyeExtend Connect App for Ubiquiti enabling discovery, application integillence and control of Ubiquiti SDN Infrastructure and Connected Clients with the Forescout platform.
- 
-## Versions
-1.0.0
-1.0.1
-1.1.0
-1.2.0 
-1.2.1
-1.2.2
-1.2.3
-1.2.4
-1.2.6
 
 ## Change Log
+### 1.2.7
+- Adding Cancel Provision Port Profile action
+- Bug fixes (maintain backwards compatibility)
+
 ### 1.2.6
 #### Prerequisites
 - connect_module need to be on v2.0.5 or above for multi-cluster support
