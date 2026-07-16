@@ -5,6 +5,10 @@ Forescout connect plugin for SentinelOne using EyeConnect (OIM) module.
 
 ## **Release Notes**
 
+### **Version 1.1.4**
+- **Bug Fixes:**
+  - dhcp_hostname_v2 value is optional. It is used only when the "Use hostname as down selector" option is enabled (and the value is present).
+
 ### **Version 1.1.3**
 - **Bug Fixes:**
   - Resolved an issue where the app reads the host name from Forescout hostname field instead of dhcp_hostname_v2 field.
@@ -42,8 +46,7 @@ Forescout connect plugin for SentinelOne using EyeConnect (OIM) module.
 - SentinelOne subscription with API access
 
 ## **Configuration**
-- **SentinelOne Management URL:** (e.g. [https://usea1-012.sentinelone.net/login](https://usea1-012.sentinelone.net/login))
-- **SentinelOne API:** 
+- **SentinelOne API Base URL:** (e.g. [https://usea1-012.sentinelone.net](https://usea1-012.sentinelone.net))
 
 ## **Functions**
 Utilizes Forescout to compare online Forescout assets against SentinelOne. If the asset exists in SentinelOne, the plugin then imports various agent information. The user can then add further automation in the form of responses such as auto disconnect via Forescout or alerting.
