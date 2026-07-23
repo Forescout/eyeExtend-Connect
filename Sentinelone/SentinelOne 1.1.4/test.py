@@ -46,7 +46,7 @@ else:
 
     try:
         # Call resource
-        resp = requests.get(f"{server}/web/api/v2.1/accounts?limit=1&countOnly=true", headers=headers)
+        resp = requests.get(f"{server}/web/api/v2.1/agents?limit=1&countOnly=true", headers=headers)
 
         if resp.status_code == 200:
             # Verify that the response is valid JSON with expected structure
