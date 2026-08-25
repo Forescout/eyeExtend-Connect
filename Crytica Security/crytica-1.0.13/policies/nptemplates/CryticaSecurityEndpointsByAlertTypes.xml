@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Classifies endpoints based on their current Crytica Security alert type: Element Added, Element Deleted, Element Modified, or No Alerts. This policy provides a clear view of endpoints with detected file-system changes and supports targeted investigation, reporting, and response workflows." ENABLED="true" ID="-4964407779075345886" NAME="Crytica Security - Endpoints by Alert Types" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Identifies endpoints with a Crytica Security Element Deleted alert, indicating that an executable or monitored element was removed from the device. Use this classification to support investigation, reporting, and approved response workflows." ID="1502888466457888123" NAME="Crytica Security Alert Type - Deleted" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Crytica Security Alert Type - Deleted-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cryticasecurity_AlertTypeName" LABEL="Crytica Security Alert Type Name" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="6324642260403169501" TYPE="contains">
+                            <VALUE VALUE2="deleted"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Identifies endpoints with a Crytica Security Element Added alert, indicating that a new executable or monitored element was detected on the device. Use this classification to support investigation, reporting, and approved response workflows." ID="7493233267629953080" NAME="Crytica Security Alert Type Added" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Crytica Security Alert Type Added-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cryticasecurity_AlertTypeName" LABEL="Crytica Security Alert Type Name" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="6324642260403169502" TYPE="contains">
+                            <VALUE VALUE2="added"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Identifies endpoints with a Crytica Security Element Modified alert, indicating that the content or modification time of an executable or monitored element changed on the device. Use this classification to support investigation, reporting, and approved response workflows." ID="-6852102863659109745" NAME="Crytica Security Alert Type - Modified" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Crytica Security Alert Type - Modified-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cryticasecurity_AlertTypeName" LABEL="Crytica Security Alert Type Name" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="6324642260403169503" TYPE="contains">
+                            <VALUE VALUE2="modified"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Identifies endpoints that do not currently have a Crytica Security alert. Use this classification to distinguish endpoints with no reported added, deleted, or modified element alerts from endpoints requiring investigation." ID="269837175861229143" NAME="No Crytica Security Alerts" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

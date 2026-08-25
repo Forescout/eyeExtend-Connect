@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Classifies endpoints according to the age of their most recent Crytica Security scan evidence. Endpoints are grouped as having no Crytica Security scan data, scan evidence older than 30 days, scan evidence 7 to 30 days old, or scan evidence within the last 7 days." ENABLED="true" ID="-3195459333415290294" NAME="Crytica Security - Endpoints by Last Security Scan" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <RANGE FROM="0.0.0.0" TO="255.255.255.255"/>
+        <SUBNET address="::" prefix="0"/>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Identifies endpoints with Crytica Security scan evidence reported within the last 7 days. These endpoints meet the current scan-recency requirement." ID="-6364862151819097766" NAME="Crytica Security Last Scan 7 Days" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Crytica Security Last Scan 7 Days-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cryticasecurity_ScanDate" LABEL="Crytica Security Scan Date" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="6324642260403169504" NEWER="true" OCCURRED="false" RELATIVE="true" VALUE="604800"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Identifies endpoints whose most recent Crytica Security scan evidence is between 7 and 30 days old. Endpoints scanned within the last 7 days match the preceding sub-rule, so this classification holds only the 7 to 30 day range." ID="7661455973472072088" NAME="Crytica Security Last Scan 30 Days" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Crytica Security Last Scan 30 Days-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cryticasecurity_ScanDate" LABEL="Crytica Security Scan Date" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="6324642260403169505" NEWER="true" OCCURRED="false" RELATIVE="true" VALUE="2592000"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Identifies endpoints with Crytica Security scan evidence, but reported Crytica Security scan is older than 30 days. These endpoints should be reviewed for scanner availability, device registration, connectivity, or integration-delivery problems." ID="-1137105255964655899" NAME="Crytica Security No Recent Scans" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Crytica Security No Recent Scans-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_cryticasecurity_ScanDate" LABEL="Crytica Security Scan Date" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                        <FILTER FILTER_ID="6324642260403169506" NEWER="false" OCCURRED="false" RELATIVE="true" VALUE="2592000"/>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="9.1.5-479" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Identifies endpoints that do not have a Crytica Security Alert or Scan Date value. These endpoints may not be registered with Crytica Security, may not have delivered scan data to Forescout, or may require investigation." ID="7705029913552533479" NAME="Crytica Security No Scan Data" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
