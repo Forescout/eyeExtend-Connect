@@ -13,12 +13,11 @@ Security.
 
 ## Before You Begin
 
-- Confirm that the Forescout **Connect** module and **Connect web service** are
-  enabled.
-- Ensure Crytica Security can reach the Connect web-service endpoint over the
-  network.
-- Obtain the Connect web-service credentials for the Crytica Security
-  integration. These credentials are managed in Forescout Connect "Web Service Authentication".
+- Confirm that the Forescout **Connect** module and app's **Web Service Enabled**.
+- Ensure Crytica Security can reach the Connect API endpoint (https://<ip>/connect/v1/hosts)
+  over the network.
+- Obtain the Connect API credentials for the Crytica Security integration. 
+  These credentials are managed in Forescout Connect "Web Service Authentication".
 - Ensure Crytica Security sends the IP address that Forescout uses for the
   endpoint. A message with an unknown or malformed IP cannot be applied to an
   endpoint.
