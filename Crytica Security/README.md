@@ -8,7 +8,7 @@ the matching endpoint. Use the received alert, scan, and operating-system data
 in the Asset Inventory, policies, and reports.
 
 This is an inbound integration. Crytica Security sends data to the Forescout
-Connect web API; Forescout does not poll or otherwise connect to Crytica
+Connect API; Forescout does not poll or otherwise connect to Crytica
 Security.
 
 ## Before You Begin
@@ -18,7 +18,7 @@ Security.
 - Ensure Crytica Security can reach the Connect web-service endpoint over the
   network.
 - Obtain the Connect web-service credentials for the Crytica Security
-  integration. These credentials are managed in Forescout, not in this app.
+  integration. These credentials are managed in Forescout Connect "Web Service Authentication".
 - Ensure Crytica Security sends the IP address that Forescout uses for the
   endpoint. A message with an unknown or malformed IP cannot be applied to an
   endpoint.
