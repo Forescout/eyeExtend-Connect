@@ -30,6 +30,10 @@ This App includes a license file. Please review the `license.txt` file included 
 
 The Connect App for [Citrix VPN](https://www.citrix.com/products/citrix-gateway/) provides an interface for the eyeSight Platform to communicate with the Citrix infrastructure.  
 
+## App Version 1.0.1
+
+Removed app instance cache false flag so that backend generating .xml not failed.
+
 ## App Version 1.0.0
 
 The App performs polling of the Citrix ADM to discover VPN IP endpoints active in the network.  
