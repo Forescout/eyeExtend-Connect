@@ -131,7 +131,7 @@ If a system description has not been configured and you select **OK** now, a war
 1. Select **Add**.  
 2. Enter the following information:  
   
-- Server URL: Enter the server URL for Workspace ONE.
+- Server URL: Enter the server URL for Workspace ONE instance, excluding the protocol. E.g. 12345.awmdm.com.
 - Authentication Mode: Select either Basic Authentication or OAuth 2.0 (Client Credentials)
 - User: For Basic Authentication enter the username for the Workspace ONE UEM account. For OAuth enter the Client ID.
 - Password: For Basic Authentication enter the password for the Workspace ONE UEM account.  For OAuth enter the Client Secret.
