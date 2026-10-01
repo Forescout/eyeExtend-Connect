@@ -4,6 +4,8 @@
 Nuvolo Connect App for the Forescout platform that enables seamless synchronization of endpoint discovery data with Nuvolo's ServiceNow-based IT Service Management platform.
 
 ## Release Notes
+1.0.4 - Use vendor_classification (Vendor and Model) as u_discovered_device
+
 1.0.3 - Use DPL Function as u_discovered_device
 
 1.0.2 - Use mac to replace otsm_details_host_mac_addresses
@@ -81,7 +83,7 @@ The plugin maps the following Forescout properties to Nuvolo table columns:
 | comp_application                | u_discovered_software_version                         |
 | mac                             | u_discovered_mac                                      |
 | ip                              | u_discovered_ip                                       |
-| prim_classification             | u_discovered_device ****                              |
+| vendor_classification           | u_discovered_device ****                              |
 | otsm_details_serial_number      | u_discovered_sn                                       |
 
 **Notes**: 
@@ -91,7 +93,7 @@ The plugin maps the following Forescout properties to Nuvolo table columns:
   - `parent` and `flavor` fields combined → `u_discovered_os` (e.g., "Windows 11 64-bit - Enterprise")
   - `version` field → `u_discovered_os_version` (e.g., "25H2")
   - `build` field → `u_discovered_os_revision` (e.g., "7623.26200")
-- `****` The `u_discovered_device` property is sourced directly from the ForeScout `prim_classification` host property (e.g., "Operational Technology/Healthcare/Infusion Pump").
+- `****` The `u_discovered_device` property is sourced directly from the ForeScout `vendor_classification` host property, which contains the vendor and model (e.g., "Siemens MAGNETOM Aera").
 - `*****` Custom Nuvolo properties that resolve values from other properties:
   - `connect_nuvolo_host_mac` resolves from `mac`
   - `connect_nuvolo_host_role` resolves from `otsm_details_role`
