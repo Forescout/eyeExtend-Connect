@@ -1,7 +1,18 @@
 # Ubiquiti SDN
-eyeExtend Connect App for Ubiquiti enabling discovery, application integillence and control of Ubiquiti SDN Infrastructure and Connected Clients with the Forescout platform.
+eyeExtend Connect App for discovering Ubiquiti UniFi infrastructure and connected clients, enriching their Forescout host records, and taking supported network-control actions.
 
 ## Change Log
+### 1.2.8
+- Adds an **API Key** authentication option for UniFi OS controllers, including UniFi OS Server.
+- Sends the configured key in the `X-API-KEY` header and uses UniFi OS Network API paths under `/proxy/network`.
+- Retains legacy session authentication for self-hosted UniFi Network Application controllers that use a username and password.
+- Keeps existing discovery, enrichment, policy resolution, and endpoint-control actions unchanged.
+
+#### Notes:
+- For a legacy self-hosted UniFi Network Application controller, keep the default API Key placeholder and enter Username and Password. The app continues to use the legacy `/api/login` session flow for that mode.
+- When both credential types are present, username/password session authentication takes precedence to preserve compatibility with legacy deployments.
+
+
 ### 1.2.7
 - Adding Cancel Provision Port Profile action
 - Bug fixes (maintain backwards compatibility)
@@ -14,9 +25,6 @@ eyeExtend Connect App for Ubiquiti enabling discovery, application integillence 
 #### Multi-cluster Support
 
 - Controller routing support with new configuration options. 
-- Updated API Key and Controller Address fields to support longer strings (longString type) for better compatibility with extended credential formats.
-- Enter multiple controller IPs, comma separated.
-- Enter multiple API Keys, comma separated, in the same order of controller IPs.
 - Standardized internal parameter naming across all scripts for improved maintainability:
   - API key parameter now uses standardized "connect_controller_api_key_tag"
   - Controller address parameter now uses standardized "connect_controller_ip_tag"
@@ -52,6 +60,11 @@ Multi site configurations on Unifi Based controllers are supported.  UnifiOS cur
 * Discovery and actionable restriction of endpoints connected to Ubiquiti's Unifi based network devices.  
 * Discovery is purely from API calls and does not rely on SSH or SNMP to query for endpoint data.
 * Guest authorization based on CounterACT Policy or authentication
+
+* Discover Ubiquiti gateways, switches, APs, and connected clients through the controller API.
+* Enrich endpoints with controller, network-device, wireless, client, and site context.
+* Use existing actions such as guest authorization, client block/unblock, disconnect, firewall-group membership, and port-profile changes.
+* Refer to the [upstream Ubiquiti SDN documentation](https://github.com/Forescout/eyeExtend-Connect/tree/master/Ubiquiti%20SDN) for the complete property, action, policy, and operational notes.
 
 ### Properties Polled
 * Gateway Details:
