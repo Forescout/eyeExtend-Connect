@@ -1,4 +1,10 @@
 
+### Release Notes - v1.0.1
+- Improved Cisco FMC access-token handling for the **Add to Dynamic Object** action.
+- When Cisco FMC rejects an expired access token, the app now obtains a new token and retries the add or remove request once.
+- Added clear troubleshooting guidance when Cisco FMC continues to reject the refreshed token.
+- Corrected Cisco FMC authentication and refresh-token response handling for successful `200` and `204` responses.
+
 ### About the Cisco FMC App 1.0.0
 - App is written to integate only with Cisco FMC v7
 - It will add Endpoint IP to a Dynamic Object Group
