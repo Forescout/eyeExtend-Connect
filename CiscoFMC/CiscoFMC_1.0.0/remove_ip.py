@@ -52,6 +52,19 @@ try:
     payload = json.dumps({"mappings": [ip]})
 
     resp = requests.put(url, headers=headers,data=payload, verify=ctx)
+    if resp.status_code == 401:
+        # The token may have expired since it was issued: get a new one and retry once (issue #46)
+        logging.debug('===>Cisco FMC Remove IP: access token rejected (401), generating a new token and retrying once')
+        fmc = ciscofmc.CiscoFMC(server, username, password, ctx)
+        fmc.generate_access_token()
+        if fmc.access_token != '' and fmc.access_token != Access_token:
+            Access_token = fmc.access_token
+            headers['X-Auth-Access-Token'] = Access_token
+            resp = requests.put(url, headers=headers,data=payload, verify=ctx)
+            logging.debug(f'===>Cisco FMC Remove IP: retry with the new token returned {resp.status_code}')
+        else:
+            logging.debug('===>Cisco FMC Remove IP: could not generate a new access token, not retrying')
+
     if resp.status_code == 201:
         response["succeeded"] = True
         logging.debug(f'CiscoFMC IP remove was success. Response: {resp.json()}')
@@ -60,6 +73,11 @@ try:
         response["succeeded"] = False
         response["troubleshooting"] = f"Failed action. Invalid Domain Name"
         logging.debug(f"===>Cisco FMC IP Remove Failed- Invalid Domain name- {resp.json()}")
+
+    elif resp.status_code == 401:
+        response["succeeded"] = False
+        response["troubleshooting"] = f"Failed action. FMC rejected the access token and a token refresh did not fix it. Verify the credentials"
+        logging.debug(f"===>Cisco FMC Remove IP Failed- 401 Unauthorized, token refresh failed or was also rejected")
 
     elif resp.status_code == 404:
         response["succeeded"] = False

@@ -73,7 +73,7 @@ class CiscoFMC:
                 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
             resp = requests.post(url, headers=headers, verify=self.ctx)
-            if resp.status_code == 200 | 204:
+            if resp.status_code in (200, 204):
                 CiscoFMC.access_token = resp.headers['X-auth-access-token']
                 CiscoFMC.refresh_token = resp.headers['X-auth-refresh-token']
                 CiscoFMC.domains = resp.headers['DOMAINS']
@@ -107,10 +107,10 @@ class CiscoFMC:
                 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
             resp = requests.post(url, headers=headers, verify=self.ctx)
-            if resp.status_code == 200|204:
+            if resp.status_code in (200, 204):
                 CiscoFMC.access_token = resp.headers['x-auth-access-token']
                 CiscoFMC.refresh_token = resp.headers['x-auth-refresh-token']
-                CiscoFMC.domain = resp.headers['DOMAINS']
+                CiscoFMC.domains = resp.headers['DOMAINS']
                 CiscoFMC.token_occurrence += 1
                 logging.debug("Cisco FMC Class Method:generate_refresh_auth_token - Token successfully generated")
 
