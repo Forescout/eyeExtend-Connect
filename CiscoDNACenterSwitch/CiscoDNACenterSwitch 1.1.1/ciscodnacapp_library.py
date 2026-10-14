@@ -491,9 +491,7 @@ class Authorization:
         self.headers['Authorization']=self.auth
 
 
-        logging.debug ("Headers: " + str(self.headers))
         self.token_url = self.url + "/dna/system/api/v1/auth/token"
-        logging.debug(f"CiscoDNACApp auth " + self.auth)
         logging.debug(f"SSL Verify :" + str(self.sslverify))
         logging.debug(f"Get token url is: " + str(self.token_url))
         try:
@@ -508,7 +506,7 @@ class Authorization:
                     logging.debug(f"Authorize response encoding: " + str(post_response.encoding))
                     # response.json() has the return info in json format. Can use response.text for a string.
                     self._inargs["connect_ciscodnacapp_authorization_token"] = post_response.json().get('Token')
-                    logging.debug(str(self._inargs['connect_ciscodnacapp_authorization_token']))
+                    logging.debug(f"DNAC token acquired")
                     return (self._inargs["connect_ciscodnacapp_authorization_token"])
                 else:
                     self._outargs["error"] = post_response.reason
@@ -546,7 +544,6 @@ class Authorization:
         self.headers={"Content-Type":"application/json"}
         self.headers['Authorization'] = self.TokenHeader
         try:
-            logging.debug(f"DNAC API Headers: " + str(self.headers))
             logging.debug(f"DNAC API URL: " + str(post_url))
             self.proxy_server = ConnectProxyServer(self._inargs)
             # This will close the session when exiting the block.
@@ -562,7 +559,7 @@ class Authorization:
                     return (self.Token)
                 else:                    
                     return (None)
-        except exception as e:
+        except Exception as e:
             logging.debug(f"Response: {e}")
         return (None)
 
@@ -575,16 +572,15 @@ class Authorization:
         self.url=self._inargs.get('connect_ciscodnacapp_caurl')
         self.authortokenurl="/fsum/oauth2.0/token"
         self.api_url=self.url + self.authortokenurl
-        self.headers={"Content-Type":"application/json", "Accept": "*/*", "Accept-encoding": "identity"}
+        self.headers={"Content-Type":"application/x-www-form-urlencoded", "Accept": "*/*", "Accept-encoding": "identity"}
         self.username=self._inargs.get("connect_ciscodnacapp_causername")
         self.password=self._inargs.get("connect_ciscodnacapp_capassword")
-        self.data="username=" + self.username + "&password=" + self.password + "&grant_type=password&client_id=fs-oauth-client"
-        self.api_url+="?"+self.data
+        # Send the credentials in the form-encoded request body, not in the URL query string,
+        # so they are not written to URL/access logs and are encoded correctly.
+        self.data={"username": self.username, "password": self.password, "grant_type": "password", "client_id": "fs-oauth-client"}
         try:
-            logging.debug(f"CounterACT API Headers: " + str(self.headers))
-            logging.debug(f"CounterACT Data: " + str(self.data))
             logging.debug(f"CounterACT API URL: " + str(self.api_url))
-            httpresponse = requests.post(self.api_url,headers=self.headers, verify=False)
+            httpresponse = requests.post(self.api_url,headers=self.headers, data=self.data, verify=False)
             logging.debug(f"CounterACT REST API Response: " + str(httpresponse.status_code))
             if (httpresponse.status_code == 200):
                 self.data=httpresponse.json()
@@ -592,7 +588,7 @@ class Authorization:
                 return (self.Token)
             else:
                 return (None)
-        except exception as e:
+        except Exception as e:
             logging.debug(f"Response: {e}")
         return (None)
 
