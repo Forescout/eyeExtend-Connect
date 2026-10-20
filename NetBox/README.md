@@ -39,8 +39,8 @@ MAC addresses come from the interface the address is assigned to (NetBox 4.2+ MA
 
 ## Configuration
 
-1. In NetBox, create a user with view permission on IPAM, DCIM, Virtualization and Tenancy, and an API token for it (read-only).
-2. Import `Forescout-eca-netbox-0.3.0.eca` in **Options > Connect > Import**. The package is unsigned.
+1. In NetBox, create a user with view permission on IPAM, DCIM, Virtualization and Tenancy, and an API token for it (read-only, or write if action is used).
+2. Import `Forescout-eca-netbox-0.3.0.eca` in **Options > Connect > Import**.
 3. Add a NetBox server: URL (without `/api`), API token, certificate validation, connecting appliance.
 4. Run **Test**, then add the policy from the template.
 
