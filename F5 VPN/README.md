@@ -14,6 +14,10 @@ Have feedback or questions? Write to us at
 
 ## About the eyeExtend Connect F5 VPN APP
 
+### Version v1.0.1 F5 VPN APP
+
+Adding query session filter
+
 ### Version v1.0.0 F5 VPN APP
 
 F5 VPN APP – connects directly to BIG-IP using the REST API and retrieves properties on connected VPN user sessions.
@@ -161,6 +165,7 @@ F5 VPN Connection
 | Enable Host Discovery               | **Required and should be checked**                                             |
 | Discovery Frequency (Mintutes)      | Default **8**<br>How often to poll F5 Management appliance                     |
 | Authorization                       | Default **15**<br>How often the APP will request a new token                   |
+| Virtual Servers (optional)          | Default **blank**<br>Comma-separated, exact full paths such as `/Common/Lab_VPN`. Blank discovers all APM sessions. |
 | BASH Page Size                      | How many session-id's to ask for per request                                   |
 | BASH Backoff Timer (Seconds)        | The number of seconds to wait before requesting another BASH Page Size request |
 | Number of API queries per unit time | Default **100**<br>See rate-limited-api-count                                  |
@@ -266,6 +271,10 @@ There are a few properties gathered from the F5 VPN for the endpoint.
 * Test authentication to F5 VPN Appliances
   **f5vpn_test.py**
 
+* Shared library used by test and discovery to apply optional Virtual Server filtering
+
+  **f5vpn_filter.py**
+
 * *This script is not enbled in the properties.conf file*. (See note above)
 
   f5vpn_disconnect_session.py
@@ -273,3 +282,84 @@ There are a few properties gathered from the F5 VPN for the endpoint.
   ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Footnote
+
+
+## Virtual Server filtering
+
+The **Virtual Servers (optional)** setting limits discovery to APM sessions for
+specific BIG-IP Virtual Servers. It is available under **F5 VPN Options** and is
+used by both the connection test and discovery polling.
+
+### Configuration
+
+Enter one or more comma-separated, exact, case-sensitive full paths:
+
+```text
+/Common/Corporate_VPN,/Common/Contractor_VPN
+```
+
+Each value must include its BIG-IP partition and object name. Spaces, short
+names such as `Corporate_VPN`, and partial matches are not accepted. Leave the
+setting blank to preserve the original behavior and include all APM sessions.
+
+### How filtering works
+
+With the setting blank, the app continues to request:
+
+```text
+/mgmt/tm/apm/access-info
+```
+
+When one or more Virtual Servers are configured, the app requests:
+
+```text
+/mgmt/tm/apm/access-info?options=all-properties
+```
+
+The app filters the returned sessions locally before requesting session details
+through `/mgmt/tm/util/bash`. Filtering can therefore reduce the number of BASH
+detail requests, but it does not reduce the initial access-info inventory
+downloaded from BIG-IP.
+
+The connection test reports the total number of APM sessions and the number
+matching the configured Virtual Servers. A matching session is published as a
+Forescout endpoint only after discovery obtains its `session.assigned.clientip`,
+so the matching-session count can be higher than the discovered-endpoint count.
+
+### Validation and failure behavior
+
+The filter reads a full path from either of these access-info metadata fields:
+
+- `nestedStats.entries.virtualServer.description`
+- `nestedStats.entries.virtual-server.description`
+
+The filter does not infer a Virtual Server from a hostname or another session
+attribute. It returns an explicit error and selects no sessions when:
+
+- A configured value is not a valid full path.
+- The access-info response is paginated or incomplete.
+- Any session lacks one unambiguous full Virtual Server path.
+
+A valid configuration with no matching sessions succeeds with a zero-match
+result. An unsupported response never silently falls back to unfiltered
+discovery.
+
+F5 documents Virtual Server and profile-access-type in `access-info
+all-properties`:
+https://clouddocs.f5.com/cli/tmsh-reference/latest/modules/apm/apm_access-info.html
+
+The exact REST metadata layout and full-path availability can vary by BIG-IP
+version and must be verified on the target system.
+
+### Deployment requirements
+
+Deploy these files together because the test and discovery scripts both depend
+on the registered shared library:
+
+- `system.conf`
+- `property.conf`
+- `f5vpn_filter.py`
+- `f5vpn_test.py`
+- `f5vpn_poll.py`
+
+
