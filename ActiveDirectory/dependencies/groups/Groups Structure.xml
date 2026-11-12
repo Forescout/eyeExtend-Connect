@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<GROUP DESCRIPTION="" ID="5101933075047402720" NAME="[Connect AD] Groups">
+    <CHILDREN>
+        <GROUP DESCRIPTION="" ID="3393129269903322083" NAME="[Connect AD] Policy Flow Groups">
+            <CHILDREN>
+                <GROUP DESCRIPTION="Indicates that there is a strong enough match to the AD Computer/User object that we are willing to take action upon the Computer/User in Active Directory and not accidentally make a change to an unintended object" ID="6848428591346999991" NAME="Trusted Computer Object Match"/>
+                <GROUP DESCRIPTION="Indicates that there is a strong enough match to the AD Computer/User object that we are willing to take action upon the Computer/User in Active Directory and not accidentally make a change to an unintended object" ID="2010820638335750878" NAME="Trusted User Object Match"/>
+            </CHILDREN>
+        </GROUP>
+    </CHILDREN>
+</GROUP>

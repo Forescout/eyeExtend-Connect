@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Runs the GUIDs script on managed Windows devices; Updates if the logged in user changes" ENABLED="false" ID="6126791539523759159" NAME="[Connect AD] Collect Computer/User Object GUIDs" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="864000000" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="120000" USE_DEFAULT="false"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: [Connect AD] Collect Computer/User Object GUIDs-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER FILTER_ID="6212566157509862480">
+                    <GROUP ID="4952753181631154625" NAME="P-Managed Windows Devices"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="-5821844931179934075" NAME="C2C-In-Scope">
+            <RANGE FROM="10.0.0.0" TO="10.255.255.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Resolve and retain the JSON script output. Any output is collected; inspect per-account status." ID="-7951672977065133833" NAME="Collect computer and active user AD objectGUIDs" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: Collect computer and active user AD objectGUIDs-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="script_result.b249e1c035a662f102d2aba7094d9777" LABEL="Windows Expected Script Result Command or Script file:ConnectAD-CollectObjectGuids.bat, Run Interactive:false" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FIELD METANAME="script_result" NAME="script_result.b249e1c035a662f102d2aba7094d9777">
+                            <PARAM NAME="script_howtorun_prop" TYPE="string" VALUE="ConnectAD-CollectObjectGuids.bat"/>
+                            <PARAM NAME="script_interactive" TYPE="string" VALUE="false"/>
+                        </FIELD>
+                        <FILTER CASE_SENSITIVE="false" FILTER_ID="6652815947859904408" TYPE="any">
+                            <VALUE VALUE2="Any"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="7903592078545479737" NAME="Unable to Collect GUIDs" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

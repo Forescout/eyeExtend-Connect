@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="false" ID="-7080740586072323978" NAME="[Connect AD] 1.1 User Object Match Status" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="AND">
+            <!--Rule expression. Rule name is: [Connect AD] 1.1 User Object Match Status-->
+            <EXPRESSION EXPR_TYPE="PARENTHESIS">
+                <EXPRESSION EXPR_TYPE="OR">
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="1" LOGIC="OR" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="-7339265334938148547">
+                                <GROUP ID="5247474038698767883" NAME="P-Windows Manual Discover"/>
+                                <GROUP ID="7180693433087111127" NAME="P-Windows"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="OR" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                            <FILTER FILTER_ID="8650717263529376558">
+                                <GROUP ID="5324749641912794204" NAME="P-macOS Manual Discover"/>
+                                <GROUP ID="8682289052132906541" NAME="P-macOS"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="1">
+                            <FILTER FILTER_ID="-7256329120450954554">
+                                <GROUP ID="2788847728986943750" NAME="P-Linux/Unix Manual Discover"/>
+                                <GROUP ID="6695909157479121060" NAME="P-Linux/Unix"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="user" LABEL="User" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                    <FILTER CASE_SENSITIVE="false" FILTER_ID="-9159480051509617583" TYPE="any">
+                        <VALUE VALUE2="Any"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="-5821844931179934075" NAME="C2C-In-Scope">
+            <RANGE FROM="10.0.0.0" TO="10.255.255.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="User Object searches AD user objects.&#10;&#10;The user GUID collected by the endpoint script is used to search the AD 'objectGUID' property." ID="-6680708608288717863" NAME="[Exact Match] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [Exact Match] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_user_object" LABEL="[Connect AD] User Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_user_object" FILTER_ID="6300617247478263927">
+                            <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="7a1c92c1ba23a9896370662a55d64dec" SUB_FIELD_NAME="match_confidence">
+                                <OPT VALUE="Exact"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <PARAM NAME="group-name" VALUE="id:2010820638335750878;name:Strong User Object Match"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="User Object searches AD user objects.&#10;&#10;The Forescout 'user' property contains a domain followed by a username, such as 'EXAMPLE\alice'. The app validates 'EXAMPLE' against the connection’s configured DNS or NetBIOS domain, then searches the AD 'sAMAccountName' property using only the username: 'sAMAccountName=alice'. Confidence is High because the observed identity explicitly identifies its domain." ID="9211503680517759406" NAME="[High Confidence] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [High Confidence] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_user_object" LABEL="[Connect AD] User Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_user_object" FILTER_ID="-5982095385127606567">
+                            <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="7a1c92c1ba23a9896370662a55d64dec" SUB_FIELD_NAME="match_confidence">
+                                <OPT VALUE="High"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <PARAM NAME="group-name" VALUE="id:2010820638335750878;name:Strong User Object Match"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="User Object searches AD user objects.&#10;&#10;Unqualified username: The Forescout 'user' property contains only a username, such as 'alice', without a domain prefix or UPN suffix. Its value searches the AD 'sAMAccountName' property using 'sAMAccountName={user}'. Confidence is Medium because the domain comes from the connection configuration rather than the observed identity." ID="-635656302248685967" NAME="[Medium] Confidence Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [Medium] Confidence Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_user_object" LABEL="[Connect AD] User Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_user_object" FILTER_ID="1332370855615278396">
+                            <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="7a1c92c1ba23a9896370662a55d64dec" SUB_FIELD_NAME="match_confidence">
+                                <OPT VALUE="Medium"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <PARAM NAME="group-name" VALUE="id:2010820638335750878;name:Strong User Object Match"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="User Object searches AD user objects.&#10;&#10;Low: Not currently assigned to user matches." ID="-1893170788364056205" NAME="[Low Confidence] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [Low Confidence] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_user_object" LABEL="[Connect AD] User Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_user_object" FILTER_ID="-8336782245128710251">
+                            <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="7a1c92c1ba23a9896370662a55d64dec" SUB_FIELD_NAME="match_confidence">
+                                <OPT VALUE="Low"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="User Object searches AD user objects." ID="8268638857384706643" NAME="[Unknown Confidence] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [Unknown Confidence] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_user_object" LABEL="[Connect AD] User Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_user_object" FILTER_ID="5906385131161306123">
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-3139917321388489645" NAME="Not Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

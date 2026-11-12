@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="false" ID="-1632865165974617761" NAME="[Connect AD] 1.0 User Cleanup on Logoff" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: [Connect AD] 1.0 User Cleanup on Logoff-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER FILTER_ID="-4384100995688085496">
+                    <GROUP ID="4952753181631154625" NAME="P-Managed Windows Devices"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="-5821844931179934075" NAME="C2C-In-Scope">
+            <RANGE FROM="10.0.0.0" TO="10.255.255.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-6262775782328557639" NAME="No Logged in User - Clean User &amp; Group Properties" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: No Logged in User - Clean User & Group Properties-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_managed_user_guid_script_details" LABEL="[Connect AD] Managed User Object GUID Script Result" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER COMP_FIELD_NAME="connect_activedirectory_managed_user_guid_script_details" FILTER_ID="-2850290623861334464">
+                                <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="2dc6854951f0ecc758a0ab3d7a4c39e3" SUB_FIELD_NAME="status">
+                                    <OPT VALUE="no_active_user"/>
+                                </SUB_FILTER>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="NOT">
+                        <EXPRESSION EXPR_TYPE="SIMPLE">
+                            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="user" INNER_NOT="true" LABEL="User" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="MATCH" RIGHT_PARENTHESIS="0">
+                                <FILTER CASE_SENSITIVE="false" FILTER_ID="-8283687996301272192" TYPE="any">
+                                    <VALUE VALUE2="Any"/>
+                                </FILTER>
+                            </CONDITION>
+                        </EXPRESSION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_user_group_details" LABEL="[Connect AD] User Groups" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER COMP_FIELD_NAME="connect_activedirectory_user_group_details" FILTER_ID="-5381250804268554146">
+                                <SUB_FILTER CASE_SENSITIVE="false" HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="group_dns" TYPE="any">
+                                    <VALUE VALUE2="Any"/>
+                                </SUB_FILTER>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="delete_host_prop">
+                    <PARAM NAME="delete_type" VALUE="delete"/>
+                    <PARAM NAME="delete_prop" VALUE="connect_activedirectory_user_group_details####;####connect_activedirectory_user_object"/>
+                    <SCHEDULE>
+                        <START Class="Delayed" TIMEPERIOD="30 SECOND"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="8271012077491371597" NAME="Nothing to Do" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>

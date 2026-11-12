@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<RULES>
+    <RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ENABLED="false" ID="-2775857866481558951" NAME="[Connect AD] 1.0 Computer Object Match Status" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="0" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="0" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="OR">
+            <!--Rule expression. Rule name is: [Connect AD] 1.0 Computer Object Match Status-->
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="OR" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER FILTER_ID="-1847974130668369605">
+                        <GROUP ID="5247474038698767883" NAME="P-Windows Manual Discover"/>
+                        <GROUP ID="7180693433087111127" NAME="P-Windows"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="OR" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER FILTER_ID="-7677520221795288060">
+                        <GROUP ID="5324749641912794204" NAME="P-macOS Manual Discover"/>
+                        <GROUP ID="8682289052132906541" NAME="P-macOS"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+            <EXPRESSION EXPR_TYPE="SIMPLE">
+                <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                    <FILTER FILTER_ID="4652078853780046390">
+                        <GROUP ID="2788847728986943750" NAME="P-Linux/Unix Manual Discover"/>
+                        <GROUP ID="6695909157479121060" NAME="P-Linux/Unix"/>
+                    </FILTER>
+                </CONDITION>
+            </EXPRESSION>
+        </EXPRESSION>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="-5821844931179934075" NAME="C2C-In-Scope">
+            <RANGE FROM="10.0.0.0" TO="10.255.255.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Computer Object searches AD computer objects where the 'objectCategory' property is 'computer'.&#10;&#10;The computer GUID collected by the endpoint script (script_result.b249e1c035a662f102d2aba7094d9777 -&gt;connect_activedirectory_managed_computer_guid_script_details) is used to search the AD 'objectGUID' property." ID="2206514275232290443" NAME="[Exact Match] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [Exact Match] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_computer_object" LABEL="[Connect AD] Computer Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_computer_object" FILTER_ID="-2975268777428577309">
+                            <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="7a1c92c1ba23a9896370662a55d64dec" SUB_FIELD_NAME="match_confidence">
+                                <OPT VALUE="Exact"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <PARAM NAME="group-name" VALUE="id:6848428591346999991;name:Strong Computer Object Match"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Computer Object searches AD computer objects where the 'objectCategory' property is 'computer'.&#10;&#10;The value of the Forescout 'nbthost' property is used to search AD using 'sAMAccountName={nbthost}$' for a short name, or 'dNSHostName={nbthost}' for a fully qualified name." ID="1756947271340509833" NAME="[High Confidence] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [High Confidence] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_computer_object" LABEL="[Connect AD] Computer Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_computer_object" FILTER_ID="-3879075115986252444">
+                            <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="7a1c92c1ba23a9896370662a55d64dec" SUB_FIELD_NAME="match_confidence">
+                                <OPT VALUE="High"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="add-to-group">
+                    <PARAM NAME="temporary" VALUE="true"/>
+                    <PARAM NAME="comment" VALUE=""/>
+                    <PARAM NAME="group-name" VALUE="id:6848428591346999991;name:Strong Computer Object Match"/>
+                    <PARAM NAME="item_key" VALUE="mac_or_ip"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Computer Object searches AD computer objects where the 'objectCategory' property is 'computer'.&#10;&#10;The value of the Forescout 'dhcp_hostname_v2' property is used to search AD using 'sAMAccountName={dhcp_hostname_v2}$' for a short name, or 'dNSHostName={dhcp_hostname_v2}' for a fully qualified name." ID="-3475931467041773888" NAME="[Medium Confidence] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [Medium Confidence] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_computer_object" LABEL="[Connect AD] Computer Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_computer_object" FILTER_ID="1969992883966916835">
+                            <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="7a1c92c1ba23a9896370662a55d64dec" SUB_FIELD_NAME="match_confidence">
+                                <OPT VALUE="Medium"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Computer Object searches AD computer objects where the 'objectCategory' property is 'computer'.&#10;&#10;Each unique value of the Forescout 'hostname' or 'hostnames_list' property is used to search the AD 'dNSHostName' property, using 'dNSHostName={hostname}' or 'dNSHostName={hostnames_list}'. A short name without a DNS suffix instead searches the AD 'sAMAccountName' property with a trailing '$'.&#10;&#10;If the initial name search finds no matching object, the app splits each fully qualified DNS name into its first label and remaining DNS suffix. The first label becomes a computer account name, such as 'sAMAccountName=computer01$'.&#10;&#10;This fallback is permitted when the DNS suffix equals the connection's configured AD domain or is a child DNS suffix of that domain.&#10;&#10;For a connection configured for 'example.com':&#10;- 'computer01.example.com' has an exact domain match. The fallback searches for 'sAMAccountName=computer01$' in 'example.com'.&#10;- 'computer01.department.example.com' has a child DNS suffix, 'department.example.com'. Because it ends in '.example.com', the fallback searches for 'sAMAccountName=computer01$' in the configured parent domain, 'example.com'. It does not search 'department.example.com' or assume that a separate AD domain exists there.&#10;- 'computer01.other.com' has an unrelated DNS suffix. If the initial full-name search finds nothing, no account-name fallback is attempted.&#10;&#10;All searches remain within the current connection's AD domain and search base. Account names are matched exactly; only the DNS suffix allows the parent-domain relationship. Confidence remains Low because DNS information can be stale or identify an alias." ID="-4798033088837576496" NAME="[Low Confidence] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [Low Confidence] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_computer_object" LABEL="[Connect AD] Computer Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_computer_object" FILTER_ID="-3126588857088019153">
+                            <SUB_FILTER AUTO_UPDATE="false" HAS_VALUE="true" MEETS="true" OPTIONS_DIGEST="7a1c92c1ba23a9896370662a55d64dec" SUB_FIELD_NAME="match_confidence">
+                                <OPT VALUE="Low"/>
+                            </SUB_FILTER>
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="7888990596725766395" NAME="[Unknown Confidence] Object Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="SIMPLE">
+                    <!--Rule expression. Rule name is: [Unknown Confidence] Object Found-->
+                    <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_activedirectory_computer_object" LABEL="[Connect AD] Computer Object" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                        <FILTER COMP_FIELD_NAME="connect_activedirectory_computer_object" FILTER_ID="-5065901821150327454">
+                            <SUB_FILTER HAS_VALUE="true" MEETS="true" SUB_FIELD_NAME="matched" VALUE="true"/>
+                        </FILTER>
+                    </CONDITION>
+                </EXPRESSION>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.5.5-6" CACHE_TTL="864000" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="2074551160958759300" NAME="Not Found" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <REPORT_TABLES/>
+    </RULE>
+</RULES>
