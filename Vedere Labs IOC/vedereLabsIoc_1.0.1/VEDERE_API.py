@@ -272,7 +272,7 @@ def VL_RETRIEVE_INDICATORS(api_details):
                     logging.debug("***Vedere Labs*** Only 2nd API call returned 200")
                     _current_status_code = _current_status_code_2
                     merged_response = json_response_2
-                elif _current_status_code_2 == 200:
+                elif _current_status_code_3 == 200:
                     logging.debug("***Vedere Labs*** Only 3rd API call returned 200")
                     _current_status_code = _current_status_code_3
                     merged_response = json_response_3
