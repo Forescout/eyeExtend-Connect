@@ -34,14 +34,14 @@ medc_server_details["port"] = params["connect_medesktopcentral_server_port"]
 
 code, client, session_token, data = medesktopcentral_api_lib.medesktopcentral_http_client(credentials, medc_server_details)
 
-log_message = "Attempting test connectivity to ManageEngine Desktop Central server with the following parameters: address={} port={} username={} password={}".format(medc_server_details["address"], medc_server_details["port"], credentials["username"], credentials["password"])
+log_message = "Attempting test connectivity to ManageEngine Desktop Central server with the following parameters: address={} port={} username={}".format(medc_server_details["address"], medc_server_details["port"], credentials["username"])
 logging.debug(log_message)
 
 if code == 200:
 
     if not session_token == 0:
         medc_server_details["session_token"] = params.get("connect_medesktopcentral_session_token")
-        logging.debug("TEST SCRIPT SESSION TOKEN:[{}] DATA:[{}]".format(session_token,data))
+        logging.debug("TEST SCRIPT SESSION TOKEN ACQUIRED; DATA:[{}]".format(data))
 
         client_code, medc_assets = medesktopcentral_api_lib.medesktopcentral_check_summary(client, medc_server_details, session_token)
         logging.debug("API Client Query returned code [{}] and response [{}]".format(client_code, medc_assets))
