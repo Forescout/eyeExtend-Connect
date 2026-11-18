@@ -1,0 +1,117 @@
+<POLICY>
+    <RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="Use this template to create a Forescout policy to check for Installed Applications on Jamf managed endpoints.&#10;&#10;Note: Endpoints in this Forescout policy should belong to a Jamf managed group.&#10;&#10;Optional remediation actions can be used to: &#10;&#10;* Notify Forescout administrator to manually install or remove software on the endpoint from Jamf&#10;&#10;* Send log events to syslog or SIEM service about the installed software on the endpoint.&#10;&#10;* Create a ServiceNOW IT incident ticket to begin Jamf manual remediation workflow. (Note: ServiceNOW eyeExtend module is required)&#10;&#10;These actions are disabled by default." ENABLED="true" ID="7903963197397519716" NAME="Jamf example Installed Application Audit" NOT_COND_UPDATE="true" UPGRADE_PERFORMED="true">
+        <GROUP_IN_FILTER/>
+        <INACTIVITY_TTL TTL="259200000" USE_DEFAULT="true"/>
+        <ADMISSION_RESOLVE_DELAY TTL="30000" USE_DEFAULT="true"/>
+        <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </MATCH_TIMING>
+        <EXPRESSION EXPR_TYPE="SIMPLE">
+            <!--Rule expression. Rule name is: Jamf example Installed Application Audit-->
+            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="in-group" LABEL="Member of Group" LEFT_PARENTHESIS="0" LOGIC="AND" RET_VALUE_ON_UKNOWN="IRRESOLVED" RIGHT_PARENTHESIS="0">
+                <FILTER FILTER_ID="4002152787089747586">
+                    <GROUP ID="3918488197683043697" NAME="Manageable via Jamf"/>
+                </FILTER>
+            </CONDITION>
+        </EXPRESSION>
+        <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+        <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+        <ORIGIN NAME="CUSTOM"/>
+        <UNMATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+            <ADMISSION ALL="true"/>
+        </UNMATCH_TIMING>
+        <SEGMENT ID="-8626650449914236856" NAME="Andracia">
+            <RANGE FROM="10.10.17.0" TO="10.10.17.255"/>
+        </SEGMENT>
+        <RULE_CHAIN>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="-2395276622384673286" NAME="Endpoint example software installed" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="OR">
+                    <!--Rule expression. Rule name is: Endpoint example software installed-->
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_jamf_software_installed" LABEL="Jamf Software Installed" LEFT_PARENTHESIS="0" LOGIC="OR" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="10001352" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER CASE_SENSITIVE="false" FILTER_ID="3857973187310371818" TYPE="equals">
+                                <VALUE VALUE2="&lt;insert application name&gt;"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="SIMPLE">
+                        <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_jamf_software_installed" LABEL="Jamf Software Installed" LEFT_PARENTHESIS="0" LOGIC="OR" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="10001352" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                            <FILTER CASE_SENSITIVE="false" FILTER_ID="-163753724635619638" LINKED="true">
+                                <LINK ID="587622377586590346"/>
+                            </FILTER>
+                        </CONDITION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <EXCEPTION NAME="ip" UNKNOWN_EVAL="UNMATCH"/>
+                <EXCEPTION NAME="mac" UNKNOWN_EVAL="UNMATCH"/>
+                <EXCEPTION NAME="nbthost" UNKNOWN_EVAL="UNMATCH"/>
+                <EXCEPTION NAME="user" UNKNOWN_EVAL="UNMATCH"/>
+                <EXCEPTION NAME="group" UNKNOWN_EVAL="UNMATCH"/>
+            </INNER_RULE>
+            <INNER_RULE APP_VERSION="8.2.0-1565" CACHE_TTL="259200" CACHE_TTL_SYNCED="true" CLASSIFICATION="REG_STATUS" DESCRIPTION="" ID="1104258141472391584" NAME="Endpoint missing example application" NOT_COND_UPDATE="true" RECHECK_MAIN_RULE_DEF="true">
+                <MATCH_TIMING RATE="28800" SKIP_INACTIVE="true">
+                    <ADMISSION ALL="true"/>
+                </MATCH_TIMING>
+                <EXPRESSION EXPR_TYPE="AND">
+                    <!--Rule expression. Rule name is: Endpoint missing example application-->
+                    <EXPRESSION EXPR_TYPE="NOT">
+                        <EXPRESSION EXPR_TYPE="SIMPLE">
+                            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_jamf_software_installed" LABEL="Jamf Software Installed" LEFT_PARENTHESIS="0" LOGIC="AND" NOT="true" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="10001352" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                                <FILTER CASE_SENSITIVE="false" FILTER_ID="-7990106491649644379" TYPE="equals">
+                                    <VALUE VALUE2="&lt;insert application name&gt;"/>
+                                </FILTER>
+                            </CONDITION>
+                        </EXPRESSION>
+                    </EXPRESSION>
+                    <EXPRESSION EXPR_TYPE="NOT">
+                        <EXPRESSION EXPR_TYPE="SIMPLE">
+                            <CONDITION EMPTY_LIST_VALUE="false" FIELD_NAME="connect_jamf_software_installed" LABEL="Jamf Software Installed" LEFT_PARENTHESIS="0" LOGIC="AND" NOT="true" PLUGIN_NAME="Connect" PLUGIN_UNIQUE_NAME="connect_module" PLUGIN_VESRION="1.0.0" PLUGIN_VESRION_NUMBER="10001352" RET_VALUE_ON_UKNOWN="UNMATCH" RIGHT_PARENTHESIS="0">
+                                <FILTER CASE_SENSITIVE="false" FILTER_ID="2450432160246218848" LINKED="true">
+                                    <LINK ID="587622377586590346"/>
+                                </FILTER>
+                            </CONDITION>
+                        </EXPRESSION>
+                    </EXPRESSION>
+                </EXPRESSION>
+                <ACTION DISABLED="true" NAME="send_syslog">
+                    <PARAM NAME="server" VALUE="default value"/>
+                    <PARAM NAME="protocol" VALUE="default"/>
+                    <PARAM NAME="port" VALUE="default value"/>
+                    <PARAM NAME="ident" VALUE="default value"/>
+                    <PARAM NAME="tls" VALUE="false"/>
+                    <PARAM NAME="message" VALUE="one or more Required Applications are Missing"/>
+                    <PARAM NAME="priority" VALUE="default value"/>
+                    <PARAM NAME="facility" VALUE="default value"/>
+                    <PARAM NAME="OCSPSoftFail" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+                <ACTION DISABLED="true" NAME="sendmail">
+                    <PARAM NAME="signature" VALUE="default"/>
+                    <PARAM NAME="subject" VALUE="Forescout: Endpoint not compliant - {ip}one or more required applications are missing on endpoint"/>
+                    <PARAM NAME="to" VALUE="operator@company.com"/>
+                    <PARAM NAME="message" VALUE="Hello,&#10;&#10;Forescout has detected an endpoint that does not have all required applications installed. &#10;&#10;Host Information:&#10;&#10;IP Address: &#9;&#9;{ip}&#10;MAC Address: &#9;&#9;{mac}&#10;Hostname:&#9;&#9;{nbtdomain}/{nbthost}&#10;DNS Name:&#9;&#9;{hostname}&#10;Logged in User: &#9;{user}&#10;Vendor and Model:&#9;{vendor_classification}&#10;Function:&#9;&#9;{prim_classification}&#10;Operating System:&#9;{os_classification}&#10;SSH manageability:&#9;{ssh_mac_manage}&#10;"/>
+                    <PARAM NAME="aggregate" VALUE="false"/>
+                    <SCHEDULE>
+                        <START Class="Immediately"/>
+                        <OCCURENCE onStart="true"/>
+                    </SCHEDULE>
+                </ACTION>
+            </INNER_RULE>
+        </RULE_CHAIN>
+        <PROPERTY_LISTS>
+            <HOST_PROPERTY_LIST DESCRIPTION="" FIELD="connect_jamf_software_installed" ID="587622377586590346" NAME="example">
+                <VALUES/>
+            </HOST_PROPERTY_LIST>
+        </PROPERTY_LISTS>
+        <REPORT_TABLES/>
+    </RULE>
+</POLICY>
