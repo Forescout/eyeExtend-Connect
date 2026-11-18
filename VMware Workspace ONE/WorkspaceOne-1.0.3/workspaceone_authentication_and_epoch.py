@@ -22,7 +22,7 @@ SOFTWARE.
 
 import base64
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def get_general_authentication_headers(WO_SERVER_USERNAME, WO_SERVER_PASSWORD, WO_API_KEY):
@@ -81,7 +81,7 @@ def get_oauth_headers_with_xmlmessage_encoding(access_token, WO_API_KEY, payload
 
 def convert_to_epoch(timestamp_str):
 	try:
-		epoch = int(datetime.strptime(timestamp_str, "%Y-%m-%dT%H:%M:%S.%f").timestamp())
+		epoch = int(datetime.strptime(timestamp_str, "%Y-%m-%dT%H:%M:%S.%f").replace(tzinfo=timezone.utc).timestamp())
 		logging.debug('Time string "{}" converted to epoch successfully to {}'.format(timestamp_str, epoch))
 	except ValueError as e:
 		epoch = None
